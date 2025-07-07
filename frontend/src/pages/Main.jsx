@@ -26,7 +26,7 @@ function Main(){
                         />
                         </Form>
                     </Nav>
-                    <button id="login-btn">로그인</button>
+                    <button id="login-btn" style={{color: darkMode ? "#1c1c1e" : "white"}}>로그인</button>
                 </Container>
             </Navbar>
         </div>
