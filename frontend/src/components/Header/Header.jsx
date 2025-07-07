@@ -16,14 +16,15 @@ function Header(){
                 </Nav>
                 <Nav>
                     <Form>
-                    <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        label={darkMode ? "Dark" : "Light"}
-                        onClick={()=>{
-                        setDarkMode(!darkMode)
-                        }}
-                    />
+                        <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            className="custom-switch"
+                            label={darkMode ? "Dark" : "Light"}
+                            onClick={()=>{
+                                setDarkMode(!darkMode)
+                            }}
+                        />
                     </Form>
                 </Nav>
                 <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}}>로그인</button>
