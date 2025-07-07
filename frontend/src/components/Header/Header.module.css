@@ -5,3 +5,42 @@
   border-radius: 5px;
   border: none;
 }
+.modalBg {
+  min-width: 100vw;
+  min-height: 100vh;
+  backdrop-filter: blur(4px);
+  background-color: #00000052;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.modal {
+  width: 40%;
+  padding: 20px;
+  background-color: #1c1c1e;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+}
+.close { text-align: left; }
+.modal input {
+  height: 40px;
+  padding-left: 5px;
+  margin: 2px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+.modal p {
+  text-align: right;
+  font-size: 0.8rem;
+}
+.modal button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+}
