@@ -1,6 +1,8 @@
+import styles from './Header.module.css';
 import { useContext } from 'react';
 import { Form, Navbar, Nav, Container } from 'react-bootstrap';
-import { DarkModeContext } from '../App';
+import { DarkModeContext } from '../../App';
+
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
     return(
@@ -24,7 +26,7 @@ function Header(){
                     />
                     </Form>
                 </Nav>
-                <button id="login-btn" style={{color: darkMode ? "#1c1c1e" : "white"}}>로그인</button>
+                <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}}>로그인</button>
             </Container>
         </Navbar>
     )

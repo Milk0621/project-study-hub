@@ -1,5 +1,6 @@
 .App {
   min-height: 100vh;
+  text-align: center;
 }
 
 .dark {
@@ -10,25 +11,4 @@
 .light {
   background-color: #fff;
   color: #1c1c1e;
-}
-
-#custom-switch {
-  background-color: #1c1c1e;
-  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%23fff%27/%3e%3c/svg%3e");
-  border: 1px solid #fff;
-  box-shadow: none;
-}
-
-#custom-switch:checked {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba%280, 0, 0, 0.25%29%27/%3e%3c/svg%3e");
-  border: 1px solid #bfbfbf;
-}
-
-#login-btn {
-  background-color: #ef6c00;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
 }

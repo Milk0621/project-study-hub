@@ -2,8 +2,8 @@ import './App.css';
 import { createContext, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Main from './pages/Main'
-import Header from './pages/Header'
+import Main from './components/Main/Main'
+import Header from './components/Header/Header'
 
 export const DarkModeContext = createContext();
 
