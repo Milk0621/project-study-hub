@@ -9,7 +9,7 @@ function Header(){
     
     return(
     <>
-        <Navbar variant={darkMode ? "dark" : "light"} style={{borderBottom: '1px solid #35393d'}}>
+        <Navbar variant={darkMode ? "dark" : "light"} style={{borderBottom: '1px solid #35393d', fontSize: '1.1rem'}}>
             <Container>
                 <Navbar.Brand>Study Sync</Navbar.Brand>
                 <Nav className="me-auto" style={{gap:'10px'}}>

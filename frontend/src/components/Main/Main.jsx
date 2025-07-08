@@ -7,7 +7,6 @@ function Main(){
   return (
     <>
       <Timer />
-      <p>안녕</p>
     </>
   );
 }

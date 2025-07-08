@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { Container ,Row ,Col } from 'react-bootstrap';
+import styles from './Timer.module.css';
 
 function Timer(){
   //start 누르면 시간 증가, stop 누르면 멈춤
@@ -29,10 +31,19 @@ function Timer(){
   }
 
   return (
-    <div>
-      <span>{formatTime(time)}</span>
-      <button onClick={()=>{setRunning(true)}}>Start</button>
-      <button onClick={()=>{setRunning(false)}}>Stop</button>
+    <div className={styles.timer}>
+      <Container>
+        <Row>
+          <Col className={styles.date}>2025년 7월 8일</Col>
+        </Row>
+        <Row>
+          <Col className={styles.time}>{formatTime(time)}</Col>
+          <div>
+            <button className={styles.startBtn} onClick={()=>{setRunning(true)}}>Start</button>
+            <button className={styles.stopBtn} onClick={()=>{setRunning(false)}}>Stop</button>
+          </div>
+        </Row>
+      </Container>
     </div>
   )
 }
