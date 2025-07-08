@@ -5,7 +5,8 @@
   --button-text: #ffffff;
   --date-color: #666;
   --nav-hover: #000;
-  --timer-bg: #ededed;
+  --timer-bg: #f0f0f0;
+  --input-border: #efefef;
 }
 
 .dark {
@@ -16,6 +17,7 @@
   --date-color: #aaa;
   --nav-hover: #f1f1f1;
   --timer-bg: #292b2f;
+  --input-border: #efefef;
 }
 
 body {
