@@ -4,29 +4,75 @@ function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
     const [userId, setUserId] = useState('');
     const [userPw, setUserPw] = useState('');
+    const [checkPw, setCheckPw] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleLogin = function(){
-        if(!userId || !userPw){
-            alert('아이디와 비밀번호를 입력해주세요.');
-            return;
-        }else{
-            alert('성공!');
-            return;
-        }
+        //유효성 검사
+        if(!userId) alert('아이디를 입력해주세요.');
+        else if(!userPw) alert('비밀번호를 입력해주세요.');
+        else alert('로그인 시도!');
+    }
+    
+    const handleSignup = function(){
+        //정규식
+        const idRegex = /^[a-zA-Z0-9]{4,12}$/;
+        const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,20}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,10}$/;
+
+        //유효성 검사
+        if(!userId) alert('아이디를 입력해주세요.');
+        else if(!userPw) alert('비밀번호를 입력해주세요.');
+        else if(!checkPw) alert('비밀번호 확인이 필요합니다.');
+        else if(!nickname) alert('닉네임을 입력해주세요.');
+        else if(!email) alert('이메일을 입력해주세요.');
+        else if(!idRegex.test(userId)) alert('아이디는 영문자와 숫자 조합 4~12자여야 합니다.');
+        else if(!pwRegex.test(userPw)) alert('비밀번호는 영문+숫자 포함 8~20자여야 합니다.');
+        else if(userPw !== checkPw) alert('비밀번호가 일치하지 않습니다.');
+        else if(!nicknameRegex.test(nickname)) alert('닉네임은 특수문자 제외 2~10자여야 합니다.');
+        else if(!emailRegex.test(email)) alert('올바른 이메일 형식이 아닙니다.');
+        else alert('회원가입 시도!');
     }
 
     return(
         <div className={styles.modalBg} onClick={() => setModalOpen(false)}>
-            <div className={styles.modal} onClick={(e)=>e.stopPropagation()}>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
                 { signup ? (
                     <>
-                        <input type="text" placeholder="아이디" />
-                        <input type="password" placeholder="비밀번호" />
-                        <input type="password" placeholder="비밀번호 확인" />
-                        <input type="text" placeholder="닉네임" />
-                        <input type="email" placeholder="이메일" />
+                        <input
+                            type="text" 
+                            placeholder="아이디"
+                            value={userId} 
+                            onChange={(e) => setUserId(e.target.value)}
+                        />
+                        <input 
+                            type="password" 
+                            placeholder="비밀번호"
+                            value={userPw} 
+                            onChange={(e) => setUserPw(e.target.value)}
+                        />
+                        <input 
+                            type="password" 
+                            placeholder="비밀번호 확인"
+                            value={checkPw} 
+                            onChange={(e) => setCheckPw(e.target.value)}
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="닉네임"
+                            value={nickname} 
+                            onChange={(e) => setNickname(e.target.value)}
+                        />
+                        <input 
+                            type="email" 
+                            placeholder="이메일" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <p onClick={() => setSignup(false)}>이미 계정이 있으신가요? 로그인</p>
-                        <button>회원가입</button>
+                        <button onClick={() => handleSignup()}>회원가입</button>
                     </>
                 ) : (
                     <>
@@ -34,13 +80,13 @@ function Modal({setModalOpen}){
                             type="text"
                             placeholder="아이디"
                             value={userId}
-                            onChange={(e)=>setUserId(e.target.value)}
+                            onChange={(e) => setUserId(e.target.value)}
                         />
                         <input 
                             type="password"
                             placeholder="비밀번호" 
                             value={userPw} 
-                            onChange={(e)=>setUserPw(e.target.value)}
+                            onChange={(e) => setUserPw(e.target.value)}
                         />
                         <p onClick={() => setSignup(true)}>회원가입</p>
                         <button onClick={() => handleLogin()}>로그인</button>
