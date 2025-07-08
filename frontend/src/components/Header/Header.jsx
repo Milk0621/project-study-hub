@@ -41,9 +41,8 @@ function Header(){
 function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
     return(
-        <div className={styles.modalBg}>
-            <div className={styles.modal}>
-                <span className={styles.close} onClick={() => setModalOpen(false)}>X</span>
+        <div className={styles.modalBg} onClick={() => setModalOpen(false)}>
+            <div className={styles.modal} onClick={(e)=>e.stopPropagation()}>
                 { signup ? (
                     <>
                         <input type="text" placeholder="아이디" />
