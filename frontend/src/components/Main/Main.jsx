@@ -5,7 +5,10 @@ import Timer from './../Timer/Timer'
 function Main(){
 
   return (
-    <Timer />
+    <>
+      <Timer />
+      <p>안녕</p>
+    </>
   );
 }
 
