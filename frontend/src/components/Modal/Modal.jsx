@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Modal.module.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -62,7 +62,12 @@ function Modal({setModalOpen}){
                     email: email
                 });
                 alert(response.data); //회원가입 성공
-                setModalOpen(false);
+                setUserId('');
+                setUserPw('');
+                setCheckPw('');
+                setNickname('');
+                setEmail('');
+                setSignup(false);
             } catch(err) {
                 alert("회원가입 실패");
             }
