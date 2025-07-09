@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './Modal.module.css';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
 
 function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
@@ -9,6 +10,8 @@ function Modal({setModalOpen}){
     const [checkPw, setCheckPw] = useState('');
     const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
+
+    const {setUser} = useContext(AuthContext);
 
     const handleLogin = async function(){
         //유효성 검사
@@ -20,7 +23,8 @@ function Modal({setModalOpen}){
                     id: userId,
                     pw: userPw
                 });
-                
+                setUser(response.data);
+
                 const token = response.data; //백엔드에서 받은 토큰
                 localStorage.setItem('token', token); //로컬 스토리지에 저장
                 alert("로그인 성공!");
