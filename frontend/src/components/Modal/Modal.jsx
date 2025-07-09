@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './Modal.module.css';
+import axios from 'axios';
+
 function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
     const [userId, setUserId] = useState('');
@@ -15,7 +17,7 @@ function Modal({setModalOpen}){
         else alert('로그인 시도!');
     }
     
-    const handleSignup = function(){
+    const handleSignup = async function(){
         //정규식
         const idRegex = /^[a-zA-Z0-9]{4,12}$/;
         const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,20}$/;
@@ -33,7 +35,20 @@ function Modal({setModalOpen}){
         else if(userPw !== checkPw) alert('비밀번호가 일치하지 않습니다.');
         else if(!nicknameRegex.test(nickname)) alert('닉네임은 특수문자 제외 2~10자여야 합니다.');
         else if(!emailRegex.test(email)) alert('올바른 이메일 형식이 아닙니다.');
-        else alert('회원가입 시도!');
+        else {
+            try {
+                const response = await axios.post("http://localhost:8080/api/users/register",{
+                    id: userId,
+                    pw: userPw,
+                    nickname: nickname,
+                    email: email
+                });
+                alert(response.data); //회원가입 성공
+                setModalOpen(false);
+            } catch (err) {
+                alert("회원가입 실패");
+            }
+        };
     }
 
     return(
