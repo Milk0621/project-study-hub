@@ -41,7 +41,7 @@ public class UsersController {
 		Users loginUser = usersService.login(user.getId(), user.getPw());
 		
 		if(loginUser != null) {
-			String token = jwtUtil.generateToken(user.getId());
+			String token = jwtUtil.generateToken(loginUser.getId());
 			return ResponseEntity.ok(token);
 		}else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
