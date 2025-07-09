@@ -2,12 +2,14 @@ import styles from './Header.module.css';
 import { useContext, useState } from 'react';
 import { Form, Navbar, Nav, Container } from 'react-bootstrap';
 import { DarkModeContext } from '../../App';
-import Modal from './../Modal/Modal'
+import Modal from './../Modal/Modal';
+import { AuthContext } from '../../context/AuthContext';
 
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
     const [modalOpen, setModalOpen] = useState(false);
-    
+    const { user, logout } = useContext(AuthContext);
+
     return(
     <>
         <Navbar variant={darkMode ? "dark" : "light"} style={{borderBottom: '1px solid #35393d', fontSize: '1.1rem'}}>
@@ -31,7 +33,11 @@ function Header(){
                         />
                     </Form>
                 </Nav>
-                <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => setModalOpen(true)}>로그인</button>
+                {user ? (
+                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => logout()}>로그아웃</button>
+                ) : (
+                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => setModalOpen(true)}>로그인</button>
+                )}
             </Container>
         </Navbar>
         { modalOpen && <Modal setModalOpen={setModalOpen} /> }
