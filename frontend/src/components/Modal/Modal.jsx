@@ -10,11 +10,22 @@ function Modal({setModalOpen}){
     const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
 
-    const handleLogin = function(){
+    const handleLogin = async function(){
         //유효성 검사
         if(!userId) alert('아이디를 입력해주세요.');
         else if(!userPw) alert('비밀번호를 입력해주세요.');
-        else alert('로그인 시도!');
+        else {
+            try {
+                const response = await axios.post("http://localhost:8080/api/users/login",{
+                    id: userId,
+                    pw: userPw
+                });
+                console.log(response.data.nickname);
+                setModalOpen(false);
+            } catch(err) {
+                alert("아이디 및 비밀번호를 확인해주세요.");
+            }
+        }
     }
     
     const handleSignup = async function(){
@@ -45,7 +56,7 @@ function Modal({setModalOpen}){
                 });
                 alert(response.data); //회원가입 성공
                 setModalOpen(false);
-            } catch (err) {
+            } catch(err) {
                 alert("회원가입 실패");
             }
         };
