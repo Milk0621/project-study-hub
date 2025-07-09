@@ -11,22 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.studysync.backend.dao.UsersDAO;
 import com.studysync.backend.model.Users;
+import com.studysync.backend.service.UsersService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
 	
-	private final UsersDAO usersDAO; // final으로 코드 안정성과 신뢰성 증가
+	private final UsersService usersService;
 	
 	@Autowired
-	public UsersController(UsersDAO usersDAO) {
-		this.usersDAO = usersDAO; // 생성자에서만 초기화 가능
+	public UsersController(UsersService usersService) {
+		this.usersService = usersService;
 	}
 
 	//회원가입
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody Users user){
-		int result = usersDAO.insertUser(user);
+		int result = usersService.register(user);
 		return result > 0
 				? ResponseEntity.ok("회원가입 성공")
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원가입 실패");
@@ -35,7 +36,7 @@ public class UsersController {
 	//로그인
 	@PostMapping("/login")
 	public ResponseEntity<Users> login(@RequestBody Users user){
-		Users loginUser = usersDAO.findByIdAndPassword(user.getId(), user.getPw());
+		Users loginUser = usersService.login(user.getId(), user.getPw());
 		return loginUser != null
 				? ResponseEntity.ok(loginUser)
 				: ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
