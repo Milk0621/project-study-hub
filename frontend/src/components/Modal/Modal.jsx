@@ -20,7 +20,10 @@ function Modal({setModalOpen}){
                     id: userId,
                     pw: userPw
                 });
-                console.log(response.data.nickname);
+                
+                const token = response.data; //백엔드에서 받은 토큰
+                localStorage.setItem('token', token); //로컬 스토리지에 저장
+                alert("로그인 성공!");
                 setModalOpen(false);
             } catch(err) {
                 alert("아이디 및 비밀번호를 확인해주세요.");
