@@ -3,7 +3,15 @@ import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
 
 function Timer(){
-  //start 누르면 시간 증가, stop 누르면 멈춤
+  //start 누르면 1초마다 시간 증가, stop 누르면 멈춤
+
+  //useRef는 리렌더링 없이도 계속 유지되어야 하는 값을 저장하기 위해 사용
+  //useRef 없이 만들면 리렌더링이 발생할 때마다 intervalRef가 초기화되므로 클린업 시점에 잘못된 ID를 clear하거나, 메모리 누수 위험
+  
+  //setInterval로 생성한 타이머 ID를 보관
+  //clearInterval() 시 ID가 반드시 정확하게 남아 있어야 함
+  //useState로 하면 리렌더링이 불필요하게 발생하므로 useRef가 최적의 선택
+
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
   const [running, setRunning] = useState(false);
