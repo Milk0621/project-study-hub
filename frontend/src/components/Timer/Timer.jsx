@@ -15,6 +15,9 @@ function Timer(){
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
   const [running, setRunning] = useState(false);
+  
+  const dt = new Date();
+  const today = dt.getFullYear() + '년 ' + (dt.getMonth()+1) + '월 ' + dt.getDate() + '일';
 
   useEffect(()=>{
     if(running){
@@ -42,7 +45,7 @@ function Timer(){
     <div className={styles.timer}>
       <Container>
         <Row>
-          <Col className={styles.date}>2025년 7월 8일</Col>
+          <Col className={styles.date}>{today}</Col>
         </Row>
         <Row>
           <Col className={styles.time}>{formatTime(time)}</Col>
