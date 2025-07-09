@@ -1,4 +1,4 @@
-package com.studysync.backend.controller;
+package com.studysync.backend.domain.users.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studysync.backend.model.Users;
-import com.studysync.backend.service.UsersService;
+import com.studysync.backend.domain.users.model.Users;
+import com.studysync.backend.domain.users.service.UsersService;
 import com.studysync.backend.util.JwtUtil;
 
 @RestController

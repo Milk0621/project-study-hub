@@ -1,10 +1,10 @@
-package com.studysync.backend.dao.mybatis;
+package com.studysync.backend.domain.users.dao.mybatis;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.studysync.backend.dao.UsersDAO;
-import com.studysync.backend.model.Users;
+import com.studysync.backend.domain.users.dao.UsersDAO;
+import com.studysync.backend.domain.users.model.Users;
 
 @Repository
 public class MybatisUsersDAO implements UsersDAO {

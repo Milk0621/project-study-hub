@@ -1,4 +1,4 @@
-package com.studysync.backend.model;
+package com.studysync.backend.domain.studytime.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

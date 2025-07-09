@@ -1,4 +1,4 @@
-package com.studysync.backend.model;
+package com.studysync.backend.domain.users.model;
 
 import java.time.LocalDateTime;
 

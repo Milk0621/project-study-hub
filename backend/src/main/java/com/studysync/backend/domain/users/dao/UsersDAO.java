@@ -1,8 +1,8 @@
-package com.studysync.backend.dao;
+package com.studysync.backend.domain.users.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.studysync.backend.model.Users;
+import com.studysync.backend.domain.users.model.Users;
 
 public interface UsersDAO {
 	//회원가입

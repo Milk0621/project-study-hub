@@ -1,10 +1,10 @@
-package com.studysync.backend.service;
+package com.studysync.backend.domain.users.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.studysync.backend.dao.UsersDAO;
-import com.studysync.backend.model.Users;
+import com.studysync.backend.domain.users.dao.UsersDAO;
+import com.studysync.backend.domain.users.model.Users;
 
 @Service
 public class UsersServiceImpl implements UsersService {
