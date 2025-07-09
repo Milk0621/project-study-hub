@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studysync.backend.domain.studytime.dao.StudyTimeDAO">
+	<insert id="insertStudyTime" parameterType="com.studysync.backend.domain.studytime.model.StudyTime">
+		insert into study_time (user_id, seconds)
+		values (#{userId}, #{seconds})
+	</insert>
+	<select id="getLatestStudyTimeByUserAndDate" resultType="com.studysync.backend.domain.studytime.model.StudyTime">
+		select * 
+		from study_time 
+		where user_id = #{userId} 
+			and date = #{date} 
+		order by id desc limit 1;
+	</select>
+</mapper>

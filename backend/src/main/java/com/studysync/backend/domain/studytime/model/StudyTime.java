@@ -6,17 +6,15 @@ import java.time.LocalDateTime;
 public class StudyTime {
 	private int id;
 	private String userId;
-	private int groupId;
 	private LocalDate date;
 	private int seconds;
 	private LocalDateTime createdAt;
 	
 	public StudyTime() {}
 	
-	public StudyTime(int id, String userId, int groupId, LocalDate date, int seconds, LocalDateTime createdAt) {
+	public StudyTime(int id, String userId, LocalDate date, int seconds, LocalDateTime createdAt) {
 		this.id = id;
 		this.userId = userId;
-		this.groupId = groupId;
 		this.date = date;
 		this.seconds = seconds;
 		this.createdAt = createdAt;
@@ -33,12 +31,6 @@ public class StudyTime {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public int getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
 	}
 	public LocalDate getDate() {
 		return date;
