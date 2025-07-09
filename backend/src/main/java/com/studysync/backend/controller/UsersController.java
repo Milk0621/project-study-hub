@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studysync.backend.dao.UsersDAO;
 import com.studysync.backend.model.Users;
 import com.studysync.backend.service.UsersService;
+import com.studysync.backend.util.JwtUtil;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
+
+    private final JwtUtil jwtUtil;
 	
 	private final UsersService usersService;
 	
 	@Autowired
-	public UsersController(UsersService usersService) {
+	public UsersController(UsersService usersService, JwtUtil jwtUtil) {
 		this.usersService = usersService;
+		this.jwtUtil = jwtUtil;
 	}
 
 	//회원가입
@@ -35,11 +39,15 @@ public class UsersController {
 	
 	//로그인
 	@PostMapping("/login")
-	public ResponseEntity<Users> login(@RequestBody Users user){
+	public ResponseEntity<String> login(@RequestBody Users user){
 		Users loginUser = usersService.login(user.getId(), user.getPw());
-		return loginUser != null
-				? ResponseEntity.ok(loginUser)
-				: ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		
+		if(loginUser != null) {
+			String token = jwtUtil.generateToken(user.getId());
+			return ResponseEntity.ok(token);
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
+		}
 	}
 	
 }
