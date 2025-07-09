@@ -7,16 +7,16 @@ public class Users {
 	private String pw;
 	private String nickname;
 	private String email;
-	private LocalDateTime createDate;
+	private LocalDateTime createdAt;
 	
 	public Users() {}
 	
-	public Users(String id, String pw, String nickname, String email, LocalDateTime createDate) {
+	public Users(String id, String pw, String nickname, String email, LocalDateTime createdAt) {
 		this.id = id;
 		this.pw = pw;
 		this.nickname = nickname;
 		this.email = email;
-		this.createDate = createDate;
+		this.createdAt = createdAt;
 	}
 
 	public String getId() {
@@ -43,11 +43,11 @@ public class Users {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public LocalDateTime getCreateDate() {
-		return createDate;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 }
