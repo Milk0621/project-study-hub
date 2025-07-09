@@ -1,10 +1,12 @@
 package com.studysync.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.studysync.backend.dao.UsersDAO;
 import com.studysync.backend.model.Users;
 
+@Service
 public class UsersServiceImpl implements UsersService {
 	
 	private final UsersDAO usersDAO; // final으로 코드 안정성과 신뢰성 증가
