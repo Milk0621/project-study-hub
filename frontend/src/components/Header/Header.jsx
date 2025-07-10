@@ -3,13 +3,14 @@ import { useContext, useState } from 'react';
 import { Form, Navbar, Nav, Container } from 'react-bootstrap';
 import { DarkModeContext } from '../../App';
 import Modal from './../Modal/Modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
     const [modalOpen, setModalOpen] = useState(false);
     const user = useSelector((state) => state.user.user);
     const logout = useSelector((state) => state.user.logout);
+    const dispatch = useDispatch();
 
     return(
     <>
@@ -35,7 +36,7 @@ function Header(){
                     </Form>
                 </Nav>
                 {user ? (
-                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => logout()}>로그아웃</button>
+                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => dispatch(logout())}>로그아웃</button>
                 ) : (
                     <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => setModalOpen(true)}>로그인</button>
                 )}
