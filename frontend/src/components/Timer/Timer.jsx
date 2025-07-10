@@ -3,6 +3,7 @@ import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
 import { AuthContext } from "../../context/AuthContext";
 import { useModal } from "../../context/ModalContext";
+import axios from "axios";
 
 function Timer(){
 
@@ -16,6 +17,35 @@ function Timer(){
       setRunning(true)
     }
   }
+
+  const handleStop = async () => {
+    if(!running) return;
+
+    //타이머 멈춤
+    setRunning(false);
+
+    if(!user){
+      openModal();
+      return;
+    }
+
+    try {
+      const offset = new Date().getTimezoneOffset() * 60000;
+      const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const now = new Date(Date.now() - offset).toISOString(); //createAt
+      console.log( today + " / " + now );
+
+      await axios.post("http://localhost:8080/api/study-times", {
+        userId: user.id,
+        date: today,
+        seconds: time,
+        createdAt: now
+      });
+      console.log("공부시간 저장 완료!")
+    } catch(err) {
+      console.error("공부시간 저장 실패", err);
+    }
+  };
 
   //useRef는 리렌더링 없이도 계속 유지되어야 하는 값을 저장하기 위해 사용
   //useRef 없이 만들면 리렌더링이 발생할 때마다 intervalRef가 초기화되므로 클린업 시점에 잘못된 ID를 clear하거나, 메모리 누수 위험
@@ -63,7 +93,7 @@ function Timer(){
           <Col className={styles.time}>{formatTime(time)}</Col>
           <div>
             <button className={styles.startBtn} onClick={()=>{handleStart()}}>Start</button>
-            <button className={styles.stopBtn} onClick={()=>{setRunning(false)}}>Stop</button>
+            <button className={styles.stopBtn} onClick={()=>{handleStop()}}>Stop</button>
           </div>
         </Row>
       </Container>
