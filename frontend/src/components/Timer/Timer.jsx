@@ -6,9 +6,40 @@ import { useModal } from "../../context/ModalContext";
 import api from '../../api/axios';
 
 function Timer(){
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  
+  const offset = new Date().getTimezoneOffset() * 60000;
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const now = new Date(Date.now() - offset).toISOString(); //createAt
+  
+  //렌더링 시 데이터베이스에서 공부 시간 꺼내오기
+  
+  useEffect(()=>{
+    if (!user) return;
+    
+    const fetchStudyTime = async () => {
+      try{
+        const res = await api.get("/study-times/latest", {
+          params: {
+            userId: user.id,
+            date: today
+          }
+        });
+        setTime(res.data.seconds);
+        console.log("공부 시간 불러오기 성공");
+      } catch(err) {
+        setTime(0);
+        console.log("공부 시간 불러오기 실패", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudyTime();
+  }, [user]);
 
   //로그인 여부에 따른 타이머 실행
-  const { user } = useContext(AuthContext);
   const { openModal } = useModal();
   const handleStart = () => {
     if(!user){
@@ -30,11 +61,6 @@ function Timer(){
     }
 
     try {
-      const offset = new Date().getTimezoneOffset() * 60000;
-      const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-      const now = new Date(Date.now() - offset).toISOString(); //createAt
-      console.log( today + " / " + now );
-
       await api.post("/study-times", {
         userId: user.id,
         date: today,
@@ -54,12 +80,12 @@ function Timer(){
   //clearInterval() 시 ID가 반드시 정확하게 남아 있어야 함
   //useState로 하면 리렌더링이 불필요하게 발생하므로 useRef가 최적의 선택
 
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(null);
   const intervalRef = useRef(null);
   const [running, setRunning] = useState(false);
   
   const dt = new Date();
-  const today = dt.getFullYear() + '년 ' + (dt.getMonth()+1) + '월 ' + dt.getDate() + '일';
+  const todayStr = dt.getFullYear() + '년 ' + (dt.getMonth()+1) + '월 ' + dt.getDate() + '일';
 
   useEffect(()=>{
     if(running){
@@ -84,10 +110,10 @@ function Timer(){
   }
 
   return (
-    <div className={styles.timer}>
+    <div className={`${styles.timer} ${!loading ? styles.visible : ''}`}>
       <Container>
         <Row>
-          <Col className={styles.date}>{today}</Col>
+          <Col className={styles.date}>{todayStr}</Col>
         </Row>
         <Row>
           <Col className={styles.time}>{formatTime(time)}</Col>
