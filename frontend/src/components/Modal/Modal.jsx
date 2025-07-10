@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './Modal.module.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import api from '../../api/axios';
 
 function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
@@ -19,7 +20,7 @@ function Modal({setModalOpen}){
         else if(!userPw) alert('비밀번호를 입력해주세요.');
         else {
             try {
-                const response = await axios.post("http://localhost:8080/api/users/login",{
+                const response = await api.post("/users/login",{
                     id: userId,
                     pw: userPw
                 });
@@ -56,7 +57,7 @@ function Modal({setModalOpen}){
         else if(!emailRegex.test(email)) alert('올바른 이메일 형식이 아닙니다.');
         else {
             try {
-                const response = await axios.post("http://localhost:8080/api/users/register",{
+                const response = await api.post("/users/register",{
                     id: userId,
                     pw: userPw,
                     nickname: nickname,

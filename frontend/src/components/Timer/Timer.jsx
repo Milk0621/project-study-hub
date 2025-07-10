@@ -3,7 +3,7 @@ import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
 import { AuthContext } from "../../context/AuthContext";
 import { useModal } from "../../context/ModalContext";
-import axios from "axios";
+import api from '../../api/axios';
 
 function Timer(){
 
@@ -35,7 +35,7 @@ function Timer(){
       const now = new Date(Date.now() - offset).toISOString(); //createAt
       console.log( today + " / " + now );
 
-      await axios.post("http://localhost:8080/api/study-times", {
+      await api.post("/study-times", {
         userId: user.id,
         date: today,
         seconds: time,
