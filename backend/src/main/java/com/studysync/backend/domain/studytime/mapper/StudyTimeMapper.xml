@@ -3,9 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.studysync.backend.domain.studytime.dao.StudyTimeDAO">
-	<insert id="insertStudyTime" parameterType="com.studysync.backend.domain.studytime.model.StudyTime">
-		insert into study_time (user_id, seconds)
-		values (#{userId}, #{seconds})
+	<insert id="upsertStudyTime" parameterType="com.studysync.backend.domain.studytime.model.StudyTime">
+		insert into study_time (user_id, date, seconds, created_at)
+		values (#{userId}, #{date}, #{seconds}, NOW())
+		on duplicate key update
+			seconds = #{seconds},
+			created_at = NOW()
 	</insert>
 	<select id="getLatestStudyTimeByUserAndDate" resultType="com.studysync.backend.domain.studytime.model.StudyTime">
 		select * 
