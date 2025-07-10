@@ -3,7 +3,7 @@ import api from "../api/axios";
 
 export const AuthContext = createContext();
 
-export default function AuthProvider({ children }){
+export function AuthProvider({ children }){
     const [user, setUser] = useState(null);
 
     useEffect(() => {
