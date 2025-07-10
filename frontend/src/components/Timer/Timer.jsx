@@ -1,12 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
-import { useModal } from "../../context/ModalContext";
 import api from '../../api/axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { openModal, closeModal } from '../../store/modalSlice';
 
 function Timer(){
 
+  const dispatch = useDispatch();
+  
   const user = useSelector((state) => state.user.user);
   
   const offset = new Date().getTimezoneOffset() * 60000;
@@ -38,10 +40,9 @@ function Timer(){
   }, [user]);
 
   //로그인 여부에 따른 타이머 실행
-  const { openModal } = useModal();
   const handleStart = () => {
     if(!user){
-      openModal();
+      dispatch(openModal());
     } else {
       setRunning(true)
     }
@@ -54,7 +55,7 @@ function Timer(){
     setRunning(false);
 
     if(!user){
-      openModal();
+      dispatch(openModal());
       return;
     }
 

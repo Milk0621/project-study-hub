@@ -3,8 +3,9 @@ import styles from './Modal.module.css';
 import api from '../../api/axios';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/userSlice';
+import { closeModal } from '../../store/modalSlice';
 
-function Modal({setModalOpen}){
+function Modal(){
     const [signup, setSignup] = useState(false);
     const [userId, setUserId] = useState('');
     const [userPw, setUserPw] = useState('');
@@ -32,7 +33,7 @@ function Modal({setModalOpen}){
                 dispatch(setUser(userInfo.data));
 
                 alert("로그인 성공!");
-                setModalOpen(false);
+                dispatch(closeModal());
             } catch(err) {
                 alert("아이디 및 비밀번호를 확인해주세요.");
             }
@@ -79,7 +80,7 @@ function Modal({setModalOpen}){
     }
 
     return(
-        <div className={styles.modalBg} onClick={() => setModalOpen(false)}>
+        <div className={styles.modalBg} onClick={() => dispatch(closeModal())}>
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
                 { signup ? (
                     <>

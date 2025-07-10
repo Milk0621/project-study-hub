@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
-import {ModalProvider} from './context/ModalContext'
 import api from './api/axios';
 import { setUser } from './store/userSlice';
 import { useDispatch } from 'react-redux';
@@ -49,14 +48,12 @@ function App() {
 
   return (
     <div className={`${darkMode ? "App dark" : "App light"} ${!loading ? "visible" : ""}`} >
-        <ModalProvider>
-          <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
-            <Header />
-          </DarkModeContext.Provider>
-          <Routes>
-            <Route path='/' element={ <Home /> }/>
-          </Routes> 
-        </ModalProvider>  
+      <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+        <Header />
+      </DarkModeContext.Provider>
+      <Routes>
+        <Route path='/' element={ <Home /> }/>
+      </Routes> 
     </div>
   );
 }

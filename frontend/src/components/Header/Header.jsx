@@ -5,6 +5,7 @@ import { DarkModeContext } from '../../App';
 import Modal from './../Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/userSlice';
+import { openModal, closeModal } from '../../store/modalSlice';
 
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
@@ -38,11 +39,11 @@ function Header(){
                 {user ? (
                     <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => dispatch(logout())}>로그아웃</button>
                 ) : (
-                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => setModalOpen(true)}>로그인</button>
+                    <button className={styles.loginBtn} style={{color: darkMode ? "#1c1c1e" : "white"}} onClick={() => dispatch(openModal())}>로그인</button>
                 )}
             </Container>
         </Navbar>
-        { modalOpen && <Modal setModalOpen={setModalOpen} /> }
+        { modalOpen && <Modal /> }
     </>
     )
 }
