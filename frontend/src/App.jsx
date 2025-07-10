@@ -4,6 +4,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
+import {ModalProvider} from './context/ModalContext'
 import AuthProvider from './context/AuthContext';
 
 export const DarkModeContext = createContext();
@@ -19,12 +20,14 @@ function App() {
   return (
     <div className={darkMode ? "App dark" : "App light"}>
       <AuthProvider>
-        <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
-          <Header />
-        </DarkModeContext.Provider>
-        <Routes>
-          <Route path='/' element={ <Home /> }/>
-        </Routes>   
+        <ModalProvider>
+          <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+            <Header />
+          </DarkModeContext.Provider>
+          <Routes>
+            <Route path='/' element={ <Home /> }/>
+          </Routes> 
+        </ModalProvider>  
       </AuthProvider>
     </div>
   );
