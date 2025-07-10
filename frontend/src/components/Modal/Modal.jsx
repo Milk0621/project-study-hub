@@ -12,6 +12,8 @@ function Modal({setModalOpen}){
     const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
 
+    const { setUser } = useContext(AuthContext);
+
     const handleLogin = async function(){
         //유효성 검사
         if(!userId) alert('아이디를 입력해주세요.');
@@ -25,6 +27,10 @@ function Modal({setModalOpen}){
 
                 const token = response.data.token; //백엔드에서 받은 토큰
                 localStorage.setItem('token', token); //로컬 스토리지에 저장
+
+                const userInfo = await api.get("/users/info");
+                setUser(userInfo.data);
+
                 alert("로그인 성공!");
                 setModalOpen(false);
             } catch(err) {
