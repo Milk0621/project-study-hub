@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import styles from './Modal.module.css';
 import api from '../../api/axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store/userSlice';
 import { closeModal } from '../../store/modalSlice';
 
@@ -14,6 +14,9 @@ function Modal(){
     const [email, setEmail] = useState('');
     
     const dispatch = useDispatch();
+    const isOpen = useSelector((state) => state.modal.isOpen);
+
+    if (!isOpen) return null;
 
     const handleLogin = async function(){
         //유효성 검사

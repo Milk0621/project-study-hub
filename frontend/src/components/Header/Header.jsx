@@ -9,9 +9,10 @@ import { openModal, closeModal } from '../../store/modalSlice';
 
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
-    const [modalOpen, setModalOpen] = useState(false);
-    const user = useSelector((state) => state.user.user);
+    
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.user);
+    const isModalOpen = useSelector((state) => state.modal.isOpen);
 
     return(
     <>
@@ -43,7 +44,7 @@ function Header(){
                 )}
             </Container>
         </Navbar>
-        { modalOpen && <Modal /> }
+        { isModalOpen && <Modal /> }
     </>
     )
 }
