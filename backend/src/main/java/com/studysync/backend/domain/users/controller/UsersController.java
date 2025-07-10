@@ -1,5 +1,8 @@
 package com.studysync.backend.domain.users.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +40,20 @@ public class UsersController {
 	
 	//로그인
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Users user){
+	public ResponseEntity<?> login(@RequestBody Users user){
 		Users loginUser = usersService.login(user.getId(), user.getPw());
 		
 		if(loginUser != null) {
 			String token = jwtUtil.generateToken(loginUser.getId());
-			return ResponseEntity.ok(token);
+			
+			//사용자 정보 + 토큰
+			Map<String, Object> response = new HashMap<>();
+			response.put("id", loginUser.getId());
+			response.put("nickname", loginUser.getNickname());
+			response.put("email", loginUser.getEmail());
+			response.put("token", token);
+			
+			return ResponseEntity.ok(response);
 		}else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
 		}
