@@ -65,19 +65,9 @@ public class UsersController {
 	
 	@GetMapping("/info")
 	public ResponseEntity<?> getUserInfo(HttpServletRequest request){
-		String authHeader = request.getHeader("Authorization");
-		
-		if(authHeader != null && authHeader.startsWith("Bearer ")){
-			String token = authHeader.substring(7); // "Bearer " 제거
-			String id = jwtUtil.getUserIdFromToken(token); //토큰에서 사용자 ID 꺼내오기
-			
-			Users user = usersService.findById(id); // DB에서 사용자 정보 조회
-			if(user != null) {
-				return ResponseEntity.ok(user); //사용자 정보 응답
-			}
-		}
-		
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰");
+		String userId = (String) request.getAttribute("userId"); //필터에서 넣어준 값
+		Users user = usersService.findById(userId);
+		return ResponseEntity.ok(user);
 	}
 	
 }
