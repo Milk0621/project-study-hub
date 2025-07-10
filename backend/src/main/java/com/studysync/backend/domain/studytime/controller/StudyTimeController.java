@@ -1,11 +1,15 @@
 package com.studysync.backend.domain.studytime.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studysync.backend.domain.studytime.model.StudyTime;
@@ -33,9 +37,9 @@ public class StudyTimeController {
 	}
 	
 	//공부시간 조회
-	@PostMapping("/latest")
-	public ResponseEntity<?> loadLastStudyEntry(@RequestBody StudyTime studyTime){
-		StudyTime result = studyTimeService.loadLastStudyEntry(studyTime.getUserId(), studyTime.getDate());
+	@GetMapping("/latest")
+	public ResponseEntity<?> loadLastStudyEntry(@RequestParam("userId") String userId, @RequestParam("date") LocalDate date){
+		StudyTime result = studyTimeService.loadLastStudyEntry(userId, date);
 		if(result != null) {
 			return ResponseEntity.ok(result);
 		}else {
