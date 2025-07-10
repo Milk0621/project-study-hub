@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './Modal.module.css';
-import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../api/axios';
 

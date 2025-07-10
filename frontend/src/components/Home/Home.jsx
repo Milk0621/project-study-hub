@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { Form, Navbar, Nav, Container } from 'react-bootstrap';
+import { useContext } from 'react';
 import Timer from '../Timer/Timer'
 import { AuthContext } from '../../context/AuthContext';
 
