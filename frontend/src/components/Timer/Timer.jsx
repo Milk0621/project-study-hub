@@ -12,7 +12,7 @@ function Timer(){
   const user = useSelector((state) => state.user.user);
   
   const offset = new Date().getTimezoneOffset() * 60000;
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const today = new Date(Date.now() - offset).toISOString().slice(0, 10); // YYYY-MM-DD
   const now = new Date(Date.now() - offset).toISOString(); //createAt
   
   //렌더링 시 데이터베이스에서 공부 시간 꺼내오기
