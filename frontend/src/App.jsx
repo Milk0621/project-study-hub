@@ -6,19 +6,18 @@ import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import api from './api/axios';
 import { setUser } from './store/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const DarkModeContext = createContext();
 
 function App() {
 
-  const [loading, setLoading] = useState(true);
+  const isDarkMode =  useSelector((state) => state.theme.isDarkMode);
 
-  const [darkMode, setDarkMode] = useState(true); //기본 다크모드
-    
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    document.body.className = darkMode ? 'dark' : '';
-  }, [darkMode]);
+    document.body.className = isDarkMode ? 'dark' : '';
+  }, [isDarkMode]);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,10 +46,8 @@ function App() {
 
 
   return (
-    <div className={`${darkMode ? "App dark" : "App light"} ${!loading ? "visible" : ""}`} >
-      <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
-        <Header />
-      </DarkModeContext.Provider>
+    <div className={`${isDarkMode ? "App dark" : "App light"} ${!loading ? "visible" : ""}`} >
+      <Header />
       <Routes>
         <Route path='/' element={ <Home /> }/>
       </Routes> 
