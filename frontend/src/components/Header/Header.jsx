@@ -3,12 +3,13 @@ import { useContext, useState } from 'react';
 import { Form, Navbar, Nav, Container } from 'react-bootstrap';
 import { DarkModeContext } from '../../App';
 import Modal from './../Modal/Modal';
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector } from 'react-redux';
 
 function Header(){
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
     const [modalOpen, setModalOpen] = useState(false);
-    const { user, logout } = useContext(AuthContext);
+    const user = useSelector((state) => state.user.user);
+    const logout = useSelector((state) => state.user.logout);
 
     return(
     <>

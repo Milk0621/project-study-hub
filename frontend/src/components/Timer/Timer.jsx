@@ -1,12 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
-import { AuthContext } from "../../context/AuthContext";
 import { useModal } from "../../context/ModalContext";
 import api from '../../api/axios';
+import { useSelector } from 'react-redux';
 
 function Timer(){
-  const { user } = useContext(AuthContext);
+
+  const user = useSelector((state) => state.user.user);
+
   const [loading, setLoading] = useState(true);
   
   const offset = new Date().getTimezoneOffset() * 60000;

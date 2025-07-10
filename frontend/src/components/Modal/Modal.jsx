@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import styles from './Modal.module.css';
-import { AuthContext } from '../../context/AuthContext';
 import api from '../../api/axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/userSlice';
 
 function Modal({setModalOpen}){
     const [signup, setSignup] = useState(false);
@@ -10,8 +11,8 @@ function Modal({setModalOpen}){
     const [checkPw, setCheckPw] = useState('');
     const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
-
-    const { setUser } = useContext(AuthContext);
+    
+    const dispatch = useDispatch();
 
     const handleLogin = async function(){
         //유효성 검사
@@ -28,7 +29,7 @@ function Modal({setModalOpen}){
                 localStorage.setItem('token', token); //로컬 스토리지에 저장
 
                 const userInfo = await api.get("/users/info");
-                setUser(userInfo.data);
+                dispatch(setUser(userInfo.data));
 
                 alert("로그인 성공!");
                 setModalOpen(false);

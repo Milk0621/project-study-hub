@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import Timer from '../Timer/Timer'
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector } from 'react-redux';
 
 function Home(){
 
-  const {user} = useContext(AuthContext);
-  console.log(user);
+  const user = useSelector((state) => state.user.user);
   
   return (
     <>
