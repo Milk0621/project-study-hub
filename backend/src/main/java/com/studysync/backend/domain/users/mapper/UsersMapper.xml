@@ -10,5 +10,7 @@
 	<select id="findByIdAndPassword" resultType="com.studysync.backend.domain.users.model.Users">
 		select * from users where id = #{id} and pw = #{pw}
 	</select>
-	
+	<select id="findById" resultType="com.studysync.backend.domain.users.model.Users">
+		select * from users where id = #{id}
+	</select>
 </mapper>

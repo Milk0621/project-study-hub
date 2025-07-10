@@ -26,4 +26,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersDAO.findByIdAndPassword(id, pw);
 	}
 
+	@Override
+	public Users findById(String id) {
+		return usersDAO.findById(id);
+	}
+
 }

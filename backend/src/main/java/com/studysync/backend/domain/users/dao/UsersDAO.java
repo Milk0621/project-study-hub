@@ -11,5 +11,8 @@ public interface UsersDAO {
 	//로그인
 	Users findByIdAndPassword(@Param("id") String id, @Param("pw") String pw);
 	
+	//유저 아이디 조회
+	Users findById(String id);
+	
 	//유저 조회
 }

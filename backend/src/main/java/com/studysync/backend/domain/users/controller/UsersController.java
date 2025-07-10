@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studysync.backend.domain.users.model.Users;
 import com.studysync.backend.domain.users.service.UsersService;
 import com.studysync.backend.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/users")
@@ -57,6 +61,23 @@ public class UsersController {
 		}else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
 		}
+	}
+	
+	@GetMapping("/info")
+	public ResponseEntity<?> getUserInfo(HttpServletRequest request){
+		String authHeader = request.getHeader("Authorization");
+		
+		if(authHeader != null && authHeader.startsWith("Bearer ")){
+			String token = authHeader.substring(7); // "Bearer " 제거
+			String id = jwtUtil.getUserIdFromToken(token); //토큰에서 사용자 ID 꺼내오기
+			
+			Users user = usersService.findById(id); // DB에서 사용자 정보 조회
+			if(user != null) {
+				return ResponseEntity.ok(user); //사용자 정보 응답
+			}
+		}
+		
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰");
 	}
 	
 }

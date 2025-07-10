@@ -3,10 +3,9 @@ import api from "../api/axios";
 
 export const AuthContext = createContext();
 
-function AuthProvider({ children }){
+export default function AuthProvider({ children }){
     const [user, setUser] = useState(null);
 
-    //로그인 상태 확인
     useEffect(() => {
         const checkLogin = async () => {
             try {
@@ -30,5 +29,3 @@ function AuthProvider({ children }){
         </AuthContext.Provider>
     )
 }
-
-export default AuthProvider;

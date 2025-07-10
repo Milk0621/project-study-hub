@@ -24,6 +24,11 @@ public class MybatisUsersDAO implements UsersDAO {
 	public Users findByIdAndPassword(String id, String pw) {
 		return mapper.findByIdAndPassword(id, pw);
 	}
+
+	@Override
+	public Users findById(String id) {
+		return mapper.findById(id);
+	}
 	
 	
 }
