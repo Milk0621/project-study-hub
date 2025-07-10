@@ -18,8 +18,8 @@ public class MybatisStudyTimeDAO implements StudyTimeDAO{
 	}
 
 	@Override
-	public int insertStudyTime(StudyTime studyTime) {
-		return mapper.insertStudyTime(studyTime);
+	public int upsertStudyTime(StudyTime studyTime) {
+		return mapper.upsertStudyTime(studyTime);
 	}
 
 	@Override

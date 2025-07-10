@@ -8,7 +8,7 @@ import com.studysync.backend.domain.studytime.model.StudyTime;
 
 public interface StudyTimeDAO {
 	//공부시간 기록
-	int insertStudyTime(StudyTime studyTime);
+	int upsertStudyTime(StudyTime studyTime);
 	
 	//공부시간 날짜별 조회
 	StudyTime getLatestStudyTimeByUserAndDate(@Param("userId") String userId, @Param("date") LocalDate date);
