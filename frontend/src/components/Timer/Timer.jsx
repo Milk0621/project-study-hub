@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 function Timer(){
 
   const user = useSelector((state) => state.user.user);
-
-  const [loading, setLoading] = useState(true);
   
   const offset = new Date().getTimezoneOffset() * 60000;
   const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
@@ -33,8 +31,6 @@ function Timer(){
       } catch(err) {
         setTime(0);
         console.log("공부 시간 불러오기 실패", err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -112,7 +108,7 @@ function Timer(){
   }
 
   return (
-    <div className={`${styles.timer} ${!loading ? styles.visible : ''}`}>
+    <div className={styles.timer}>
       <Container>
         <Row>
           <Col className={styles.date}>{todayStr}</Col>

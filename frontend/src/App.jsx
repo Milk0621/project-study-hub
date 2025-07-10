@@ -13,6 +13,8 @@ export const DarkModeContext = createContext();
 
 function App() {
 
+  const [loading, setLoading] = useState(true);
+
   const [darkMode, setDarkMode] = useState(true); //기본 다크모드
     
   useEffect(() => {
@@ -33,14 +35,20 @@ function App() {
           dispatch(setUser(res.data)); // userSlice의 액션
         } catch (err) {
           console.error("자동 로그인 실패", err);
+        } finally {
+          setLoading(false); // 로딩 완료
         }
+      } else {
+        setLoading(false); // 토큰 없을 때도 로딩 종료
       }
     };
     fetchUser();
+    setLoading(false);
   }, []);
 
+
   return (
-    <div className={darkMode ? "App dark" : "App light"}>
+    <div className={`${darkMode ? "App dark" : "App light"} ${!loading ? "visible" : ""}`} >
         <ModalProvider>
           <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
             <Header />

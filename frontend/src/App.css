@@ -43,14 +43,22 @@
   src: url('./fonts/PretendardGOV-Black.woff') format('woff');
   font-weight: 900;
 }
+
 * {
   box-sizing: border-box;
 }
+
 .App {
   min-height: 100vh;
   text-align: center;
   font-family: 'Pretendard', sans-serif;
   font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.App.visible {
+    opacity: 1;
 }
 
 .dark {
