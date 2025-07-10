@@ -2,7 +2,7 @@ import './App.css';
 import { createContext, useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Main from './components/Home/Home';
+import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import AuthProvider from './context/AuthContext';
 
@@ -23,7 +23,7 @@ function App() {
           <Header />
         </DarkModeContext.Provider>
         <Routes>
-          <Route path='/' element={ <Main /> }/>
+          <Route path='/' element={ <Home /> }/>
         </Routes>   
       </AuthProvider>
     </div>

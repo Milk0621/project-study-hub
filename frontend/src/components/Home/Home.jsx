@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Form, Navbar, Nav, Container } from 'react-bootstrap';
 import Timer from '../Timer/Timer'
 
-function Main(){
+function Home(){
 
   return (
     <>
@@ -11,4 +11,4 @@ function Main(){
   );
 }
 
-export default Main;
+export default Home;
