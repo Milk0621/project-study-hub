@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import {ModalProvider} from './context/ModalContext'
+import api from './api/axios';
+import { setUser } from './store/userSlice';
+import { useDispatch } from 'react-redux';
 
 export const DarkModeContext = createContext();
 
@@ -15,6 +18,26 @@ function App() {
   useEffect(() => {
     document.body.className = darkMode ? 'dark' : '';
   }, [darkMode]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const res = await api.get("/users/info", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          dispatch(setUser(res.data)); // userSlice의 액션
+        } catch (err) {
+          console.error("자동 로그인 실패", err);
+        }
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className={darkMode ? "App dark" : "App light"}>
