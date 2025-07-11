@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
-import api from './api/axios';
+import api from './api/api';
 import { setUser } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import GroupCreate from './components/GroupCreate/GroupCreate';

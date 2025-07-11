@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import styles from './Modal.module.css';
-import api from '../../api/axios';
+import api from '../../api/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store/userSlice';
 import { closeModal } from '../../store/modalSlice';

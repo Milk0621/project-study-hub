@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
-import api from '../../api/axios';
+import api from '../../api/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { openModal, closeModal } from '../../store/modalSlice';
 
