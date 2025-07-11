@@ -15,7 +15,7 @@ function Header(){
 
     return(
     <>
-        <Navbar variant={isDarkMode ? "dark" : "light"} style={{borderBottom: '1px solid #35393d', fontSize: '1.1rem'}}>
+        <Navbar variant={isDarkMode ? "dark" : "light"} style={{borderBottom: '1px solid #35393d', fontSize: '1.1rem', marginBottom: '3rem'}}>
             <Container>
                 <Navbar.Brand>Study Sync</Navbar.Brand>
                 <Nav className="me-auto" style={{gap:'10px'}}>
