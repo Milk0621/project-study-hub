@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import api from './api/axios';
 import { setUser } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import GroupCreate from './components/GroupCreate/GroupCreate';
 
 export const DarkModeContext = createContext();
 
@@ -50,6 +51,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={ <Home /> }/>
+        <Route path='/groupCreate' element={ <GroupCreate /> } />
       </Routes> 
     </div>
   );
