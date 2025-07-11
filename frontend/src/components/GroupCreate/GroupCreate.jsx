@@ -18,7 +18,11 @@ function GroupCreate() {
                     <input type="radio" name="tag" id="radio2" />
                     <label htmlFor="radio2">학업</label>
                     <input type="radio" name="tag" id="radio3" />
-                    <label htmlFor="radio3">게임</label>
+                    <label htmlFor="radio3">자격증</label>
+                    <input type="radio" name="tag" id="radio4" />
+                    <label htmlFor="radio4">운동</label>
+                    <input type="radio" name="tag" id="radio5" />
+                    <label htmlFor="radio5">게임</label>
                 </div>
                 <textarea 
                     name="content"
