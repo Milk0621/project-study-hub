@@ -7,6 +7,9 @@
   --nav-hover: #000;
   --timer-bg: #f0f0f0;
   --input-border: #efefef;
+  --outline: #dadce0;
+  --tag-bg: #ffffff;
+  --info-color: #666;
 }
 
 .dark {
@@ -18,6 +21,9 @@
   --nav-hover: #f1f1f1;
   --timer-bg: #292b2f;
   --input-border: #efefef;
+  --outline: #35393d;
+  --tag-bg: #41444b;
+  --info-color: #9d9d9d;
 }
 
 body {
