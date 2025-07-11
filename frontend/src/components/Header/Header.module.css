@@ -7,3 +7,7 @@
   border: none;
   font-weight: 600;
 }
+
+.loginBtn:hover {
+  filter: brightness(90%);
+}
