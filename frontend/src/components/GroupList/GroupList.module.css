@@ -15,7 +15,7 @@
 
 .hashTag {
     margin-right: 5px;
-    padding: 5px 10px;
+    padding: 3px 10px;
     background-color: var(--tag-bg);
     border-radius: 5px;
 }
