@@ -9,6 +9,7 @@ import { setUser } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
+import GroupPost from './components/GroupPost/GroupPost';
 
 export const DarkModeContext = createContext();
 
@@ -57,7 +58,7 @@ function App() {
             <GroupCreate />
           </PrivateRoute> 
         } />
-        <Route path='/detail/:id' element={ <div>상세페이지</div> } />
+        <Route path='/post/:id' element={ <GroupPost /> } />
       </Routes> 
     </div>
   );
