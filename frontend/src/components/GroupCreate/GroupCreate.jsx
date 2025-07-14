@@ -65,6 +65,8 @@ function GroupCreate() {
                     <label htmlFor="radio4">운동</label>
                     <input type="radio" name="tag" id="radio5" value="게임" onChange={(e)=>setTag(e.target.value)} />
                     <label htmlFor="radio5">게임</label>
+                    <input type="radio" name="tag" id="radio6" value="기타" onChange={(e)=>setTag(e.target.value)} />
+                    <label htmlFor="radio6">기타</label>
                 </div>
                 <textarea 
                     className={style.content}
