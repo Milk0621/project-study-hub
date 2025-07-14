@@ -12,5 +12,8 @@ public interface GroupsDAO {
 	List<Groups> selectAllGroups();
 	
 	// 그룹 단건 조회
-	Groups selectOneGroups(int id);
+	Groups selectOneGroup(int id);
+	
+	// 그룹 수정
+	int updateGroup(Groups groups);
 }

@@ -28,8 +28,13 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	}
 
 	@Override
-	public Groups selectOneGroups(int id) {
-		return mapper.selectOneGroups(id);
+	public Groups selectOneGroup(int id) {
+		return mapper.selectOneGroup(id);
+	}
+
+	@Override
+	public int updateGroup(Groups groups) {
+		return mapper.updateGroup(groups);
 	}
 	
 }
