@@ -11,4 +11,6 @@ public interface GroupsService {
 	List<Groups> getGroupList();
 	//그룹 단건 조회
 	Groups getGroupById(int id);
+	//그룹 수정
+	int updateGroup(Groups groups);
 }
