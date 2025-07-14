@@ -1,5 +1,7 @@
 package com.studysync.backend.domain.groups.dao.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,11 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	@Override
 	public int insertGroup(Groups groups) {
 		return mapper.insertGroup(groups);
+	}
+
+	@Override
+	public List<Groups> selectAllGroups() {
+		return mapper.selectAllGroups();
 	}
 	
 }
