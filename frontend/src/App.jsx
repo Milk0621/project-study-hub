@@ -52,7 +52,12 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={ <Home /> }/>
-        <Route path='/groupCreate' element={ <PrivateRoute> <GroupCreate />  </PrivateRoute> } />
+        <Route path='/groupCreate' element={ 
+          <PrivateRoute>
+            <GroupCreate />
+          </PrivateRoute> 
+        } />
+        <Route path='/detail/:id' element={ <div>상세페이지</div> } />
       </Routes> 
     </div>
   );
