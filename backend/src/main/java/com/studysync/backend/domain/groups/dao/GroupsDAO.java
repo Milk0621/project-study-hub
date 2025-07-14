@@ -10,4 +10,7 @@ public interface GroupsDAO {
 	
 	// 그룹 전체 조회
 	List<Groups> selectAllGroups();
+	
+	// 그룹 단건 조회
+	Groups selectOneGroups(int id);
 }

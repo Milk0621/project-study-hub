@@ -27,5 +27,10 @@ public class GroupsServiceImpl implements GroupsService{
 	public List<Groups> getGroupList() {
 		return groupsDAO.selectAllGroups();
 	}
+
+	@Override
+	public Groups getGroupById(int id) {
+		return groupsDAO.selectOneGroups(id);
+	}
 	
 }

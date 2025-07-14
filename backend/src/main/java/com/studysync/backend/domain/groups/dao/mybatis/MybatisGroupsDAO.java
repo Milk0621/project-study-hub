@@ -26,5 +26,10 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public List<Groups> selectAllGroups() {
 		return mapper.selectAllGroups();
 	}
+
+	@Override
+	public Groups selectOneGroups(int id) {
+		return mapper.selectOneGroups(id);
+	}
 	
 }

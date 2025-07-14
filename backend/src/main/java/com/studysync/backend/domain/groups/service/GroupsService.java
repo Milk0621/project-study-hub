@@ -9,4 +9,6 @@ public interface GroupsService {
 	int registerGroup(Groups groups);
 	//그룹 전체 조회
 	List<Groups> getGroupList();
+	//그룹 단건 조회
+	Groups getGroupById(int id);
 }
