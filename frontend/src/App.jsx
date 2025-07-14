@@ -8,6 +8,7 @@ import api from './api/api';
 import { setUser } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import GroupCreate from './components/GroupCreate/GroupCreate';
+import PrivateRoute from './routes/PrivateRoute';
 
 export const DarkModeContext = createContext();
 
@@ -51,7 +52,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={ <Home /> }/>
-        <Route path='/groupCreate' element={ <GroupCreate /> } />
+        <Route path='/groupCreate' element={ <PrivateRoute> <GroupCreate />  </PrivateRoute> } />
       </Routes> 
     </div>
   );
