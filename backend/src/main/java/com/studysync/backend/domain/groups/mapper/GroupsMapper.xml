@@ -9,4 +9,8 @@
   		values(#{groupName}, #{content}, #{tag}, #{createUser}, #{isPrivate}, #{password})
   	</insert>
   	
+  	<select id="selectAllGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select * from `groups`
+  	</select>
+  	
   </mapper>
