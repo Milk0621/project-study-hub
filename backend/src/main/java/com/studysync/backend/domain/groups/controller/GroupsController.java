@@ -44,4 +44,12 @@ public class GroupsController {
 		//@PathVariable은 경로 파라미터 형식에 사용 /post/1
 		return ResponseEntity.ok(groupsService.getGroupById(id));
 	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<?> updateGroup(@RequestBody Groups groups) {
+		int result = groupsService.updateGroup(groups);
+		return result > 0
+				? ResponseEntity.ok("그룹 수정 완료")
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정 실패");
+	}
 }
