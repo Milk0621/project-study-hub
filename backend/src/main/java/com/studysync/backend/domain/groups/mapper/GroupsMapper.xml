@@ -13,4 +13,8 @@
   		select * from `groups`
   	</select>
   	
+  	<select id="selectOneGroups" parameterType="int" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select * from `groups` where id = #{id}
+  	</select>
+  	
   </mapper>
