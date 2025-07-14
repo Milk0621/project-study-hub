@@ -6,6 +6,7 @@
     text-align: left;
     line-height: 22px;
     cursor: pointer;
+    margin-bottom: 5px;
 }
 
 .groupInfo {
@@ -18,4 +19,5 @@
     padding: 3px 10px;
     background-color: var(--tag-bg);
     border-radius: 5px;
+    border: 1px solid var(--outline);
 }
