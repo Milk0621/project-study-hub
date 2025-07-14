@@ -3,18 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.studysync.backend.domain.groups.dao.GroupsDAO">
-
   	<insert id="insertGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
   		insert into `groups`(group_name, content, tag, create_user, is_private, password)
   		values(#{groupName}, #{content}, #{tag}, #{createUser}, #{isPrivate}, #{password})
   	</insert>
-  	
   	<select id="selectAllGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
-  		select * from `groups`
+  		select * from `groups` order by create_date desc
   	</select>
-  	
-  	<select id="selectOneGroups" parameterType="int" resultType="com.studysync.backend.domain.groups.model.Groups">
+  	<select id="selectOneGroup" parameterType="int" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups` where id = #{id}
   	</select>
-  	
+  	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
+  		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
+  	</update>
   </mapper>
