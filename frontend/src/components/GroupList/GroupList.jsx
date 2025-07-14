@@ -19,7 +19,7 @@ function GroupList(props){
   return(
     <>
       { groupList.map((group)=>(
-        <div key={group.id} className={style.groupListBg} onClick={()=>navigate(`/detail/${group.id}`)}>
+        <div key={group.id} className={style.groupListBg} onClick={()=>navigate(`/post/${group.id}`)}>
           <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
           ★☆
           <h5 style={{fontWeight: '600'}}> {group.groupName} </h5>
