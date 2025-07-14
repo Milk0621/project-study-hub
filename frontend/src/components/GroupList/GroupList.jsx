@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import style from './GroupList.module.css';
 import api from '../../api/api';
+import { useNavigate } from 'react-router-dom';
 
 function GroupList(props){
-
+  const navigate = useNavigate();
   const [groupList, setGroupList] = useState([]);
 
   useEffect(()=>{
@@ -18,7 +19,7 @@ function GroupList(props){
   return(
     <>
       { groupList.map((group)=>(
-        <div key={group.id} className={style.groupListBg}>
+        <div key={group.id} className={style.groupListBg} onClick={()=>navigate(`/detail/${group.id}`)}>
           <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
           ★☆
           <h5 style={{fontWeight: '600'}}> {group.groupName} </h5>
