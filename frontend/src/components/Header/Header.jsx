@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/userSlice';
 import { openModal, closeModal } from '../../store/modalSlice';
 import { toggleDarkMode, setDarkMode } from '../../store/themeSlice';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Header(){
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
     const isModalOpen = useSelector((state) => state.modal.isOpen);
@@ -19,9 +21,9 @@ function Header(){
             <Container>
                 <Navbar.Brand>Study Sync</Navbar.Brand>
                 <Nav className="me-auto" style={{gap:'10px'}}>
-                    <Nav.Link>홈</Nav.Link>
-                    <Nav.Link>내 그룹</Nav.Link>
-                    <Nav.Link>마이페이지</Nav.Link>
+                    <Nav.Link as={Link} to="/">홈</Nav.Link>
+                    <Nav.Link as={Link} to="/myGroup">내 그룹</Nav.Link>
+                    <Nav.Link as={Link} to="/myPage">마이페이지</Nav.Link>
                 </Nav>
                 <Nav>
                     <Form>
