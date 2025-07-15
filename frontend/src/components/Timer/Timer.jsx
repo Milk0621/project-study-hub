@@ -18,7 +18,9 @@ function Timer(){
   //렌더링 시 데이터베이스에서 공부 시간 꺼내오기
   
   useEffect(()=>{
-    if (!user) return;
+    if (!user) {
+      setTime(0);
+    }
     
     const fetchStudyTime = async () => {
       try{
