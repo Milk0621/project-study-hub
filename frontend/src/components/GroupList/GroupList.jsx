@@ -3,22 +3,12 @@ import style from './GroupList.module.css';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 
-function GroupList(props){
+function GroupList({groups}){
   const navigate = useNavigate();
-  const [groupList, setGroupList] = useState([]);
-
-  useEffect(()=>{
-    const fetchGroups = async () => {
-      const res = await api.get('/groups/list');
-      setGroupList(res.data);
-      console.log(res.data);
-    }
-    fetchGroups();
-  }, [])
 
   return(
     <>
-      { groupList.map((group)=>(
+      { groups.map((group)=>(
         <div key={group.id} className={style.groupListBg} onClick={()=>navigate(`/post/${group.id}`)}>
           <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
           ★☆
