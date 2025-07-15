@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
 import GroupPost from './components/GroupPost/GroupPost';
+import MyGroup from './components/MyGroup/MyGroup';
 
 export const DarkModeContext = createContext();
 
@@ -59,6 +60,7 @@ function App() {
           </PrivateRoute> 
         } />
         <Route path='/post/:id' element={ <GroupPost /> } />
+        <Route path='/myGroup' element={ <MyGroup /> } />
       </Routes> 
     </div>
   );
