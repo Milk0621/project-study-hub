@@ -1,10 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import style from './GroupPost.module.css';
 import { useEffect, useState } from "react";
 import api from "../../api/api";
+import { useSelector } from "react-redux";
 
 function GroupPost(){
+    const user = useSelector((state)=>state.user.user);
     const { id } = useParams(); 
+    const navigate = useNavigate();
     const [groupPost, setGroupPost] = useState();
 
     useEffect(() => {
@@ -20,7 +23,11 @@ function GroupPost(){
         <div className={style.wrap}>
             <div className={style.groupPostTop}>
                 <h4>그룹 상세페이지</h4>
-                <button>목록</button>
+                {user?.id &&(
+                    groupPost?.createUser == user.id
+                        ? <button>수정</button>
+                        : <button>참여하기</button>
+                )}
             </div>
             {groupPost && (
                 <div className={style.groupPost}>
@@ -34,10 +41,10 @@ function GroupPost(){
                         <span>★☆</span>
                     </div>
                     <hr />
-                    <p>{groupPost.content}</p>
+                    <p style={{whiteSpace: 'pre-line', lineHeight: 1.6}}>{groupPost.content}</p>
                 </div>
             )}
-
+            <button onClick={()=>navigate('/')}>목록으로</button>
         </div>
     )
 }
