@@ -7,4 +7,8 @@
   		insert into group_members(group_id, user_id)
   		values(#{groupId}, #{userId})
   	</insert>
+  	<select id="selectGroupMemOne" resultType="com.studysync.backend.domain.groupmembers.model.GroupMembers">
+  		select * from group_members
+  		where group_id=#{groupId} and user_id=#{userId}
+  	</select>
   </mapper>
