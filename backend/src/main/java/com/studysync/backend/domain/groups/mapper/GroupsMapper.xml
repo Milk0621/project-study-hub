@@ -16,4 +16,7 @@
   	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
   		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
   	</update>
+  	<select id="selectMyGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select * from `groups` where create_user = #{id}
+  	</select>
   </mapper>
