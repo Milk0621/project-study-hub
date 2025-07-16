@@ -20,5 +20,10 @@ public class GroupMembersServiceImpl implements GroupMembersService{
 	public int joinGroup(GroupMembers groupMembers) {
 		return groupMembersDAO.insertGroupMem(groupMembers);
 	}
+
+	@Override
+	public GroupMembers checkJoin(int groupId, String userId) {
+		return groupMembersDAO.selectGroupMemOne(groupId, userId);
+	}
 	
 }
