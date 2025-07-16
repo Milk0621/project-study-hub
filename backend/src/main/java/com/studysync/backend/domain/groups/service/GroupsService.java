@@ -5,12 +5,15 @@ import java.util.List;
 import com.studysync.backend.domain.groups.model.Groups;
 
 public interface GroupsService {
-	//그룹 생성
+	// 그룹 생성
 	int registerGroup(Groups groups);
-	//그룹 전체 조회
+	// 그룹 전체 조회
 	List<Groups> getGroupList();
-	//그룹 단건 조회
+	// 그룹 단건 조회
 	Groups getGroupById(int id);
-	//그룹 수정
+	// 그룹 수정
 	int updateGroup(Groups groups);
+	// 내가 만든 그룹 조회
+	List<Groups> getMyGroupListById(String id);
+	
 }

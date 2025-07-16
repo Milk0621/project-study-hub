@@ -37,5 +37,10 @@ public class GroupsServiceImpl implements GroupsService{
 	public int updateGroup(Groups groups) {
 		return groupsDAO.updateGroup(groups);
 	}
+
+	@Override
+	public List<Groups> getMyGroupListById(String id) {
+		return groupsDAO.selectMyGroups(id);
+	}
 	
 }
