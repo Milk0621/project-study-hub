@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import style from './GroupPost.module.css';
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import api from "../../api/api";
 import { useSelector } from "react-redux";
 
@@ -9,15 +9,36 @@ function GroupPost(){
     const { id } = useParams(); 
     const navigate = useNavigate();
     const [groupPost, setGroupPost] = useState();
+    const [groupJoin, setGroupJoin] = useState(false);
 
     useEffect(() => {
+        if (!user) return;
+
         const fetchGroup = async () => {
             const res = await api.get(`/groups/post/${id}`)
             setGroupPost(res.data);
             console.log(res.data);
         }
+        const fetchCheckJoin = async () => {
+            try{
+                const res = await api.get(`/groupMembers/checkJoin`,{
+                    params: {
+                        groupId: id,
+                        userId: user.id
+                    }
+                })
+                if(res) setGroupJoin(true);
+            }catch(err) {
+                if (err.response?.status === 404) {
+                    setGroupJoin(false);
+                } else {
+                    console.error("그룹 참여 여부 확인 중 오류". err);
+                }
+            }
+        }
         fetchGroup();
-    }, []);
+        fetchCheckJoin();
+    }, [user, id]);
 
     const fetchJoin = async () => {
         const result = window.confirm('가입하시겠습니까?');
@@ -27,7 +48,9 @@ function GroupPost(){
                     groupId: id,
                     userId: user.id
                 });
+                setGroupJoin(!groupJoin);
                 alert("그룹 참여 성공!");
+                
             }catch{
                 alert("그룹 참여 실패");
             }
@@ -40,10 +63,12 @@ function GroupPost(){
         <div className={style.wrap}>
             <div className={style.groupPostTop}>
                 <h4>그룹 상세페이지</h4>
-                {user?.id &&(
-                    groupPost?.createUser == user.id
-                        ? <button>수정</button>
-                        : <button onClick={()=>{fetchJoin()}}>참여하기</button>
+                { !groupJoin &&(
+                        user?.id &&(
+                            groupPost?.createUser == user.id
+                                ? <button>수정</button>
+                                : <button onClick={()=>{fetchJoin()}}>참여하기</button>
+                    )
                 )}
             </div>
             {groupPost && (
