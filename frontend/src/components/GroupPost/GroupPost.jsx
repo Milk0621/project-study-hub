@@ -19,6 +19,23 @@ function GroupPost(){
         fetchGroup();
     }, []);
 
+    const fetchJoin = async () => {
+        const result = window.confirm('가입하시겠습니까?');
+        if(result){
+            try{
+                await api.post(`/groupMembers/join`,{
+                    groupId: id,
+                    userId: user.id
+                });
+                alert("그룹 참여 성공!");
+            }catch{
+                alert("그룹 참여 실패");
+            }
+        }else{
+            return;
+        }
+    }
+
     return(
         <div className={style.wrap}>
             <div className={style.groupPostTop}>
@@ -26,7 +43,7 @@ function GroupPost(){
                 {user?.id &&(
                     groupPost?.createUser == user.id
                         ? <button>수정</button>
-                        : <button>참여하기</button>
+                        : <button onClick={()=>{fetchJoin()}}>참여하기</button>
                 )}
             </div>
             {groupPost && (
