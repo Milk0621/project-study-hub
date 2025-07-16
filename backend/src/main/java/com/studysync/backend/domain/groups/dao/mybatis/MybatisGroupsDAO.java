@@ -36,5 +36,10 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public int updateGroup(Groups groups) {
 		return mapper.updateGroup(groups);
 	}
+
+	@Override
+	public List<Groups> selectMyGroups(String id) {
+		return mapper.selectMyGroups(id);
+	}
 	
 }
