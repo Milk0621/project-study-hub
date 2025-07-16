@@ -19,5 +19,10 @@ public class MybatisGroupMembersDAO implements GroupMembersDAO{
 	public int insertGroupMem(GroupMembers groupMembers) {
 		return mapper.insertGroupMem(groupMembers);
 	}
+
+	@Override
+	public GroupMembers selectGroupMemOne(int groupId, String userId) {
+		return mapper.selectGroupMemOne(groupId, userId);
+	}
 	
 }
