@@ -12,12 +12,19 @@ function Home(){
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
+  const [search, setSearch] = useState('');
   const [select, setSelect] = useState('');
   const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
+  
+  //URL 쿼리스트링(category)이 존재할 경우 select 상태에 반영하여 드롭다운 선택값 유지
   useEffect(()=>{
-    const category = searchParams.get("category")
     if(category) setSelect(category);
   }, [searchParams]);
+
+  //드롭다운에서 카테고리 선택 시 상태를 업데이트하고
+  //선택된 값에 따라 URL 쿼리 파라미터(category)를 갱신
+  //'전체' 선택 시 쿼리 없이 루트 경로('/')로 이동
   const handleSelectChange = (e) => {
     const value = e.target.value;
     setSelect(value);
@@ -28,8 +35,23 @@ function Home(){
     }
   }
 
+  //
+  const fectchSearch = async () => {
+    try{
+      const res = await api.get('/groups/search', {
+        params: {
+          search: search,
+          category: category
+        }
+      });
+      setGroups(res.data);
+      console.log("검색 결과:", res.data);
+    }catch (err) {
+      console.log(err, "검색 실패");
+    }
+  }
+
   const [groups, setGroups] = useState([]);
-  
   useEffect(()=>{
     const fetchGroups = async () => {
       const res = await api.get('/groups/list');
@@ -64,8 +86,8 @@ function Home(){
               <option value="게임">게임</option>
               <option value="기타">기타</option>
             </select>
-            <input type="text" placeholder='검색어를 입력하세요.'/>
-            <button>검색</button>
+            <input type="text" placeholder='검색어를 입력하세요.' onChange={(e)=>setSearch(e.target.value)}/>
+            <button onClick={()=>fectchSearch()}>검색</button>
           </div>
         </div>
         <GroupList groups={groups} category={select}/>
