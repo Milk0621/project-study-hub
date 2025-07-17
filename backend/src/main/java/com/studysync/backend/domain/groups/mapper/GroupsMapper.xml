@@ -16,9 +16,6 @@
   	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
   		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
   	</update>
-  	<select id="selectMyGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
-  		select * from `groups` where create_user = #{id}
-  	</select>
   	<select id="searchGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups`
   		<where>
@@ -33,5 +30,11 @@
   			</if>
   		</where>
   		order by create_date desc
+  	</select>
+  	<select id="selectUserGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select g.* from `groups` g
+  		join group_members gm on g.id = gm.group_id
+  		where gm.user_id = #{userId}
+  		order by g.create_date desc
   	</select>
   </mapper>
