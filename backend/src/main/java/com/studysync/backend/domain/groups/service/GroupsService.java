@@ -15,5 +15,7 @@ public interface GroupsService {
 	int updateGroup(Groups groups);
 	// 내가 만든 그룹 조회
 	List<Groups> getMyGroupListById(String id);
+	// 그룹 검색
+	List<Groups> searchGroups(String search, String category);
 	
 }
