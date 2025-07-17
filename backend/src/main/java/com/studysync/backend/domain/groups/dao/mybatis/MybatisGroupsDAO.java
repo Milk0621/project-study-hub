@@ -41,5 +41,10 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public List<Groups> selectMyGroups(String id) {
 		return mapper.selectMyGroups(id);
 	}
+
+	@Override
+	public List<Groups> searchGroups(String search, String category) {
+		return mapper.searchGroups(search, category);
+	}
 	
 }

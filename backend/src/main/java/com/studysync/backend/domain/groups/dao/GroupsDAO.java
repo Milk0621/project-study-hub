@@ -2,6 +2,8 @@ package com.studysync.backend.domain.groups.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.studysync.backend.domain.groups.model.Groups;
 
 public interface GroupsDAO {
@@ -15,4 +17,6 @@ public interface GroupsDAO {
 	int updateGroup(Groups groups);
 	// 내가 만든 그룹 조회
 	List<Groups> selectMyGroups(String id);
+	// 그룹 검색
+	List<Groups> searchGroups(@Param("search") String search, @Param("category") String category);
 }
