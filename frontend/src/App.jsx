@@ -65,7 +65,11 @@ function App() {
             </PrivateRoute> 
           } />
           <Route path='/post/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
-          <Route path='/myGroup' element={ <PageWrapper> <MyGroup /> </PageWrapper> } />
+          <Route path='/myGroup' element={ 
+            <PrivateRoute>
+              <PageWrapper> <MyGroup /> </PageWrapper> 
+            </PrivateRoute>
+          } />
         </Routes> 
       </AnimatePresence>
     </div>
