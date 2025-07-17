@@ -1,5 +1,7 @@
 package com.studysync.backend.domain.groups.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +53,11 @@ public class GroupsController {
 		return result > 0
 				? ResponseEntity.ok("그룹 수정 완료")
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정 실패");
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<?> searchGroups(@RequestParam(required = false) String search, @RequestParam(required = false) String category){
+		List<Groups> result = groupsService.searchGroups(search, category);
+		return ResponseEntity.ok(result);
 	}
 }
