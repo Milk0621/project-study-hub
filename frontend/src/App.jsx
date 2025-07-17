@@ -1,20 +1,24 @@
 import './App.css';
-import { createContext, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { createContext, useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import api from './api/api';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
-import api from './api/api';
-import { setUser } from './store/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
 import GroupPost from './components/GroupPost/GroupPost';
 import MyGroup from './components/MyGroup/MyGroup';
+import PageWrapper from './components/common/PageWrapper';
+import { AnimatePresence } from "framer-motion";
+import { setUser } from './store/userSlice';
 
 export const DarkModeContext = createContext();
 
 function App() {
+
+  const location = useLocation();
 
   const isDarkMode =  useSelector((state) => state.theme.isDarkMode);
 
@@ -52,16 +56,18 @@ function App() {
   return (
     <div className={`${isDarkMode ? "App dark" : "App light"} ${!loading ? "visible" : ""}`} >
       <Header />
-      <Routes>
-        <Route path='/' element={ <Home /> }/>
-        <Route path='/groupCreate' element={ 
-          <PrivateRoute>
-            <GroupCreate />
-          </PrivateRoute> 
-        } />
-        <Route path='/post/:id' element={ <GroupPost /> } />
-        <Route path='/myGroup' element={ <MyGroup /> } />
-      </Routes> 
+      <AnimatePresence mode='wait'>
+        <Routes location={location} key={location.pathname}>
+          <Route path='/' element={ <PageWrapper> <Home /> </PageWrapper> }/>
+          <Route path='/groupCreate' element={ 
+            <PrivateRoute>
+              <PageWrapper> <GroupCreate /> </PageWrapper>
+            </PrivateRoute> 
+          } />
+          <Route path='/post/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
+          <Route path='/myGroup' element={ <PageWrapper> <MyGroup /> </PageWrapper> } />
+        </Routes> 
+      </AnimatePresence>
     </div>
   );
 }
