@@ -12,13 +12,15 @@ function GroupPost(){
     const [groupJoin, setGroupJoin] = useState(false);
 
     useEffect(() => {
-        if (!user) return;
-
         const fetchGroup = async () => {
             const res = await api.get(`/groups/post/${id}`)
             setGroupPost(res.data);
             console.log(res.data);
         }
+        fetchGroup();
+
+        if (!user) return;
+
         const fetchCheckJoin = async () => {
             try{
                 const res = await api.get(`/groupMembers/checkJoin`,{
@@ -36,7 +38,6 @@ function GroupPost(){
                 }
             }
         }
-        fetchGroup();
         fetchCheckJoin();
     }, [user, id]);
 
