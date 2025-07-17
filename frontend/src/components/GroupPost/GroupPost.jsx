@@ -97,7 +97,7 @@ function GroupPost(){
                     <p style={{whiteSpace: 'pre-line', lineHeight: 1.6}}>{groupPost.content}</p>
                 </div>
             )}
-            <button onClick={()=>navigateToList()}>목록으로</button>
+            <button className={style.groupBtn} onClick={()=>navigateToList()}>목록으로</button>
         </div>
     )
 }

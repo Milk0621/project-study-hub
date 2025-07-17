@@ -5,7 +5,7 @@
     margin-bottom: 5px;
 }
 
-.groupPostTop button, .wrap>button {
+.groupPostTop button, .groupBtn{
     height: 30px;
     padding: 0 12px;
     margin: 0 0.2rem;
