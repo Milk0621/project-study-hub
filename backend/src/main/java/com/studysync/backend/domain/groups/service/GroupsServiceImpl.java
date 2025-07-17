@@ -39,13 +39,13 @@ public class GroupsServiceImpl implements GroupsService{
 	}
 
 	@Override
-	public List<Groups> getMyGroupListById(String id) {
-		return groupsDAO.selectMyGroups(id);
+	public List<Groups> searchGroups(String search, String category) {
+		return groupsDAO.searchGroups(search, category);
 	}
 
 	@Override
-	public List<Groups> searchGroups(String search, String category) {
-		return groupsDAO.searchGroups(search, category);
+	public List<Groups> getMyGroups(String userId) {
+		return groupsDAO.selectUserGroups(userId);
 	}
 	
 }
