@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import style from './GroupPost.module.css';
 import { use, useEffect, useState } from "react";
 import api from "../../api/api";
@@ -10,6 +10,16 @@ function GroupPost(){
     const navigate = useNavigate();
     const [groupPost, setGroupPost] = useState();
     const [groupJoin, setGroupJoin] = useState(false);
+
+    const [searchParams] = useSearchParams();
+    const category = searchParams.get("category");
+    const navigateToList = () => {
+        if(category) {
+            navigate(`/?category=${category}`);
+        } else {
+            navigate("/");
+        }
+    }
 
     useEffect(() => {
         const fetchGroup = async () => {
@@ -87,7 +97,7 @@ function GroupPost(){
                     <p style={{whiteSpace: 'pre-line', lineHeight: 1.6}}>{groupPost.content}</p>
                 </div>
             )}
-            <button onClick={()=>navigate('/')}>목록으로</button>
+            <button onClick={()=>navigateToList()}>목록으로</button>
         </div>
     )
 }
