@@ -9,6 +9,11 @@ public class GroupMembers {
 	
 	public GroupMembers() {}
 	
+	public GroupMembers(int groupId, String userId) {
+		this.groupId = groupId;
+		this.userId = userId;
+	}
+	
 	public GroupMembers(int groupId, String userId, LocalDateTime joinedAt) {
 		this.groupId = groupId;
 		this.userId = userId;

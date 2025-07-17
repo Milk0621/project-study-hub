@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.studysync.backend.domain.groupmembers.dao.GroupMembersDAO;
+import com.studysync.backend.domain.groupmembers.model.GroupMembers;
 import com.studysync.backend.domain.groups.dao.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
 
@@ -12,15 +15,25 @@ import com.studysync.backend.domain.groups.model.Groups;
 public class GroupsServiceImpl implements GroupsService{
 	
 	private final GroupsDAO groupsDAO;
+	private final GroupMembersDAO groupMembersDAO;
 	
 	@Autowired
-	public GroupsServiceImpl(GroupsDAO groupsDAO) {
+	public GroupsServiceImpl(GroupsDAO groupsDAO, GroupMembersDAO groupMembersDAO) {
 		this.groupsDAO = groupsDAO;
+		this.groupMembersDAO = groupMembersDAO;
 	}
 
+	@Transactional
 	@Override
 	public int registerGroup(Groups groups) {
-		return groupsDAO.insertGroup(groups);
+		int result = groupsDAO.insertGroup(groups);
+		if(result > 0) {
+			System.out.println("group id: " + groups.getId());
+			System.out.println("group creator: " + groups.getCreateUser());
+			GroupMembers gm = new GroupMembers(groups.getId(), groups.getCreateUser());
+			groupMembersDAO.insertGroupMem(gm);
+		}
+		return result;
 	}
 
 	@Override
