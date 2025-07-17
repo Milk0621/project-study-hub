@@ -15,8 +15,8 @@ public interface GroupsDAO {
 	Groups selectOneGroup(int id);
 	// 그룹 수정
 	int updateGroup(Groups groups);
-	// 내가 만든 그룹 조회
-	List<Groups> selectMyGroups(String id);
 	// 그룹 검색
 	List<Groups> searchGroups(@Param("search") String search, @Param("category") String category);
+	// 내가 속한 그룹
+	List<Groups> selectUserGroups(String userId);
 }

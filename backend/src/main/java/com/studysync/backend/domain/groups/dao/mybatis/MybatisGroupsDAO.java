@@ -38,13 +38,13 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	}
 
 	@Override
-	public List<Groups> selectMyGroups(String id) {
-		return mapper.selectMyGroups(id);
+	public List<Groups> searchGroups(String search, String category) {
+		return mapper.searchGroups(search, category);
 	}
 
 	@Override
-	public List<Groups> searchGroups(String search, String category) {
-		return mapper.searchGroups(search, category);
+	public List<Groups> selectUserGroups(String userId) {
+		return mapper.selectUserGroups(userId);
 	}
 	
 }
