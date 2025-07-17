@@ -60,4 +60,10 @@ public class GroupsController {
 		List<Groups> result = groupsService.searchGroups(search, category);
 		return ResponseEntity.ok(result);
 	}
+	
+	@GetMapping("/my")
+	public ResponseEntity<?> getMyGroups(@RequestParam String userId) {
+		List<Groups> groups = groupsService.getMyGroups(userId);
+		return ResponseEntity.ok(groups);
+	}
 }
