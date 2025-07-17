@@ -23,7 +23,7 @@ function GroupList({groups, category}){
           <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
           ★☆
           <h5 style={{fontWeight: '600'}}> {group.groupName} </h5>
-          <p> {group.content} </p>
+          <p className={`${style.contentLineClamp}`}> {group.content} </p>
           <span className={style.hashTag}>{group.tag}</span>
         </div>
       ))}

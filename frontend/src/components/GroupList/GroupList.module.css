@@ -21,3 +21,11 @@
     border-radius: 5px;
     border: 1px solid var(--outline);
 }
+
+.contentLineClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* 최대 2줄까지만 보이게 함 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
