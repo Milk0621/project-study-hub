@@ -19,4 +19,19 @@
   	<select id="selectMyGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups` where create_user = #{id}
   	</select>
+  	<select id="searchGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select * from `groups`
+  		<where>
+  			<if test="search != null and search != ''">
+  				(group_name like concat('%', #{search}, '%') or content like concat('%', #{search}, '%'))
+  			</if>
+  			<if test="category != null and category != ''">
+  				<if test="search != null and search != ''">
+  					and
+  				</if>
+  				tag = #{category}
+  			</if>
+  		</where>
+  		order by create_date desc
+  	</select>
   </mapper>
