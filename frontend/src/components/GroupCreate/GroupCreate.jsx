@@ -37,7 +37,7 @@ function GroupCreate() {
     }
 
     return(
-        <div className={style.wrap}>
+        <div className="wrap">
             <div className={style.groupCreateTop}>
                 <h4 style={{margin: '0'}}>그룹 만들기</h4>
                 <button onClick={()=>{groupCreate()}}>작성</button>

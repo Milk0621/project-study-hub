@@ -72,7 +72,7 @@ function Home(){
   return (
     <>
       <Timer />
-      <div className={style.wrap}>
+      <div className="wrap">
         <div className={style.groupListTop}>
           <h4 style={{margin: '0'}}>그룹 목록</h4>
           <button onClick={()=>loginCheck()}> + 그룹 만들기</button>

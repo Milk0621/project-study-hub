@@ -71,7 +71,7 @@ function GroupPost(){
     }
 
     return(
-        <div className={style.wrap}>
+        <div className="wrap">
             <div className={style.groupPostTop}>
                 <h4>그룹 상세페이지</h4>
                 { !groupJoin &&(
