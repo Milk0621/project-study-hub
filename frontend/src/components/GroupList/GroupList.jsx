@@ -9,7 +9,17 @@ function GroupList({groups, category}){
   return(
     <>
       { groups.map((group)=>(
-        <div key={group.id} className={style.groupListBg} onClick={()=>navigate(`/post/${group.id}?category=${category || ''}`)}>
+        <div 
+          key={group.id} 
+          className={style.groupListBg} 
+          onClick={()=>{
+            if(category){
+              navigate(`/post/${group.id}?category=${category}`)
+            } else {
+              navigate(`/post/${group.id}`)
+            }
+          }}
+        >
           <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
           ★☆
           <h5 style={{fontWeight: '600'}}> {group.groupName} </h5>
