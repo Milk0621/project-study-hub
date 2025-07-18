@@ -49,7 +49,7 @@ function MyGroup() {
       </div>
       <GroupList groups={myGroups} />
 
-      <h4>참여 중인 그룹</h4>
+      <h4 style={{textAlign:'left'}}>참여 중인 그룹</h4>
       <GroupList groups={joinedGroups} />
     </div>
   );

@@ -5,18 +5,18 @@ import { useEffect } from "react";
 
 function PrivateRoute({children}){
     const user = useSelector((state)=>state.user.user);
-
+    const loading = useSelector((state)=>state.user.loading);
     const dispath = useDispatch();
-
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(!user) {
+        if(!loading && !user) {
             navigate('/');
             dispath(openModal());
         }
-    }, [user, navigate, dispath])
-
+    }, [loading, user, navigate, dispath])
+    
+    if (loading) return null;
     if (!user) return null;
     return children;
 }

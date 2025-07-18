@@ -12,17 +12,16 @@ import GroupPost from './components/GroupPost/GroupPost';
 import MyGroup from './components/MyGroup/MyGroup';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
-import { setUser } from './store/userSlice';
+import { setLoading, setUser } from './store/userSlice';
 
 export const DarkModeContext = createContext();
 
 function App() {
 
   const location = useLocation();
-
   const isDarkMode =  useSelector((state) => state.theme.isDarkMode);
+  const loading = useSelector((state) => state.user.loading);
 
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     document.body.className = isDarkMode ? 'dark' : '';
   }, [isDarkMode]);
@@ -41,15 +40,15 @@ function App() {
           dispatch(setUser(res.data)); // userSlice의 액션
         } catch (err) {
           console.error("자동 로그인 실패", err);
+          dispatch(setLoading(false));
         } finally {
-          setLoading(false); // 로딩 완료
+          dispatch(setLoading(false)); // 로딩 완료
         }
       } else {
-        setLoading(false); // 토큰 없을 때도 로딩 종료
+        dispatch(setLoading(false)); // 토큰 없을 때도 로딩 종료
       }
     };
     fetchUser();
-    setLoading(false);
   }, []);
 
 
