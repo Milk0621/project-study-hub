@@ -14,6 +14,7 @@ import MyPage from './components/MyPage/MyPage';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
+import { setScrapList } from './store/scrapSlice';
 
 export const DarkModeContext = createContext();
 
@@ -50,6 +51,12 @@ function App() {
       }
     };
     fetchUser();
+
+    // const fetchScrapList = async () => {
+    //   const res = await api.get("/api/groupScrap");
+    //   dispatch(setScrapList(res.data));
+    // }
+    // fetchScrapList();
   }, []);
 
 

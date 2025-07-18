@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.studysync.backend.domain.groupscrap.dao.GroupScrapDAO">
+  	<insert id="addScrap">
+  		insert into group_scrap (user_id, group_id)
+  		values (#{userId}, #{groupId})
+  	</insert>
+  	<delete id="deleteScrap">
+  		delete from group_scrap where user_id = #{userId} and group_id = #{groupId}
+  	</delete>
+  </mapper>
