@@ -10,6 +10,7 @@ import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
 import GroupPost from './components/GroupPost/GroupPost';
 import MyGroup from './components/MyGroup/MyGroup';
+import MyPage from './components/MyPage/MyPage';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
@@ -67,6 +68,11 @@ function App() {
           <Route path='/myGroup' element={ 
             <PrivateRoute>
               <PageWrapper> <MyGroup /> </PageWrapper> 
+            </PrivateRoute>
+          } />
+          <Route path='/myPage' element={
+            <PrivateRoute>
+              <PageWrapper> <MyPage /> </PageWrapper>
             </PrivateRoute>
           } />
         </Routes> 
