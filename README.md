@@ -27,4 +27,13 @@
 
 ---
 
+## 🛠️ 기술 스택
+
+- Frontend: React, Redux Toolkit, Bootstrap, Framer Motion
+- Backend: Spring Boot, Spring Security (JWT), MyBatis
+- DB: MySQL
+- Infra: Axios, ESLint, Vite
+
+---
+
 ## 📍 프로젝트 구조 및 상세 문서는 추후 업데이트 예정입니다.
