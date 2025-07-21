@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import GroupList from '../GroupList/GroupList';
 import api from '../../api/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../store/modalSlice';
 import style from './MyGroup.module.css';
+import MyGroupList from '../MyGroupList/MyGroupList';
 
 function MyGroup() {
   const user = useSelector((state) => state.user.user);
@@ -47,10 +47,16 @@ function MyGroup() {
         <h4>내가 만든 그룹</h4>
         <button onClick={()=>loginCheck()}> + 그룹 만들기</button>
       </div>
-      <GroupList groups={myGroups} />
+      <MyGroupList 
+        groups={myGroups}
+        onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
+      />
 
       <h4 style={{textAlign:'left'}}>참여 중인 그룹</h4>
-      <GroupList groups={joinedGroups} />
+      <MyGroupList 
+        groups={joinedGroups}
+        onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
+      />
     </div>
   );
 }
