@@ -32,7 +32,7 @@ function GroupList({groups, category}){
   useEffect(()=>{
     const fetchScraps = async () => {
       try{
-        const res = await api.get('/groupScrap/scrapId');
+        const res = await api.get('/groupScrap/scrapIds');
         console.log(res.data);
         const scrapId = res.data;
         dispatch(setScrapList(scrapId));
