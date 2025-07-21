@@ -1,18 +1,46 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './StudyCalendar.css';
+import api from "../../api/api";
+import { useParams } from "react-router-dom";
 
 function StudyCalendar() {
+    const { id: groupId } = useParams();
     const [date, setDate] = useState(new Date());
+    const [rankings, setRankings] = useState([]);
+    const [studyRecords, setStudyRecords] = useState({});
 
-    const studyRecords = {
-        '2025-07-20': 1800,  // 0.5시간
-        '2025-07-21': 7200,  // 2시간
-        '2025-07-22': 10800, // 3시간
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
 
-    const formatDate = (date) => date.toISOString().split('T')[0];
+    useEffect(() => {
+        const fetchRanking = async () => {
+            try {
+                const res = await api.get(`/study-times/study-rank`, {
+                    params: {
+                        groupId,
+                        date: formatDate(date),
+                    }
+                });
+                setRankings(res.data);
+            } catch (err) {
+                setRankings([]); // 기록 없으면 빈 배열
+            }
+        };
+        fetchRanking();
+    }, [date, groupId]);
+
+    const formatSeconds = (seconds) => {
+        const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        return `${hrs}:${mins}:${secs}`;
+    };
 
     return(
         <div className="wrap">
@@ -32,6 +60,20 @@ function StudyCalendar() {
                     }
                 }}
             />
+            <div className="ranking-box">
+                <h4>공부 시간 랭킹</h4>
+                {rankings.length > 0 ? (
+
+                        rankings.map((r, index) => (
+                            <p key={index}>
+                                👑 {r.nickname} : {(formatSeconds(r.studyTime))}
+                            </p>
+                        ))
+
+                ) : (
+                    <p>기록 없음</p>
+                )}
+            </div>
         </div>
     )
 }
