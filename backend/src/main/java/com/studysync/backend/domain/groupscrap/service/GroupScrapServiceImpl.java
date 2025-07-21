@@ -1,5 +1,7 @@
 package com.studysync.backend.domain.groupscrap.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.studysync.backend.domain.groupscrap.dao.GroupScrapDAO;
@@ -21,6 +23,11 @@ public class GroupScrapServiceImpl implements GroupScrapService{
 	@Override
 	public void addScrap(String userId, Long groupId) {
 		groupScrapDAO.addScrap(userId, groupId);
+	}
+
+	@Override
+	public List<Long> getScrappedGroups(String userId) {
+		return groupScrapDAO.selectScrapList(userId);
 	}
 	
 }
