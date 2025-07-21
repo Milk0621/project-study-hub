@@ -16,7 +16,12 @@
 }
 
 .react-calendar__tile--active {
-  background: none !important;
+  background: var(--calendar-active) !important;
+  color: var(--calendar-color);
+}
+
+.react-calendar button:enabled:hover {
+  background: var(--calendar-active);
 }
 
 .study-light {

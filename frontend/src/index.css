@@ -11,6 +11,8 @@
   --tag-bg: #ffffff;
   --info-color: #666;
   --calendar-text: #9b9b9b;
+  --calendar-active: #e6e6e6;
+  --calendar-color: #1c1c1e;
 }
 
 .dark {
@@ -26,6 +28,8 @@
   --tag-bg: #41444b;
   --info-color: #9d9d9d;
   --calendar-text: #656565;
+  --calendar-active: #262626;
+  --calendar-color: #ffffff;
 }
 
 body {
