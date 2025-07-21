@@ -1,5 +1,7 @@
 package com.studysync.backend.domain.groupscrap.dao.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +24,10 @@ public class MybatisGroupScrapDAO implements GroupScrapDAO{
 	@Override
 	public void addScrap(String userId, Long groupId) {
 		mapper.addScrap(userId, groupId);
+	}
+
+	@Override
+	public List<Long> selectScrapList(String userId) {
+		return mapper.selectScrapList(userId);
 	}	
 }
