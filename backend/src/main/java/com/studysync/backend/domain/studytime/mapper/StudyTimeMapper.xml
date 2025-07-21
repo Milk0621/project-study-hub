@@ -17,4 +17,15 @@
 			and date = #{date} 
 		order by id desc limit 1;
 	</select>
+	<select id="getStudyRanking" resultType="com.studysync.backend.dto.StudyRankDto">
+		select
+			u.nickname,
+			st.seconds as studyTime
+		from group_members gm
+		join users u on gm.user_id = u.id
+		join study_time st on st.user_id = gm.user_id
+		where gm.group_id = #{groupId}
+			and st.date = #{date}
+		order by st.seconds desc
+	</select>
 </mapper>
