@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.domain.groupscrap.service.GroupScrapService;
 import com.studysync.backend.util.JwtUtil;
 
@@ -48,7 +49,7 @@ public class GroupScrapController {
     }
 	
 	//즐겨찾기한 ID 조회
-	@GetMapping("/scrapId")
+	@GetMapping("/scrapIds")
 	public ResponseEntity<?> getScrappedGroupIds(HttpServletRequest request){
 		String token = request.getHeader("Authorization").replace("Bearer ", "");
         String userId = jwtUtil.getUserIdFromToken(token);
@@ -56,4 +57,12 @@ public class GroupScrapController {
         return ResponseEntity.ok(scrapGroupIds);
 	}
 	
+	//즐겨찾기한 그룹 조회(마이페이지)
+	@GetMapping("/scrapList")
+	public ResponseEntity<?> getScrapGroupList(HttpServletRequest request){
+		String token = request.getHeader("Authorization").replace("Bearer ", "");
+		String userId = jwtUtil.getUserIdFromToken(token);
+		List<Groups> scrapGroupList = groupScrapService.getScrapGroupList(userId);
+		return ResponseEntity.ok(scrapGroupList);
+	}
 }
