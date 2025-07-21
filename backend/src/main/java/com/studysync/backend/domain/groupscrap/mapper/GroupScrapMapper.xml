@@ -10,4 +10,7 @@
   	<delete id="deleteScrap">
   		delete from group_scrap where user_id = #{userId} and group_id = #{groupId}
   	</delete>
+  	<select id="selectScrapList">
+  		select group_id from group_scrap where user_id = #{user_id}
+  	</select>
   </mapper>
