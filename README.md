@@ -19,12 +19,32 @@
 ## 📅 주요 기능 (예정)
 
 - [x] 그룹 생성 (공개/비공개 설정, 모집 인원, 카테고리 등)
-- [ ] 스터디 그룹 목록 / 검색 / 참여 기능
+- [x] 스터디 그룹 목록 / 검색 / 참여 기능
 - [x] 공부 시간 타이머 및 기록 저장
 - [ ] 달력 기반 공부 기록 시각화
 - [ ] 일일 공부 랭킹 (Top 3)
 - [ ] 마이페이지에서 내 그룹 / 내 기록 확인
-- [ ] 초대 기능 (링크 or 코드)
+
+---
+
+## 🛠️ 기술 스택
+
+- Frontend: React, Redux Toolkit, Bootstrap, Framer Motion
+- Backend: Spring Boot, Spring Security (JWT), MyBatis
+- DB: MySQL
+- Infra: Axios, ESLint, Vite
+
+---
+
+## 📂 디렉토리 구조
+├── backend
+│   ├── controller
+│   ├── service
+│   └── dao
+├── frontend
+│   ├── components
+│   ├── pages
+│   └── store
 
 ---
 
