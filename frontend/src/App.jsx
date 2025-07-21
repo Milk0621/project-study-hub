@@ -15,6 +15,7 @@ import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
 import { setScrapList } from './store/scrapSlice';
+import StudyCalendar from './components/StudyCalendar/StudyCalendar';
 
 export const DarkModeContext = createContext();
 
@@ -75,6 +76,11 @@ function App() {
           <Route path='/myGroup' element={ 
             <PrivateRoute>
               <PageWrapper> <MyGroup /> </PageWrapper> 
+            </PrivateRoute>
+          } />
+          <Route path='/group/:id' element={
+            <PrivateRoute>
+              <PageWrapper> <StudyCalendar /> </PageWrapper> 
             </PrivateRoute>
           } />
           <Route path='/myPage' element={

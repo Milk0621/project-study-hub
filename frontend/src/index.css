@@ -10,6 +10,7 @@
   --outline: #dadce0;
   --tag-bg: #ffffff;
   --info-color: #666;
+  --calendar-text: #9b9b9b;
 }
 
 .dark {
@@ -24,6 +25,7 @@
   --outline: #5d6164;
   --tag-bg: #41444b;
   --info-color: #9d9d9d;
+  --calendar-text: #656565;
 }
 
 body {

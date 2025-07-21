@@ -1,0 +1,33 @@
+.react-calendar {
+  width: 100%;
+  background-color: var(--bg-color);
+  border: none;
+}
+
+.react-calendar__navigation button {
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.react-calendar__tile {
+  color: var(--calendar-text);
+  height: 90px;
+}
+
+.react-calendar__tile--active {
+  background: none !important;
+}
+
+.study-light {
+  background-color: #3d2c2c !important;
+  color: #fff;
+}
+.study-medium {
+  background-color: #a04e1f !important;
+  color: #fff;
+}
+.study-heavy {
+  background-color: #f57c00 !important;
+  color: #fff;
+}
