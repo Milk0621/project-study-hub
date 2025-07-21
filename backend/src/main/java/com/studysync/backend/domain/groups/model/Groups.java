@@ -12,6 +12,7 @@ public class Groups {
 	private int isPrivate;
 	private String password;
 	private int hit;
+	private int participantCount;
 
 	public Groups() {}
 	
@@ -101,4 +102,11 @@ public class Groups {
 		this.hit = hit;
 	}
 	
+	public int getParticipantCount() {
+		return participantCount;
+	}
+	
+	public void setParticipantCount(int participantCount) {
+		this.participantCount = participantCount;
+	}
 }

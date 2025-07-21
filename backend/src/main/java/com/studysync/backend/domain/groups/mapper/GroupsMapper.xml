@@ -32,9 +32,11 @@
   		order by create_date desc
   	</select>
   	<select id="selectUserGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
-  		select g.* from `groups` g
+  		select g.*, count(gm2.user_id) as participant_count from `groups` g
   		join group_members gm on g.id = gm.group_id
+  		left join group_members gm2 on g.id = gm2.group_id
   		where gm.user_id = #{userId}
+  		group by g.id
   		order by g.create_date desc
   	</select>
   </mapper>
