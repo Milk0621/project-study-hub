@@ -26,7 +26,7 @@ public class GroupScrapServiceImpl implements GroupScrapService{
 	}
 
 	@Override
-	public List<Long> getScrappedGroups(String userId) {
+	public List<Long> getScrappedGroupIds(String userId) {
 		return groupScrapDAO.selectScrapList(userId);
 	}
 	

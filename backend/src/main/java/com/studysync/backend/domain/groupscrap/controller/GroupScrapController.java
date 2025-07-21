@@ -49,10 +49,11 @@ public class GroupScrapController {
 	
 	//즐겨찾기한 ID 조회
 	@GetMapping("/scrapId")
-	public ResponseEntity<?> getScrappedGroups(HttpServletRequest request){
+	public ResponseEntity<?> getScrappedGroupIds(HttpServletRequest request){
 		String token = request.getHeader("Authorization").replace("Bearer ", "");
         String userId = jwtUtil.getUserIdFromToken(token);
-        List<Long> scrapGroupIds = groupScrapService.getScrappedGroups(userId);
+        List<Long> scrapGroupIds = groupScrapService.getScrappedGroupIds(userId);
         return ResponseEntity.ok(scrapGroupIds);
 	}
+	
 }
