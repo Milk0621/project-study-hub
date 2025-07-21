@@ -1,6 +1,7 @@
 package com.studysync.backend.domain.studytime.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.studysync.backend.domain.studytime.model.StudyTime;
 import com.studysync.backend.domain.studytime.service.StudyTimeService;
+import com.studysync.backend.dto.StudyRankDto;
 
 @RestController
 @RequestMapping("/api/study-times")
@@ -38,13 +40,19 @@ public class StudyTimeController {
 	
 	//공부시간 조회
 	@GetMapping("/latest")
-	public ResponseEntity<?> loadLastStudyEntry(@RequestParam("userId") String userId, @RequestParam("date") LocalDate date){
+	public ResponseEntity<?> loadLastStudyEntry(@RequestParam String userId, @RequestParam LocalDate date){
 		StudyTime result = studyTimeService.loadLastStudyEntry(userId, date);
 		if(result != null) {
 			return ResponseEntity.ok(result);
 		}else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 날짜의 기록이 없습니다.");	
 		}
+	}
+	
+	@GetMapping("/study-rank")
+	public ResponseEntity<?> getStudyRank(@RequestParam int groupId, @RequestParam LocalDate date){
+		List<StudyRankDto> rankList = studyTimeService.getStudyRanking(groupId, date);
+		return ResponseEntity.ok(rankList);
 	}
 	
 }
