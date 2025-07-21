@@ -10,7 +10,13 @@
   	<delete id="deleteScrap">
   		delete from group_scrap where user_id = #{userId} and group_id = #{groupId}
   	</delete>
-  	<select id="selectScrapList">
+  	<select id="selectScrapIds">
   		select group_id from group_scrap where user_id = #{user_id}
+  	</select>
+  	<select id="selectScrapList">
+  		select g.* 
+  		from group_scrap gs 
+  		left join `groups` g on gs.group_id = g.id 
+  		where gs.user_id = #{userId}
   	</select>
   </mapper>
