@@ -1,7 +1,9 @@
 package com.studysync.backend.domain.studytime.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,20 @@ public class StudyTimeServiceImpl implements StudyTimeService{
 	@Override
 	public List<StudyRankDto> getStudyRanking(int groupId, LocalDate date) {
 		return studyTimeDAO.getStudyRanking(groupId, date);
+	}
+
+	@Override
+	public Map<String, Integer> getGroupTopStudyTimeByDate(int groupId) {
+		List<Map<String, Object>> rawList = studyTimeDAO.getMaxStudyTimeByDateInGroup(groupId);
+        Map<String, Integer> result = new HashMap<>();
+
+        for (Map<String, Object> row : rawList) {
+            String date = row.get("date").toString(); // "2025-07-21"
+            int seconds = Integer.parseInt(row.get("max_seconds").toString());
+            result.put(date, seconds);
+        }
+
+        return result;
 	}
 
 }
