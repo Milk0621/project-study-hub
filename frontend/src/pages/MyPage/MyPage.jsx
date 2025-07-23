@@ -3,9 +3,10 @@ import GroupList from '../../components/GroupList/GroupList';
 import style from './MyPage.module.css';
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
-import Calendar from 'react-calendar';
+import { useNavigate } from 'react-router-dom';
 
 function MyPage(){
+    const navigate = useNavigate();
     const user = useSelector((state)=>state.user.user);
     const [myScrap, setMyScrap] = useState([]);
     useEffect(()=>{
@@ -27,8 +28,10 @@ function MyPage(){
                 </div>
                 <p>📧 이메일</p>
                 <p>{user.email}</p>
-                <p>📆 가입날짜</p>
+                <p>🕒 가입날짜</p>
                 <p>{user.createdAt}</p>
+                <p>📆 내 공부기록</p>
+                <p onClick={()=>navigate('/myPage/myCalendar')} style={{textDecoration: 'underline', cursor: 'pointer', width: '60px'}}>확인하기</p>
             </div>
             <h4>내 스크랩</h4>
             <div>
