@@ -14,9 +14,8 @@ import PrivateRoute from './routes/PrivateRoute';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
-import { setScrapList } from './store/scrapSlice';
-import StudyCalendar from './pages/GroupStudyCalendar/GroupStudyCalendar';
 import GroupStudyCalendar from './pages/GroupStudyCalendar/GroupStudyCalendar';
+import MyStudyCalendar from './pages/MyStudyCalendar/MyStudyCalendar';
 
 export const DarkModeContext = createContext();
 
@@ -81,6 +80,11 @@ function App() {
           <Route path='/myPage' element={
             <PrivateRoute>
               <PageWrapper> <MyPage /> </PageWrapper>
+            </PrivateRoute>
+          } />
+          <Route path='/myPage/myCalendar' element={
+            <PrivateRoute>
+              <PageWrapper> <MyStudyCalendar /> </PageWrapper>
             </PrivateRoute>
           } />
         </Routes> 
