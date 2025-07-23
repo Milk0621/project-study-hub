@@ -28,4 +28,13 @@
 			and st.date = #{date}
 		order by st.seconds desc
 	</select>
+	<select id="getMaxStudyTimeByDateInGroup">
+		select
+			st.date as date,
+			max(seconds) as max_seconds
+		from study_time st
+		inner join group_members gm on st.user_id = gm.user_id
+		where gm.group_id = #{groupId}
+		group by st.date
+	</select>
 </mapper>
