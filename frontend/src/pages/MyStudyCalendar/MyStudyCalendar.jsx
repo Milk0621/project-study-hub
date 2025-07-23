@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import StudyCalendar from "../StudyCalendar/StudyCalendar";
+import StudyCalendar from "../../components/StudyCalendar/StudyCalendar";
 import api from "../../api/api";
 
 function MyStudyCalendar(){
