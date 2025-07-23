@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudyCalendar from "../StudyCalendar/StudyCalendar";
+import api from "../../api/api";
 
 function MyStudyCalendar(){
     const [date, setDate] = useState(new Date());
@@ -7,7 +8,7 @@ function MyStudyCalendar(){
 
     useEffect(()=>{
         const fetchMyRecords = async () => {
-            const res = await api.get('/study-times/user');
+            const res = await api.get('/study-times/myPage/myCalendar');
             setStudyRecords(res.data);
         }
         fetchMyRecords();
