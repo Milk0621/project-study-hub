@@ -4,18 +4,19 @@ import { createContext, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import api from './api/api';
-import Home from './components/Home/Home';
+import Home from './pages/Home/Home';
+import GroupPost from './pages/GroupPost/GroupPost';
+import MyPage from './pages/MyPage/MyPage';
+import MyGroup from './pages/MyGroup/MyGroup';
 import Header from './components/Header/Header';
 import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
-import GroupPost from './components/GroupPost/GroupPost';
-import MyGroup from './components/MyGroup/MyGroup';
-import MyPage from './components/MyPage/MyPage';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
 import { setScrapList } from './store/scrapSlice';
-import StudyCalendar from './components/StudyCalendar/StudyCalendar';
+import StudyCalendar from './pages/GroupStudyCalendar/GroupStudyCalendar';
+import GroupStudyCalendar from './pages/GroupStudyCalendar/GroupStudyCalendar';
 
 export const DarkModeContext = createContext();
 
@@ -52,12 +53,6 @@ function App() {
       }
     };
     fetchUser();
-
-    // const fetchScrapList = async () => {
-    //   const res = await api.get("/api/groupScrap");
-    //   dispatch(setScrapList(res.data));
-    // }
-    // fetchScrapList();
   }, []);
 
 
@@ -80,7 +75,7 @@ function App() {
           } />
           <Route path='/group/:id' element={
             <PrivateRoute>
-              <PageWrapper> <StudyCalendar /> </PageWrapper> 
+              <PageWrapper> <GroupStudyCalendar /> </PageWrapper> 
             </PrivateRoute>
           } />
           <Route path='/myPage' element={

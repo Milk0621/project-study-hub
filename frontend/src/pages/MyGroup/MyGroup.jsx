@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../store/modalSlice';
 import style from './MyGroup.module.css';
-import MyGroupList from '../MyGroupList/MyGroupList';
+import MyGroupList from '../../components/MyGroupList/MyGroupList';
 
 function MyGroup() {
   const user = useSelector((state) => state.user.user);

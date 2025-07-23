@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import Timer from '../Timer/Timer'
+import Timer from '../../components/Timer/Timer'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './Home.module.css';
-import GroupList from '../GroupList/GroupList';
+import GroupList from '../../components/GroupList/GroupList';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../api/api';
 

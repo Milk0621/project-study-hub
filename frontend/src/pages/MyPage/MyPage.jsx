@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
-import GroupList from '../GroupList/GroupList';
+import GroupList from '../../components/GroupList/GroupList';
 import style from './MyPage.module.css';
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
+import Calendar from 'react-calendar';
 
 function MyPage(){
     const user = useSelector((state)=>state.user.user);
