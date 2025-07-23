@@ -24,15 +24,26 @@
   background: var(--calendar-active);
 }
 
-.study-light {
+.calendar-color0 {
   background-color: #3d2c2c !important;
   color: #fff;
 }
-.study-medium {
+.calendar-color1 {
+  background-color: #744234 !important;
+  color: #fff;
+}
+.calendar-color2 {
   background-color: #a04e1f !important;
   color: #fff;
 }
-.study-heavy {
+.calendar-color3 {
+  background-color: #c46315 !important;
+  color: #fff;
+}
+.calendar-color4 {
   background-color: #f57c00 !important;
   color: #fff;
+}
+.ranking-box {
+  padding: 20px 0;
 }

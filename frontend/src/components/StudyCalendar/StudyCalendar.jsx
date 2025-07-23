@@ -18,6 +18,19 @@ function StudyCalendar() {
         return `${year}-${month}-${day}`;
     };
 
+    useEffect(()=>{
+        const fetchStudyRecords = async () => {
+            try{
+                const res = await api.get(`/study-times/group/${groupId}/max`);
+                setStudyRecords(res.data);
+            } catch(err) {
+                console.log("공부 기록 불러오기 실패", err);
+                setStudyRecords({});
+            }
+        }
+        fetchStudyRecords();
+    }, [groupId])
+
     useEffect(() => {
         const fetchRanking = async () => {
             try {
@@ -53,20 +66,23 @@ function StudyCalendar() {
                         const key = formatDate(date);
                         const time = studyRecords[key];
 
-                        if(!time) return null;
-                        if(time >= 10800) return 'study-heavy';
-                        if(time >= 3600) return 'study-medium';
-                        return 'study-light';
+                        if (time === undefined) return null;
+                        if(time >= 43200) return 'calendar-color4';
+                        if(time >= 21600) return 'calendar-color3';
+                        if(time >= 10800) return 'calendar-color2';
+                        if(time >= 3600) return 'calendar-color1';
+                        return 'calendar-color0';
                     }
                 }}
             />
             <div className="ranking-box">
+                <span>{formatDate(date)}</span>
                 <h4>공부 시간 랭킹</h4>
                 {rankings.length > 0 ? (
 
                         rankings.map((r, index) => (
                             <p key={index}>
-                                👑 {r.nickname} : {(formatSeconds(r.studyTime))}
+                                👑 {r.nickname} - {(formatSeconds(r.studyTime))}
                             </p>
                         ))
 
