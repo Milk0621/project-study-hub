@@ -2,6 +2,7 @@ package com.studysync.backend.domain.studytime.dao.mybatis;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,11 @@ public class MybatisStudyTimeDAO implements StudyTimeDAO{
 	@Override
 	public List<StudyRankDto> getStudyRanking(int groupId, LocalDate date) {
 		return mapper.getStudyRanking(groupId, date);
+	}
+
+	@Override
+	public List<Map<String, Object>> getMaxStudyTimeByDateInGroup(int groupId) {
+		return mapper.getMaxStudyTimeByDateInGroup(groupId);
 	}
 
 }
