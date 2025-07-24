@@ -12,4 +12,5 @@ public interface StudyTimeService {
 	StudyTime loadLastStudyEntry(String userId, LocalDate date);
 	List<StudyRankDto> getStudyRanking(int groupId, LocalDate date);
 	Map<String, Integer> getGroupTopStudyTimeByDate(int groupId);
+	Map<String, Integer> getMyStudyTimes(String userId);
 }

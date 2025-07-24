@@ -40,7 +40,9 @@ public class StudyTimeServiceImpl implements StudyTimeService{
 	@Override
 	public Map<String, Integer> getGroupTopStudyTimeByDate(int groupId) {
 		List<Map<String, Object>> rawList = studyTimeDAO.getMaxStudyTimeByDateInGroup(groupId);
-        Map<String, Integer> result = new HashMap<>();
+//		[{ "date": "2025-07-20", "max_seconds": 7200 },
+//		  { "date": "2025-07-21", "max_seconds": 3600 }]
+		Map<String, Integer> result = new HashMap<>();
 
         for (Map<String, Object> row : rawList) {
             String date = row.get("date").toString(); // "2025-07-21"
@@ -49,6 +51,20 @@ public class StudyTimeServiceImpl implements StudyTimeService{
         }
 
         return result;
+	}
+
+	@Override
+	public Map<String, Integer> getMyStudyTimes(String userId) {
+		List<Map<String, Object>> rawList = studyTimeDAO.getMyStudyTimes(userId);
+		Map<String, Integer> result = new HashMap<>();
+		
+		for (Map<String, Object> row : rawList) {
+            String date = row.get("date").toString(); // "2025-07-21"
+            int seconds = Integer.parseInt(row.get("seconds").toString());
+            result.put(date, seconds);
+        }
+		
+		return result;
 	}
 
 }
