@@ -37,4 +37,10 @@
 		where gm.group_id = #{groupId}
 		group by st.date
 	</select>
+	<select id="getMyStudyTimes">
+		select
+			date, seconds
+		from study_time
+		where user_id = #{userId}
+	</select>
 </mapper>
