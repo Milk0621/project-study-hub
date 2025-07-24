@@ -18,16 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studysync.backend.domain.studytime.model.StudyTime;
 import com.studysync.backend.domain.studytime.service.StudyTimeService;
 import com.studysync.backend.dto.StudyRankDto;
+import com.studysync.backend.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/study-times")
 public class StudyTimeController {
+
+    private final JwtUtil jwtUtil;
 	
 	private final StudyTimeService studyTimeService;
 	
 	@Autowired
-	public StudyTimeController(StudyTimeService studyTimeService) {
+	public StudyTimeController(StudyTimeService studyTimeService, JwtUtil jwtUtil) {
 		this.studyTimeService = studyTimeService;
+		this.jwtUtil = jwtUtil;
 	}
 	
 	//공부시간 기록
@@ -62,5 +68,14 @@ public class StudyTimeController {
         Map<String, Integer> data = studyTimeService.getGroupTopStudyTimeByDate(groupId);
         return ResponseEntity.ok(data);
     }
+	
+	@GetMapping("/myPage/myCalendar")
+	public ResponseEntity<Map<String, Integer>> getMyStudyTimes(HttpServletRequest request){
+		String token = request.getHeader("Authorization").replace("Bearer ", "");
+		String userId = jwtUtil.getUserIdFromToken(token);
+		
+		Map<String, Integer> data = studyTimeService.getMyStudyTimes(userId);
+		return ResponseEntity.ok(data);
+	}
 
 }
