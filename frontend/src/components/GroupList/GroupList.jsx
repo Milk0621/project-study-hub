@@ -41,7 +41,12 @@ function GroupList({groups, category}){
       }
     }
     fetchScraps();
-  }, [])
+  }, [user])
+
+  const formatDate = (date) => {
+      const formatDate = date.replace('T', ' ');
+      return formatDate;
+  };
 
   return(
     <>
@@ -59,7 +64,7 @@ function GroupList({groups, category}){
               }
             }}
           >
-            <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {group.createDate} </span>
+            <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {formatDate(group.createDate)} </span>
             {user && (
               <button className={style.scrapBtn} onClick={(e)=>toggleScrap(e, group.id)}>
                 {scrapped ? "★" : "☆"}
