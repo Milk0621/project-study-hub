@@ -70,6 +70,11 @@ function GroupPost(){
         }
     }
 
+    const formatDate = (date) => {
+        const formatDate = date.replace('T', ' ');
+        return formatDate;
+    };
+
     return(
         <div className="wrap">
             <div className={style.groupPostTop}>
@@ -89,7 +94,7 @@ function GroupPost(){
                     <div className={style.groupInfo}>
                         <div>
                             <p style={{marginBottom:'0'}}>{groupPost.createUser}</p>
-                            <span>{groupPost.createDate}</span>
+                            <span>{formatDate(groupPost.createDate)}</span>
                         </div>
                         <span>★☆</span>
                     </div>
