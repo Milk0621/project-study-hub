@@ -77,7 +77,7 @@ function GroupStudyCalendar() {
                 {rankings.length > 0 ? (
                         rankings.map((r, index) => (
                             <p key={index}>
-                                👑 {r.nickname} - {(formatSeconds(r.studyTime))}
+                                👑 {r.nickname}님 {(formatSeconds(r.studyTime))}
                             </p>
                         ))
                 ) : (
