@@ -21,4 +21,6 @@ public interface StudyTimeDAO {
 	
 	//날자별 그룹 최고 기록
 	List<Map<String, Object>> getMaxStudyTimeByDateInGroup(int groupId);
+
+	List<Map<String, Object>> getMyStudyTimes(String userId);
 }

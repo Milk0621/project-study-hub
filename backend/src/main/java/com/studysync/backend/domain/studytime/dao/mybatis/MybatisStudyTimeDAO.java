@@ -40,4 +40,9 @@ public class MybatisStudyTimeDAO implements StudyTimeDAO{
 		return mapper.getMaxStudyTimeByDateInGroup(groupId);
 	}
 
+	@Override
+	public List<Map<String, Object>> getMyStudyTimes(String userId) {
+		return mapper.getMyStudyTimes(userId);
+	}
+
 }
