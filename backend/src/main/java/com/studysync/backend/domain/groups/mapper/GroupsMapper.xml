@@ -39,4 +39,9 @@
   		group by g.id
   		order by g.create_date desc
   	</select>
+  	<update id="increaseViewCount" parameterType="long">
+  		update `groups`
+  		set hit = hit + 1
+  		where id = #{id}
+  	</update>
   </mapper>
