@@ -9,6 +9,8 @@ function MyPage(){
     const navigate = useNavigate();
     const user = useSelector((state)=>state.user.user);
     const [myScrap, setMyScrap] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [nickname, setNickname] = useState(user.nickname); // 초기값 설정
     useEffect(()=>{
         const fetchMyScrap = async () => {
             const res = await api.get('/groupScrap/scrapList');
@@ -23,14 +25,48 @@ function MyPage(){
       return formatDate;
     };
 
+    //닉네임 변경
+    const changeNickname = async () => {
+        try {
+            await api.post("/users/nickname", { nickname });
+            alert("닉네임이 변경되었습니다.");
+            setIsEditing(false); // 편집 모드 종료
+        } catch (err) {
+            console.error("닉네임 변경 실패", err);
+        }
+    };
+
     return(
         <div className="wrap">
             <h4>내 프로필</h4>
             <div className={style.profile}>
                 <p>☺️ 닉네임</p>
                 <div className={style.nicknameRow}>
-                    {user.nickname}
-                    <button className={style.editBtn}>수정</button>
+                    {isEditing ? (
+                        <>
+                            <input
+                            type="text"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                            />
+                            <button onClick={changeNickname} className={style.editBtn}>
+                            저장
+                            </button>
+                        </>
+                        ) : (
+                        <>
+                            <span>{user.nickname}</span>
+                            <button
+                            className={style.editBtn}
+                            onClick={() => {
+                                setNickname(user.nickname); // 기존 닉네임 불러오기
+                                setIsEditing(true); // 편집 모드로 전환
+                            }}
+                            >
+                            수정
+                            </button>
+                        </>
+                    )}
                 </div>
                 <p>📧 이메일</p>
                 <p>{user.email}</p>
