@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,5 +66,16 @@ public class GroupsController {
 	public ResponseEntity<?> getMyGroups(@RequestParam String userId) {
 		List<Groups> groups = groupsService.getMyGroups(userId);
 		return ResponseEntity.ok(groups);
+	}
+	
+	@PutMapping("/post/{id}/views")
+	public ResponseEntity<?> increaseViewCount(@PathVariable Long id){
+		try {
+			groupsService.increaseViewCount(id);
+			return ResponseEntity.ok().body("조회수 증가 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("조회수 증가 실패");
+		}
 	}
 }
