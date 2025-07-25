@@ -1,12 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GroupList from '../../components/GroupList/GroupList';
 import style from './MyPage.module.css';
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../store/userSlice';
 
 function MyPage(){
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const user = useSelector((state)=>state.user.user);
     const [myScrap, setMyScrap] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +32,10 @@ function MyPage(){
         try {
             await api.post("/users/nickname", { nickname });
             alert("닉네임이 변경되었습니다.");
-            setIsEditing(false); // 편집 모드 종료
+            
+            const res = await api.get("/users/info");
+            dispatch(setUser(res.data));
+            setIsEditing(false);
         } catch (err) {
             console.error("닉네임 변경 실패", err);
         }
