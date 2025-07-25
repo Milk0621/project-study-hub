@@ -46,5 +46,10 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public List<Groups> selectUserGroups(String userId) {
 		return mapper.selectUserGroups(userId);
 	}
+
+	@Override
+	public void increaseViewCount(Long id) {
+		mapper.increaseViewCount(id);
+	}
 	
 }

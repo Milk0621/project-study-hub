@@ -19,4 +19,6 @@ public interface GroupsDAO {
 	List<Groups> searchGroups(@Param("search") String search, @Param("category") String category);
 	// 내가 속한 그룹
 	List<Groups> selectUserGroups(String userId);
+	// 조회수 증가
+	void increaseViewCount(Long id);
 }
