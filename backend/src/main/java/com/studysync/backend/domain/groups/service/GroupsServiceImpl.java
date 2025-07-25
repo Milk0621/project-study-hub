@@ -60,5 +60,10 @@ public class GroupsServiceImpl implements GroupsService{
 	public List<Groups> getMyGroups(String userId) {
 		return groupsDAO.selectUserGroups(userId);
 	}
+
+	@Override
+	public void increaseViewCount(Long id) {
+		groupsDAO.increaseViewCount(id);
+	}
 	
 }

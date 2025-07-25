@@ -17,4 +17,6 @@ public interface GroupsService {
 	List<Groups> searchGroups(String search, String category);
 	// 내가 속한 그룹
 	List<Groups> getMyGroups(String userId);
+	// 조회수
+	void increaseViewCount(Long id);
 }
