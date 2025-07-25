@@ -29,6 +29,11 @@ public class MybatisUsersDAO implements UsersDAO {
 	public Users findById(String id) {
 		return mapper.findById(id);
 	}
+
+	@Override
+	public void updateUserNickname(String id, String nickname) {
+		mapper.updateUserNickname(id, nickname);
+	}
 	
 	
 }
