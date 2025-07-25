@@ -31,4 +31,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersDAO.findById(id);
 	}
 
+	@Override
+	public void changeNickname(String id, String nickname) {
+		usersDAO.updateUserNickname(id, nickname);
+	}
+
 }
