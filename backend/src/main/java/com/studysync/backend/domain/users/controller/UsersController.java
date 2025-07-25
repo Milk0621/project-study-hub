@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,6 +67,19 @@ public class UsersController {
 		String userId = (String) request.getAttribute("userId"); //필터에서 넣어준 값
 		Users user = usersService.findById(userId);
 		return ResponseEntity.ok(user);
+	}
+	
+	@PostMapping("/nickname")
+	public ResponseEntity<?> changeNickname(@RequestBody Map<String, String> req, HttpServletRequest request){
+		String id = (String) request.getAttribute("userId");
+		String nickname = req.get("nickname");
+		try {
+			usersService.changeNickname(id, nickname);			
+			return ResponseEntity.ok().body("닉네임 변경 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("닉네임 변경 실패");
+		}
 	}
 	
 }
