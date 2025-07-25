@@ -10,6 +10,7 @@ function GroupPost(){
     const navigate = useNavigate();
     const [groupPost, setGroupPost] = useState();
     const [groupJoin, setGroupJoin] = useState(false);
+    const [hasFetched, setHasFetched] = useState(false);
 
     const [searchParams] = useSearchParams();
     const category = searchParams.get("category");
@@ -22,6 +23,19 @@ function GroupPost(){
     }
 
     useEffect(() => {
+        // 조회수 증가 API
+        const increaseViewCount = async () => {
+            try {
+                await api.put(`/groups/post/${id}/views`); // 또는 POST, PATCH → 백엔드에 따라
+                setHasFetched(true);
+                console.log("조회수 증가 완료");
+            } catch (err) {
+                console.error("조회수 증가 실패", err);
+            }
+        };
+        increaseViewCount();
+
+        // 그룹 상세 데이터
         const fetchGroup = async () => {
             const res = await api.get(`/groups/post/${id}`)
             setGroupPost(res.data);
@@ -51,6 +65,7 @@ function GroupPost(){
         fetchCheckJoin();
     }, [user, id]);
 
+    // 그룹 참여 여부 확인
     const fetchJoin = async () => {
         const result = window.confirm('가입하시겠습니까?');
         if(result){
@@ -96,7 +111,6 @@ function GroupPost(){
                             <p style={{marginBottom:'0'}}>{groupPost.createUser}</p>
                             <span>{formatDate(groupPost.createDate)}</span>
                         </div>
-                        <span>★☆</span>
                     </div>
                     <hr />
                     <p style={{whiteSpace: 'pre-line', lineHeight: 1.6}}>{groupPost.content}</p>
