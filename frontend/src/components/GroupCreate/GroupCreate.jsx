@@ -1,5 +1,5 @@
 import style from './GroupCreate.module.css';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,11 +8,13 @@ function GroupCreate() {
     const navigate = useNavigate();
     const user = useSelector((state) => state.user.user);
 
+    // 입력값 상태 관리
     const [groupName, setGroupName] = useState('');
     const [content, setContent] = useState('');
     const [tag, setTag] = useState('');
     const [password, setPassword] = useState('');
 
+    // 그룹 생성 요청 처리 함수
     const groupCreate = async () => {
         if(!groupName) alert('그룹명을 입력해주세요.')
         else if(!tag) alert('카테고리를 선택해주세요.')
@@ -32,7 +34,7 @@ function GroupCreate() {
             alert('그룹 생성 성공');
             navigate('/');
         } catch(err) {
-            console.log('그룹 생성 실패', err);
+            console.error('그룹 생성 실패', err);
         }
     }
 

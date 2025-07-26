@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container ,Row ,Col } from 'react-bootstrap';
 import styles from './Timer.module.css';
 import api from '../../api/api';
@@ -6,20 +6,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { openModal, closeModal } from '../../store/modalSlice';
 
 function Timer(){
-
   const dispatch = useDispatch();
-  
   const user = useSelector((state) => state.user.user);
   
+  // 현재 날짜 (YYYY-MM-DD) 및 생성일시 (ISO 문자열) 계산
   const offset = new Date().getTimezoneOffset() * 60000;
-  const today = new Date(Date.now() - offset).toISOString().slice(0, 10); // YYYY-MM-DD
-  const now = new Date(Date.now() - offset).toISOString(); //createAt
+  const today = new Date(Date.now() - offset).toISOString().slice(0, 10);
+  const now = new Date(Date.now() - offset).toISOString();
   
-  //렌더링 시 데이터베이스에서 공부 시간 꺼내오기
+  const [time, setTime] = useState(null); // 초 단위 공부 시간
+  const [running, setRunning] = useState(false); // 타이머 실행 여부
+  const intervalRef = useRef(null); // setInterval ID 보관
   
+  // 오늘 날짜 문자열 (화면 출력용)
+  const dt = new Date();
+  const todayStr = `${dt.getFullYear()}년 ${dt.getMonth() + 1}월 ${dt.getDate()}일`;
+  
+  // 렌더링 시 사용자의 오늘 공부시간을 서버에서 불러옴
   useEffect(()=>{
     if (!user) {
       setTime(0);
+      return;
     }
     
     const fetchStudyTime = async () => {
@@ -41,7 +48,8 @@ function Timer(){
     fetchStudyTime();
   }, [user]);
 
-  //로그인 여부에 따른 타이머 실행
+  // Start 버튼 클릭 시 타이머 실행
+  // 로그인 여부에 따른 타이머 실행
   const handleStart = () => {
     if(!user){
       dispatch(openModal());
@@ -50,10 +58,9 @@ function Timer(){
     }
   }
 
+  // Stop 버튼 클릭 시 타이머 종료 및 서버에 시간 저장
   const handleStop = async () => {
     if(!running) return;
-
-    //타이머 멈춤
     setRunning(false);
 
     if(!user){
@@ -74,35 +81,20 @@ function Timer(){
     }
   };
 
-  //useRef는 리렌더링 없이도 계속 유지되어야 하는 값을 저장하기 위해 사용
-  //useRef 없이 만들면 리렌더링이 발생할 때마다 intervalRef가 초기화되므로 클린업 시점에 잘못된 ID를 clear하거나, 메모리 누수 위험
-  
-  //setInterval로 생성한 타이머 ID를 보관
-  //clearInterval() 시 ID가 반드시 정확하게 남아 있어야 함
-  //useState로 하면 리렌더링이 불필요하게 발생하므로 useRef가 최적의 선택
-
-  const [time, setTime] = useState(null);
-  const intervalRef = useRef(null);
-  const [running, setRunning] = useState(false);
-  
-  const dt = new Date();
-  const todayStr = dt.getFullYear() + '년 ' + (dt.getMonth()+1) + '월 ' + dt.getDate() + '일';
-
+  // 타이머 동작 제어 (1초마다 time 증가)
   useEffect(()=>{
     if(running){
       intervalRef.current = setInterval(()=>{
         setTime(prev => prev + 1);
       }, 1000)
     }else {
-      clearInterval(intervalRef.current); // UX 및 안정성 향상
+      clearInterval(intervalRef.current); // 타이머 정지
     }
 
-    return ()=>{
-      clearInterval(intervalRef.current); //cleanup
-    }
-  }, [running])
+    return ()=>{ clearInterval(intervalRef.current); } // 컴포넌트 언마운트 시 클린업
+  }, [running]);
 
-  //초를 시:분:초로 변경하는 함수
+  // 초 단위를 HH:MM:SS 형식으로 포맷팅
   function formatTime(seconds){
     const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
     const min = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');

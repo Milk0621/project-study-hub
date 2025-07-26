@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Timer from '../../components/Timer/Timer'
-import { useDispatch, useSelector } from 'react-redux';
 import style from './Home.module.css';
 import GroupList from '../../components/GroupList/GroupList';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -8,75 +7,59 @@ import api from '../../api/api';
 
 function Home(){
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
-
-  const [search, setSearch] = useState('');
-  const [select, setSelect] = useState('');
-  const [searchParams] = useSearchParams();
-  const category = searchParams.get("category");
-  const [groups, setGroups] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState('');           // 검색어 상태
+  const [select, setSelect] = useState('');           // 선택된 카테고리
+  const [searchParams] = useSearchParams();           // URL 쿼리 파라미터
+  const category = searchParams.get("category");      // category 파라미터 추출
   
-  //URL 쿼리스트링(category)이 존재할 경우 select 상태에 반영하여 드롭다운 선택값 유지
+  const [groups, setGroups] = useState([]);           // 그룹 목록 상태 
+  const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수
+  const [currentPage, setCurrentPage] = useState(1);  // 현재 페이지 번호
+  
+  //URL에 category 쿼리 파라미터가 있으면 드롭다운 선택값 유지
   useEffect(()=>{
     if(category) setSelect(category);
   }, [searchParams]);
 
-  //드롭다운에서 카테고리 선택 시 상태를 업데이트하고
-  //선택된 값에 따라 URL 쿼리 파라미터(category)를 갱신
-  //'전체' 선택 시 쿼리 없이 루트 경로('/')로 이동
+  //드롭다운 카테고리 변경 시 상태 업데이트 및 URL 쿼리 변경
   const handleSelectChange = (e) => {
     const value = e.target.value;
     setSelect(value);
-    if(value){
-      navigate(`/?category=${value}`);
-    } else {
-      navigate(`/`);
+    navigate(value ? `/?category=${value}` : "/");
+  }
+
+  // 그룹 목록 API 호출 (검색어, 카테고리, 페이지 포함)
+  const fetchGroups = async (page=1) => {
+    try{
+      const res = await api.get('/groups/list', {
+        params: {
+          search: search,
+          category: category,
+          page: page,
+          size: 5
+        }
+      });
+  
+      setGroups(res.data.groups);
+      setTotalPages(res.data.totalPages);
+      setCurrentPage(res.data.currentPage);
+      console.log(res.data);
+    }catch (err){
+      console.error('그룹 목록 조회 실패: ', err);
     }
   }
 
-  //
-  // const fectchSearch = async () => {
-  //   try{
-  //     const res = await api.get('/groups/search', {
-  //       params: {
-  //         search: search,
-  //         category: category
-  //       }
-  //     });
-  //     setGroups(res.data);
-  //     console.log("검색 결과:", res.data);
-  //   }catch (err) {
-  //     console.log(err, "검색 실패");
-  //   }
-  // }
-  const fetchGroups = async (page=1) => {
-    console.log('search:', search, 'category:', category, 'page:', page);
-
-    const res = await api.get('/groups/list', {
-      params: {
-        search: search,
-        category: category,
-        page: page,
-        size: 5
-      }
-    });
-
-    setGroups(res.data.groups);
-    setTotalPages(res.data.totalPages);
-    setCurrentPage(res.data.currentPage);
-    console.log(res.data);
-  }
-
+  // category가 변경될 때마다 그룹 목록 재요청
   useEffect(() => {
     fetchGroups();
   }, [category]);
 
+  // 검색 버튼 클릭 시 첫 페이지부터 그룹 목록 요청
   const handleSearch = () => {
-    fetchGroups(1); // 검색 시 첫 페이지로 이동
+    fetchGroups(1);
   };
 
+  // 페이지 버튼 클릭 시 해당 페이지의 그룹 목록 요청
   const handlePageChange = (pageNumber) => {
     fetchGroups(pageNumber);
   };
@@ -98,10 +81,13 @@ function Home(){
               <option value="기타">기타</option>
             </select>
             <input type="text" placeholder='검색어를 입력하세요.' onChange={(e)=>setSearch(e.target.value)}/>
-            <button onClick={()=>handleSearch}>검색</button>
+            <button onClick={()=>handleSearch()}>검색</button>
           </div>
         </div>
+        {/* 그룹 목록 컴포넌트 렌더링 */}
         <GroupList groups={groups} category={select}/>
+
+        {/* 페이지네이션 버튼 */}
         <div>
           {Array.from({ length: totalPages }, (_, i) => (
             <button

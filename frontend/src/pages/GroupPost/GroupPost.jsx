@@ -1,29 +1,26 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import style from './GroupPost.module.css';
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { useSelector } from "react-redux";
 
 function GroupPost(){
     const user = useSelector((state)=>state.user.user);
-    const { id } = useParams(); 
     const navigate = useNavigate();
-    const [groupPost, setGroupPost] = useState();
-    const [groupJoin, setGroupJoin] = useState(false);
-    const [hasFetched, setHasFetched] = useState(false);
-
+    const { id } = useParams(); // 그룹 ID (URL param)
+    const [groupPost, setGroupPost] = useState(); // 그룹 상세 정보
+    const [groupJoin, setGroupJoin] = useState(false); // 그룹 참여 여부
     const [searchParams] = useSearchParams();
     const category = searchParams.get("category");
+    const [hasFetched, setHasFetched] = useState(false);
+
+    // 카테고리가 존재하면 카테고리 쿼리 포함하여 홈으로 이동
     const navigateToList = () => {
-        if(category) {
-            navigate(`/?category=${category}`);
-        } else {
-            navigate("/");
-        }
+        navigate(category ? `/?category=${category}` : "/");
     }
 
+    // 컴포넌트 마운트 시 그룹 상세 정보, 조회수 증가, 참여 여부 확인
     useEffect(() => {
-        // 조회수 증가 API
         const increaseViewCount = async () => {
             try {
                 await api.put(`/groups/post/${id}/views`); // 또는 POST, PATCH → 백엔드에 따라
@@ -33,18 +30,17 @@ function GroupPost(){
                 console.error("조회수 증가 실패", err);
             }
         };
-        increaseViewCount();
-
-        // 그룹 상세 데이터
+        
         const fetchGroup = async () => {
-            const res = await api.get(`/groups/post/${id}`)
-            setGroupPost(res.data);
-            console.log(res.data);
+            try{
+                const res = await api.get(`/groups/post/${id}`)
+                setGroupPost(res.data);
+                console.log("그룹 상세 조회 완료: ", res.data);
+            } catch (err) {
+                console.error("그룹 상세 조회 실패: ", err);
+            }
         }
-        fetchGroup();
-
-        if (!user) return;
-
+        
         const fetchCheckJoin = async () => {
             try{
                 const res = await api.get(`/groupMembers/checkJoin`,{
@@ -53,42 +49,40 @@ function GroupPost(){
                         userId: user.id
                     }
                 })
-                if(res) setGroupJoin(true);
-            }catch(err) {
+                if (res) setGroupJoin(true);
+            } catch (err) {
                 if (err.response?.status === 404) {
                     setGroupJoin(false);
                 } else {
-                    console.error("그룹 참여 여부 확인 중 오류". err);
+                    console.error("그룹 참여 여부 확인 중 오류: ". err);
                 }
             }
         }
-        fetchCheckJoin();
-    }, [user, id]);
 
-    // 그룹 참여 여부 확인
+        increaseViewCount();
+        fetchGroup();
+        if (user) fetchCheckJoin();
+    }, [user, id]);
+    
+    // 그룹 참여 처리 함수
     const fetchJoin = async () => {
         const result = window.confirm('가입하시겠습니까?');
-        if(result){
-            try{
-                await api.post(`/groupMembers/join`,{
-                    groupId: id,
-                    userId: user.id
-                });
-                setGroupJoin(!groupJoin);
-                alert("그룹 참여 성공!");
-                
-            }catch{
-                alert("그룹 참여 실패");
-            }
-        }else{
-            return;
+        if(!result) return;
+
+        try{
+            await api.post(`/groupMembers/join`,{
+                groupId: id,
+                userId: user.id
+            });
+            setGroupJoin(!groupJoin);
+            alert("그룹 참여 성공!");
+        }catch{
+            alert("그룹 참여 실패");
         }
     }
 
-    const formatDate = (date) => {
-        const formatDate = date.replace('T', ' ');
-        return formatDate;
-    };
+    // 날짜 포맷 (T를 공백으로 변환)
+    const formatDate = (date) => date.replace('T', ' ');
 
     return(
         <div className="wrap">
