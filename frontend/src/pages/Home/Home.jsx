@@ -14,6 +14,9 @@ function Home(){
   const [select, setSelect] = useState('');
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const [groups, setGroups] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   
   //URL 쿼리스트링(category)이 존재할 경우 select 상태에 반영하여 드롭다운 선택값 유지
   useEffect(()=>{
@@ -34,30 +37,49 @@ function Home(){
   }
 
   //
-  const fectchSearch = async () => {
-    try{
-      const res = await api.get('/groups/search', {
-        params: {
-          search: search,
-          category: category
-        }
-      });
-      setGroups(res.data);
-      console.log("검색 결과:", res.data);
-    }catch (err) {
-      console.log(err, "검색 실패");
-    }
+  // const fectchSearch = async () => {
+  //   try{
+  //     const res = await api.get('/groups/search', {
+  //       params: {
+  //         search: search,
+  //         category: category
+  //       }
+  //     });
+  //     setGroups(res.data);
+  //     console.log("검색 결과:", res.data);
+  //   }catch (err) {
+  //     console.log(err, "검색 실패");
+  //   }
+  // }
+  const fetchGroups = async (page=1) => {
+    console.log('search:', search, 'category:', category, 'page:', page);
+
+    const res = await api.get('/groups/list', {
+      params: {
+        search: search,
+        category: category,
+        page: page,
+        size: 5
+      }
+    });
+
+    setGroups(res.data.groups);
+    setTotalPages(res.data.totalPages);
+    setCurrentPage(res.data.currentPage);
+    console.log(res.data);
   }
 
-  const [groups, setGroups] = useState([]);
-  useEffect(()=>{
-    const fetchGroups = async () => {
-      const res = await api.get('/groups/list');
-      setGroups(res.data);
-      console.log(res.data);
-    }
+  useEffect(() => {
     fetchGroups();
-  }, [])
+  }, [category]);
+
+  const handleSearch = () => {
+    fetchGroups(1); // 검색 시 첫 페이지로 이동
+  };
+
+  const handlePageChange = (pageNumber) => {
+    fetchGroups(pageNumber);
+  };
 
   return (
     <>
@@ -76,10 +98,21 @@ function Home(){
               <option value="기타">기타</option>
             </select>
             <input type="text" placeholder='검색어를 입력하세요.' onChange={(e)=>setSearch(e.target.value)}/>
-            <button onClick={()=>fectchSearch()}>검색</button>
+            <button onClick={()=>handleSearch}>검색</button>
           </div>
         </div>
         <GroupList groups={groups} category={select}/>
+        <div>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => handlePageChange(i + 1)}
+              style={{ margin: '0 4px', fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );
