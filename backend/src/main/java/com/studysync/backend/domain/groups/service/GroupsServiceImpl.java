@@ -11,6 +11,7 @@ import com.studysync.backend.domain.groupmembers.model.GroupMembers;
 import com.studysync.backend.domain.groups.dao.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.dto.GroupPageResponse;
+import com.studysync.backend.dto.GroupPasswordCheckDTO;
 
 @Service
 public class GroupsServiceImpl implements GroupsService{
@@ -48,6 +49,15 @@ public class GroupsServiceImpl implements GroupsService{
 	}
 
 	@Override
+	public boolean checkGroupPassword(Long groupId, String inputPassword) {
+		GroupPasswordCheckDTO group = groupsDAO.selectGroupPasswordInfo(groupId);
+		if (group == null) return false;
+		
+		if (group.getIsPrivate() == 0) return true;	// 공개 그룹은 통과
+		return inputPassword.equals(group.getPassword()); // 비밀번호 비교
+	}
+	
+	@Override
 	public GroupPageResponse getGroups(String search, String category, int page, int size) {
 		int offset = (page - 1) * size;
 		List<Groups> groups = groupsDAO.getGroups(search, category, size, offset);
@@ -70,5 +80,6 @@ public class GroupsServiceImpl implements GroupsService{
 	public void increaseViewCount(Long id) {
 		groupsDAO.increaseViewCount(id);
 	}
+
 	
 }

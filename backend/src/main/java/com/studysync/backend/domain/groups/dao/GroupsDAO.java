@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.studysync.backend.domain.groups.model.Groups;
+import com.studysync.backend.dto.GroupPasswordCheckDTO;
 
 public interface GroupsDAO {
 	// 그룹 생성
@@ -13,6 +14,8 @@ public interface GroupsDAO {
 	Groups selectOneGroup(int id);
 	// 그룹 수정
 	int updateGroup(Groups groups);
+	// 
+	GroupPasswordCheckDTO selectGroupPasswordInfo(Long groupId);
 	// 그룹 목록
 	List<Groups> getGroups(@Param("search") String search, @Param("category") String category, @Param("limit") int limit, @Param("offset") int offset);
 	// 그룹 수

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.studysync.backend.domain.groups.dao.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
+import com.studysync.backend.dto.GroupPasswordCheckDTO;
 
 @Repository
 public class MybatisGroupsDAO implements GroupsDAO{
@@ -31,6 +32,11 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public int updateGroup(Groups groups) {
 		return mapper.updateGroup(groups);
 	}
+	
+	@Override
+	public GroupPasswordCheckDTO selectGroupPasswordInfo(Long groupId) {
+		return mapper.selectGroupPasswordInfo(groupId);
+	}
 
 	@Override
 	public List<Groups> getGroups(String search, String category, int limit, int offset) {
@@ -51,6 +57,5 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public void increaseViewCount(Long id) {
 		mapper.increaseViewCount(id);
 	}
-
 	
 }

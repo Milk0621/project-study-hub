@@ -12,6 +12,8 @@ public interface GroupsService {
 	Groups getGroupById(int id);
 	// 그룹 수정
 	int updateGroup(Groups groups);
+	//
+	boolean checkGroupPassword(Long groupId, String inputPassword);
 	// 그룹 목록
 	GroupPageResponse getGroups(String search, String category, int limit, int offset);
 	// 그룹 수 

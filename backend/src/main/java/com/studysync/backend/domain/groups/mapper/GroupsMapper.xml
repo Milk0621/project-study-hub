@@ -7,12 +7,20 @@
   		insert into `groups`(group_name, content, tag, create_user, is_private, password)
   		values(#{groupName}, #{content}, #{tag}, #{createUser}, #{isPrivate}, #{password})
   	</insert>
+  	
   	<select id="selectOneGroup" parameterType="int" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups` where id = #{id}
   	</select>
+  	
   	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
   		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
   	</update>
+  	
+  	<select id="selectGroupPasswordInfo" resultType="com.studysync.backend.dto.GroupPasswordCheckDTO">
+  		select is_private, password
+        from `groups`
+        where id = #{groupId}
+  	</select>
   	
   	<!-- 그룹 목록 -->
   	<select id="getGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
@@ -56,6 +64,7 @@
   		group by g.id
   		order by g.create_date desc
   	</select>
+  	
   	<update id="increaseViewCount" parameterType="long">
   		update `groups`
   		set hit = hit + 1
