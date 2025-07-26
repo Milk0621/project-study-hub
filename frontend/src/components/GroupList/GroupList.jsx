@@ -1,14 +1,13 @@
-import style from './GroupList.module.css';
-import api from '../../api/api';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addScrap, removeScrap, setScrapList } from '../../store/scrapSlice';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import api from '../../api/api';
+import { addScrap, removeScrap, setScrapList } from '../../store/scrapSlice';
+import style from './GroupList.module.css';
 
-function GroupList({groups, category}){
+function GroupList({groups, category, onGroupClick}){
   const user = useSelector((state)=>state.user.user); // 로그인 사용자 정보
   const scrapList = useSelector((state)=>state.scrap.scrapList); // 스크랩한 그룹 ID 목록
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   // 스크랩 토글 기능
@@ -63,13 +62,7 @@ function GroupList({groups, category}){
           <div 
             key={group.id} 
             className={style.groupListBg} 
-            onClick={()=>{
-              if(category){
-                navigate(`/post/${group.id}?category=${category}`)
-              } else {
-                navigate(`/post/${group.id}`)
-              }
-            }}
+            onClick={() => onGroupClick(group)}
           >
             {/* 그룹 정보 */}
             <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {formatDate(group.createDate)} </span>

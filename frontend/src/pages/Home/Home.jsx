@@ -4,6 +4,7 @@ import style from './Home.module.css';
 import GroupList from '../../components/GroupList/GroupList';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../api/api';
+import { handleGroupAccess } from '../../utils/groupAccess';
 
 function Home(){
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ function Home(){
           </div>
         </div>
         {/* 그룹 목록 컴포넌트 렌더링 */}
-        <GroupList groups={groups} category={select}/>
+        <GroupList groups={groups} category={select} onGroupClick={(group)=>handleGroupAccess(group, select, navigate)}/>
 
         {/* 페이지네이션 버튼 */}
         <div>
