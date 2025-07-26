@@ -10,6 +10,7 @@ import com.studysync.backend.domain.groupmembers.dao.GroupMembersDAO;
 import com.studysync.backend.domain.groupmembers.model.GroupMembers;
 import com.studysync.backend.domain.groups.dao.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
+import com.studysync.backend.dto.GroupPageResponse;
 
 @Service
 public class GroupsServiceImpl implements GroupsService{
@@ -37,11 +38,6 @@ public class GroupsServiceImpl implements GroupsService{
 	}
 
 	@Override
-	public List<Groups> getGroupList() {
-		return groupsDAO.selectAllGroups();
-	}
-
-	@Override
 	public Groups getGroupById(int id) {
 		return groupsDAO.selectOneGroup(id);
 	}
@@ -52,10 +48,19 @@ public class GroupsServiceImpl implements GroupsService{
 	}
 
 	@Override
-	public List<Groups> searchGroups(String search, String category) {
-		return groupsDAO.searchGroups(search, category);
+	public GroupPageResponse getGroups(String search, String category, int page, int size) {
+		int offset = (page - 1) * size;
+		List<Groups> groups = groupsDAO.getGroups(search, category, size, offset);
+		int totalCount = groupsDAO.countGroups(search, category);
+		int totalPages = (int) Math.ceil((double)totalCount/size);
+		return new GroupPageResponse(groups, totalPages, page);
 	}
 
+	@Override
+	public int countGroups(String search, String category) {
+		return groupsDAO.countGroups(search, category);
+	}
+	
 	@Override
 	public List<Groups> getMyGroups(String userId) {
 		return groupsDAO.selectUserGroups(userId);

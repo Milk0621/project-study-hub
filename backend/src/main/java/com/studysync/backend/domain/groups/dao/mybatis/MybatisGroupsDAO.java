@@ -23,11 +23,6 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	}
 
 	@Override
-	public List<Groups> selectAllGroups() {
-		return mapper.selectAllGroups();
-	}
-
-	@Override
 	public Groups selectOneGroup(int id) {
 		return mapper.selectOneGroup(id);
 	}
@@ -38,10 +33,15 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	}
 
 	@Override
-	public List<Groups> searchGroups(String search, String category) {
-		return mapper.searchGroups(search, category);
+	public List<Groups> getGroups(String search, String category, int limit, int offset) {
+		return mapper.getGroups(search, category, limit, offset);
 	}
 
+	@Override
+	public int countGroups(String search, String category) {
+		return mapper.countGroups(search, category);
+	}
+	
 	@Override
 	public List<Groups> selectUserGroups(String userId) {
 		return mapper.selectUserGroups(userId);
@@ -51,5 +51,6 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	public void increaseViewCount(Long id) {
 		mapper.increaseViewCount(id);
 	}
+
 	
 }

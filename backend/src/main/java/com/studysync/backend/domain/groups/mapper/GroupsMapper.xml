@@ -7,16 +7,15 @@
   		insert into `groups`(group_name, content, tag, create_user, is_private, password)
   		values(#{groupName}, #{content}, #{tag}, #{createUser}, #{isPrivate}, #{password})
   	</insert>
-  	<select id="selectAllGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
-  		select * from `groups` order by create_date desc
-  	</select>
   	<select id="selectOneGroup" parameterType="int" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups` where id = #{id}
   	</select>
   	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
   		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
   	</update>
-  	<select id="searchGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  	
+  	<!-- 그룹 목록 -->
+  	<select id="getGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select * from `groups`
   		<where>
   			<if test="search != null and search != ''">
@@ -30,7 +29,25 @@
   			</if>
   		</where>
   		order by create_date desc
+  		limit #{limit} offset #{offset}
   	</select>
+  	
+  	<!-- 그룹 수 -->
+  	<select id="countGroups">
+  		select count(*) from `groups`
+  		<where>
+  			<if test="search != null and search != ''">
+  				(group_name like concat('%', #{search}, '%') or content like concat('%', #{search}, '%'))
+  			</if>
+  			<if test="category != null and category != ''">
+  				<if test="search != null and search != ''">
+  					and
+  				</if>
+  				tag = #{category}
+  			</if>
+  		</where>
+  	</select>
+  	
   	<select id="selectUserGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
   		select g.*, count(gm2.user_id) as participant_count from `groups` g
   		join group_members gm on g.id = gm.group_id

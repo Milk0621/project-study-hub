@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.domain.groups.service.GroupsService;
+import com.studysync.backend.dto.GroupPageResponse;
 
 @RestController
 @RequestMapping("/api/groups")
@@ -36,11 +37,6 @@ public class GroupsController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 생성 실패");
 	}
 	
-	@GetMapping("/list")
-	public ResponseEntity<?> getGroupList(){
-		return ResponseEntity.ok(groupsService.getGroupList());
-	}
-	
 	@GetMapping("/post/{id}")
 	public ResponseEntity<?> getGroupById(@PathVariable int id) {
 		//@RequestParam는 쿼리 파라미터 형식에 사용 /post?id=1
@@ -56,9 +52,15 @@ public class GroupsController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정 실패");
 	}
 	
-	@GetMapping("/search")
-	public ResponseEntity<?> searchGroups(@RequestParam(required = false) String search, @RequestParam(required = false) String category){
-		List<Groups> result = groupsService.searchGroups(search, category);
+	@GetMapping("/list")
+	public ResponseEntity<?> searchGroups(
+			@RequestParam(required = false) String search, 
+			@RequestParam(required = false) String category, 
+			@RequestParam(defaultValue = "1") int page,
+		    @RequestParam(defaultValue = "5") int size
+	){
+		System.out.println("search: " + search + ", category: " + category + ", page: " + page + ", size: " + size);
+		GroupPageResponse result = groupsService.getGroups(search, category, page, size);
 		return ResponseEntity.ok(result);
 	}
 	

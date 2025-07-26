@@ -9,14 +9,14 @@ import com.studysync.backend.domain.groups.model.Groups;
 public interface GroupsDAO {
 	// 그룹 생성
 	int insertGroup(Groups groups);
-	// 그룹 전체 조회
-	List<Groups> selectAllGroups();
 	// 그룹 단건 조회
 	Groups selectOneGroup(int id);
 	// 그룹 수정
 	int updateGroup(Groups groups);
-	// 그룹 검색
-	List<Groups> searchGroups(@Param("search") String search, @Param("category") String category);
+	// 그룹 목록
+	List<Groups> getGroups(@Param("search") String search, @Param("category") String category, @Param("limit") int limit, @Param("offset") int offset);
+	// 그룹 수
+	int countGroups(@Param("search") String search, @Param("category") String category);
 	// 내가 속한 그룹
 	List<Groups> selectUserGroups(String userId);
 	// 조회수 증가
