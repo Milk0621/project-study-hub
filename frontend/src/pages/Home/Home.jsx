@@ -5,8 +5,10 @@ import GroupList from '../../components/GroupList/GroupList';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../api/api';
 import { handleGroupAccess } from '../../utils/groupAccess';
+import { useSelector } from 'react-redux';
 
 function Home(){
+  const user = useSelector((state)=>state.user.user);
   const navigate = useNavigate();
   const [search, setSearch] = useState('');           // 검색어 상태
   const [select, setSelect] = useState('');           // 선택된 카테고리
@@ -86,7 +88,7 @@ function Home(){
           </div>
         </div>
         {/* 그룹 목록 컴포넌트 렌더링 */}
-        <GroupList groups={groups} category={select} onGroupClick={(group)=>handleGroupAccess(group, select, navigate)}/>
+        <GroupList groups={groups} category={select} onGroupClick={(group)=>handleGroupAccess(group, select, navigate, user)}/>
 
         {/* 페이지네이션 버튼 */}
         <div>
