@@ -63,7 +63,7 @@ function Modal(){
         else if(!emailRegex.test(email)) alert('올바른 이메일 형식이 아닙니다.');
         else {
             try {
-                const response = await api.post("/users/register",{
+                const response = await api.post("/users",{
                     id: userId,
                     pw: userPw,
                     nickname: nickname,

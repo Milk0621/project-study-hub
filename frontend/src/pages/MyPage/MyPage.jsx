@@ -15,7 +15,7 @@ function MyPage(){
     const [nickname, setNickname] = useState(user.nickname); // 초기값 설정
     useEffect(()=>{
         const fetchMyScrap = async () => {
-            const res = await api.get('/groupScrap/scrapList');
+            const res = await api.get('/users/me/scraps/ids');
             console.log(res.data);
             setMyScrap(res.data);
         }

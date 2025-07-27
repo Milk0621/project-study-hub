@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.studysync.backend.domain.users.dao.groups.GroupsDAO">
+  	<select id="selectUserGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
+  		select g.*, count(gm2.user_id) as participant_count from `groups` g
+  		join group_members gm on g.id = gm.group_id
+  		left join group_members gm2 on g.id = gm2.group_id
+  		where gm.user_id = #{userId}
+  		group by g.id
+  		order by g.create_date desc
+  	</select>
+  </mapper>

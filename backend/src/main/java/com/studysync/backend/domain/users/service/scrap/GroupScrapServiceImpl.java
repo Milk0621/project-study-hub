@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.studysync.backend.domain.users.model.Groups;
 import com.studysync.backend.domain.users.dao.scrap.GroupScrapDAO;
 
-@Service
+@Service("userGroupScrapServiceImpl")
 public class GroupScrapServiceImpl implements GroupScrapService{
 
 	private final GroupScrapDAO groupScrapDAO;

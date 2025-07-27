@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.studysync.backend.domain.users.model.Groups;
 import com.studysync.backend.domain.users.dao.scrap.GroupScrapDAO;
 
-@Repository
+@Repository("groupScrapDAOForUser")
 public class MybatisGroupScrapDAO implements GroupScrapDAO{
 	
 	private GroupScrapDAO mapper;

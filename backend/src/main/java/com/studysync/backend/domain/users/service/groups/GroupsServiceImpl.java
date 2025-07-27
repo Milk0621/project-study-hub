@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.studysync.backend.domain.users.dao.groups.GroupsDAO;
 import com.studysync.backend.domain.users.model.Groups;
 
-@Service
+@Service("userGroupsServiceImpl")
 public class GroupsServiceImpl implements GroupsService{
 	
 	private final GroupsDAO groupsDAO;

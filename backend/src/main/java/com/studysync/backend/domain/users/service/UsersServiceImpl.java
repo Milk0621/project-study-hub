@@ -3,7 +3,7 @@ package com.studysync.backend.domain.users.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.studysync.backend.domain.users.dao.UsersDAO;
+import com.studysync.backend.domain.users.dao.users.UsersDAO;
 import com.studysync.backend.domain.users.model.Users;
 
 @Service

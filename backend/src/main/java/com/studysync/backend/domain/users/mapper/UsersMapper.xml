@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.studysync.backend.domain.users.dao.UsersDAO">
+<mapper namespace="com.studysync.backend.domain.users.dao.users.UsersDAO">
 	<insert id="insertUser" parameterType="com.studysync.backend.domain.users.model.Users">
 		insert into users(id, pw, nickname, email)
 		values(#{id}, #{pw}, #{nickname}, #{email})

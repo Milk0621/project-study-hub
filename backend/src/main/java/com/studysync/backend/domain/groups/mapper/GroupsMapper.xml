@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.studysync.backend.domain.groups.dao.GroupsDAO">
+  <mapper namespace="com.studysync.backend.domain.groups.dao.groups.GroupsDAO">
   	<insert id="insertGroup" parameterType="com.studysync.backend.domain.groups.model.Groups" useGeneratedKeys="true" keyProperty="id">
   		insert into `groups`(group_name, content, tag, create_user, is_private, password)
   		values(#{groupName}, #{content}, #{tag}, #{createUser}, #{isPrivate}, #{password})
@@ -54,15 +54,6 @@
   				tag = #{category}
   			</if>
   		</where>
-  	</select>
-  	
-  	<select id="selectUserGroups" resultType="com.studysync.backend.domain.groups.model.Groups">
-  		select g.*, count(gm2.user_id) as participant_count from `groups` g
-  		join group_members gm on g.id = gm.group_id
-  		left join group_members gm2 on g.id = gm2.group_id
-  		where gm.user_id = #{userId}
-  		group by g.id
-  		order by g.create_date desc
   	</select>
   	
   	<update id="increaseViewCount" parameterType="long">

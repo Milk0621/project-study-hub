@@ -3,7 +3,7 @@ package com.studysync.backend.domain.users.dao.users.mybatis;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.studysync.backend.domain.users.dao.UsersDAO;
+import com.studysync.backend.domain.users.dao.users.UsersDAO;
 import com.studysync.backend.domain.users.model.Users;
 
 @Repository
