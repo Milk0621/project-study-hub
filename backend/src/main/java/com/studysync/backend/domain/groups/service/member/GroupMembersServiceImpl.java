@@ -1,10 +1,10 @@
-package com.studysync.backend.domain.groupmembers.service;
+package com.studysync.backend.domain.groups.service.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.studysync.backend.domain.groupmembers.dao.GroupMembersDAO;
-import com.studysync.backend.domain.groupmembers.model.GroupMembers;
+import com.studysync.backend.domain.groups.dao.member.GroupMembersDAO;
+import com.studysync.backend.domain.groups.model.GroupMembers;
 
 @Service
 public class GroupMembersServiceImpl implements GroupMembersService{

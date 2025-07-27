@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.studysync.backend.domain.groupmembers.dao.GroupMembersDAO;
-import com.studysync.backend.domain.groupmembers.model.GroupMembers;
+import com.studysync.backend.domain.groups.dao.member.GroupMembersDAO;
+import com.studysync.backend.domain.groups.model.GroupMembers;
 import com.studysync.backend.domain.groups.dao.groups.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.dto.GroupPageResponse;

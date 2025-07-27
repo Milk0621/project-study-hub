@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.studysync.backend.domain.groups.model.GroupMembers;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.domain.groups.service.GroupsService;
+import com.studysync.backend.domain.groups.service.member.GroupMembersService;
 import com.studysync.backend.domain.groups.service.scrap.GroupScrapService;
 import com.studysync.backend.dto.GroupPageResponse;
 
@@ -13,10 +15,12 @@ import com.studysync.backend.dto.GroupPageResponse;
 public class GroupFacade {
 	private final GroupsService groupsService;
     private final GroupScrapService groupScrapService;
+    private final GroupMembersService groupMembersService;
 	
-    public GroupFacade(GroupsService groupsService, GroupScrapService groupScrapService) {
+    public GroupFacade(GroupsService groupsService, GroupScrapService groupScrapService, GroupMembersService groupMembersService) {
 		this.groupsService = groupsService;
 		this.groupScrapService = groupScrapService;
+		this.groupMembersService = groupMembersService;		
 	}
     
     // GroupsService
@@ -65,5 +69,15 @@ public class GroupFacade {
     public void unScrap(String userId, Long groupId) {
         groupScrapService.unScrap(userId, groupId);
     }
+    
+    // GroupMembersService
+    public int joinGroup(GroupMembers groupMembers) {
+    	return groupMembersService.joinGroup(groupMembers);
+    }
+    
+    public GroupMembers checkJoin(int groupId, String userId) {
+    	return groupMembersService.checkJoin(groupId, userId);
+    }
+    
 }
 

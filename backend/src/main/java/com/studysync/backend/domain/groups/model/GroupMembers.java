@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.groupmembers.model;
+package com.studysync.backend.domain.groups.model;
 
 import java.time.LocalDateTime;
 

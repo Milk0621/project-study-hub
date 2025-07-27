@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.studysync.backend.domain.users.dao.scrap.GroupScrapDAO">
+  	<select id="selectScrapIds">
+  		select group_id from group_scrap where user_id = #{user_id}
+  	</select>
+  	<select id="selectScrapList">
+  		select g.* 
+  		from group_scrap gs 
+  		left join `groups` g on gs.group_id = g.id 
+  		where gs.user_id = #{userId}
+  	</select>
+  </mapper>

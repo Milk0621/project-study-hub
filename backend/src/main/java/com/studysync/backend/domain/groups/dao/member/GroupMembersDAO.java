@@ -1,6 +1,6 @@
-package com.studysync.backend.domain.groupmembers.dao;
+package com.studysync.backend.domain.groups.dao.member;
 
-import com.studysync.backend.domain.groupmembers.model.GroupMembers;
+import com.studysync.backend.domain.groups.model.GroupMembers;
 
 public interface GroupMembersDAO {
 	//그룹 참여

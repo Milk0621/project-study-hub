@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studysync.backend.domain.groups.model.GroupMembers;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.domain.groups.service.GroupFacade;
 import com.studysync.backend.dto.GroupPageResponse;
@@ -94,7 +95,7 @@ public class GroupsController {
         return ResponseEntity.ok().build();
     }
 	
-	//즐겨찾기 삭제
+	// 즐겨찾기 삭제
 	@DeleteMapping("/{groupId}/scrap")
     public ResponseEntity<?> deleteScrap(@PathVariable Long groupId, HttpServletRequest request) {
         String token = request.getHeader("Authorization").replace("Bearer ", "");
@@ -103,4 +104,24 @@ public class GroupsController {
         groupFacade.unScrap(userId, groupId);
         return ResponseEntity.ok().build();
     }
+	
+	// 그룹 참여
+	@PostMapping("/join")
+	public ResponseEntity<?> joinGroup(@RequestBody GroupMembers groupMembers) {
+		int result = groupFacade.joinGroup(groupMembers);
+		return result > 0
+				? ResponseEntity.ok("그룹 참여 완료")
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 참여 실패");
+	}
+	
+	// 그룹 참여 여부
+	@GetMapping("/checkJoin")
+	public ResponseEntity<?> checkJoin(@RequestParam int groupId, @RequestParam String userId){
+		GroupMembers result = groupFacade.checkJoin(groupId, userId);
+		if(result != null) {
+			return ResponseEntity.ok("그룹 참여 되어있음");
+		}else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("그룹에 참여되어 있지 않음");
+		}
+	}
 }

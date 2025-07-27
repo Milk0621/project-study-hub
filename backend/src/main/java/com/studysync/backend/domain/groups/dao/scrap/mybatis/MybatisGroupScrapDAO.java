@@ -26,14 +26,4 @@ public class MybatisGroupScrapDAO implements GroupScrapDAO{
 	public void addScrap(String userId, Long groupId) {
 		mapper.addScrap(userId, groupId);
 	}
-
-	@Override
-	public List<Long> selectScrapIds(String userId) {
-		return mapper.selectScrapIds(userId);
-	}
-
-	@Override
-	public List<Groups> selectScrapList(String userId) {
-		return mapper.selectScrapList(userId);
-	}	
 }
