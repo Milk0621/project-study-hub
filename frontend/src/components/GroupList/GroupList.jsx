@@ -22,13 +22,13 @@ function GroupList({groups, category, onGroupClick}){
     try{
       if (scrapList.includes(groupId)) {
         // 이미 스크랩되어 있다면 삭제
-        await api.delete(`/groupScrap/${groupId}`, {
+        await api.delete(`/groups/${groupId}/scrap`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         dispatch(removeScrap(groupId));
       } else {
         // 스크랩 추가
-        await api.post(`/groupScrap/${groupId}`, {}, {
+        await api.post(`/groups/${groupId}/scrap`, {}, {
           headers: { Authorization: `Bearer ${token}` }
         });
         dispatch(addScrap(groupId));
@@ -43,7 +43,7 @@ function GroupList({groups, category, onGroupClick}){
   useEffect(()=>{
     const fetchScraps = async () => {
       try{
-        const res = await api.get('/groupScrap/scrapIds');
+        const res = await api.get('/users/me/scraps');
         dispatch(setScrapList(res.data)); // 스크랩 ID 배열을 Redux에 저장
       }catch (err){
         console.error("스크랩 목록 조회 실패: ", err);

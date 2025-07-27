@@ -106,8 +106,8 @@ public class GroupsController {
     }
 	
 	// 그룹 참여
-	@PostMapping("/join")
-	public ResponseEntity<?> joinGroup(@RequestBody GroupMembers groupMembers) {
+	@PostMapping("/{groupId}/join")
+	public ResponseEntity<?> joinGroup(@PathVariable Long groupId, @RequestBody GroupMembers groupMembers) {
 		int result = groupFacade.joinGroup(groupMembers);
 		return result > 0
 				? ResponseEntity.ok("그룹 참여 완료")
@@ -115,7 +115,7 @@ public class GroupsController {
 	}
 	
 	// 그룹 참여 여부
-	@GetMapping("/checkJoin")
+	@GetMapping("/{groupId}/is-joined")
 	public ResponseEntity<?> checkJoin(@RequestParam int groupId, @RequestParam String userId){
 		GroupMembers result = groupFacade.checkJoin(groupId, userId);
 		if(result != null) {

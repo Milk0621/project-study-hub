@@ -96,7 +96,7 @@ public class UsersController {
 	}
 	
 	//즐겨찾기한 ID 조회
-	@GetMapping("/scrapIds")
+	@GetMapping("/me/scraps")
 	public ResponseEntity<?> getScrappedGroupIds(HttpServletRequest request){
 		String token = request.getHeader("Authorization").replace("Bearer ", "");
         String userId = jwtUtil.getUserIdFromToken(token);
@@ -105,7 +105,7 @@ public class UsersController {
 	}
 	
 	//즐겨찾기한 그룹 조회(마이페이지)
-	@GetMapping("/scrapList")
+	@GetMapping("/me/scraps/ids")
 	public ResponseEntity<?> getScrapGroupList(HttpServletRequest request){
 		String token = request.getHeader("Authorization").replace("Bearer ", "");
 		String userId = jwtUtil.getUserIdFromToken(token);

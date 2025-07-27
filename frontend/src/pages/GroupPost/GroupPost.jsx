@@ -43,7 +43,7 @@ function GroupPost(){
         
         const fetchCheckJoin = async () => {
             try{
-                const res = await api.get(`/groupMembers/checkJoin`,{
+                const res = await api.get(`/groups/${id}/is-joined`,{
                     params: {
                         groupId: id,
                         userId: user.id
@@ -70,7 +70,7 @@ function GroupPost(){
         if(!result) return;
 
         try{
-            await api.post(`/groupMembers/join`,{
+            await api.post(`/groupMembers/${id}/join`,{
                 groupId: id,
                 userId: user.id
             });

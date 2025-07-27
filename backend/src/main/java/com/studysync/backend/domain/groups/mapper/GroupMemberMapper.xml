@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.studysync.backend.domain.groups.dao.member.GroupMembersDAO">
-  	<insert id="insertGroupMem" parameterType="com.studysync.backend.domain.groupmembers.model.GroupMembers">
+  	<insert id="insertGroupMem" parameterType="com.studysync.backend.domain.groups.model.GroupMembers">
   		insert into group_members(group_id, user_id)
   		values(#{groupId}, #{userId})
   	</insert>
-  	<select id="selectGroupMemOne" resultType="com.studysync.backend.domain.groupmembers.model.GroupMembers">
+  	<select id="selectGroupMemOne" resultType="com.studysync.backend.domain.groups.model.GroupMembers">
   		select * from group_members
   		where group_id=#{groupId} and user_id=#{userId}
   	</select>
