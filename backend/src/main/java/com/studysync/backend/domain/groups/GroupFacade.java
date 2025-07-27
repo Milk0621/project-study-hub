@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.groups.service;
+package com.studysync.backend.domain.groups;
 
 import java.util.List;
 

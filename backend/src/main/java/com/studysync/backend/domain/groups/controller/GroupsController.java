@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studysync.backend.domain.groups.GroupFacade;
 import com.studysync.backend.domain.groups.model.GroupMembers;
 import com.studysync.backend.domain.groups.model.Groups;
-import com.studysync.backend.domain.groups.service.GroupFacade;
 import com.studysync.backend.dto.GroupPageResponse;
 import com.studysync.backend.dto.GroupPasswordCheckRequest;
 import com.studysync.backend.util.JwtUtil;

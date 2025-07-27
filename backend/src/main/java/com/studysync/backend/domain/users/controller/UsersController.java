@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studysync.backend.domain.users.UserFacade;
 import com.studysync.backend.domain.users.model.Groups;
 import com.studysync.backend.domain.users.model.Users;
-import com.studysync.backend.domain.users.service.UserFacade;
 import com.studysync.backend.util.JwtUtil;
 
 import jakarta.servlet.http.HttpServletRequest;

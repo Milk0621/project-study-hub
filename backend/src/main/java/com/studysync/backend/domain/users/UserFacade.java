@@ -1,9 +1,10 @@
-package com.studysync.backend.domain.users.service;
+package com.studysync.backend.domain.users;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.studysync.backend.domain.users.service.UsersService;
 import com.studysync.backend.domain.users.service.groups.GroupsService;
 import com.studysync.backend.domain.users.service.scrap.GroupScrapService;
 import com.studysync.backend.domain.users.model.Groups;
