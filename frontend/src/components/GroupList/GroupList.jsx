@@ -9,6 +9,7 @@ function GroupList({groups, category, onGroupClick}){
   const user = useSelector((state)=>state.user.user); // 로그인 사용자 정보
   const scrapList = useSelector((state)=>state.scrap.scrapList); // 스크랩한 그룹 ID 목록
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   // 스크랩 토글 기능
   // - 이미 스크랩된 그룹이면 삭제 요청
@@ -54,6 +55,15 @@ function GroupList({groups, category, onGroupClick}){
   // 날짜 포맷 (T를 공백으로 변환)
   const formatDate = (date) => date.replace('T', ' ');
 
+  // 클릭 핸들러: onGroupClick이 있으면 실행, 없으면 기본 이동
+  const handleClick = (group) => {
+    if (onGroupClick) {
+      onGroupClick(group);
+    } else {
+      navigate(`/${group.id}`);
+    }
+  };
+
   return(
     <>
       { groups.map((group)=>{
@@ -62,7 +72,7 @@ function GroupList({groups, category, onGroupClick}){
           <div 
             key={group.id} 
             className={style.groupListBg} 
-            onClick={() => onGroupClick(group)}
+            onClick={() => handleClick(group)}
           >
             {/* 그룹 정보 */}
             <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {formatDate(group.createDate)} </span>

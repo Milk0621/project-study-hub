@@ -30,10 +30,10 @@ function MyPage(){
     //닉네임 변경
     const changeNickname = async () => {
         try {
-            await api.post("/users/nickname", { nickname });
+            await api.patch("/users/nickname", { nickname });
             alert("닉네임이 변경되었습니다.");
             
-            const res = await api.get("/users/info");
+            const res = await api.get("/users/me");
             dispatch(setUser(res.data));
             setIsEditing(false);
         } catch (err) {
@@ -82,7 +82,7 @@ function MyPage(){
             </div>
             <h4>내 스크랩</h4>
             <div>
-                <GroupList groups={myScrap}/>
+                <GroupList groups={myScrap} />
             </div>
         </div>
     )
