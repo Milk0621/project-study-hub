@@ -31,7 +31,8 @@ public class GroupsController {
 		this.groupsService = groupsService;
 	}
 	
-	@PostMapping("/register")
+	// 그룹 등록
+	@PostMapping
 	public ResponseEntity<?> registerGroup(@RequestBody Groups groups) {
 		int result = groupsService.registerGroup(groups);
 		return result > 0
@@ -39,7 +40,8 @@ public class GroupsController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 생성 실패");
 	}
 	
-	@GetMapping("/list")
+	// 그룹 목록 조회
+	@GetMapping
 	public ResponseEntity<?> searchGroups(
 			@RequestParam(required = false) String search, 
 			@RequestParam(required = false) String category, 
@@ -51,29 +53,15 @@ public class GroupsController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@GetMapping("/post/{id}")
+	// 그룹 상세 조회
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getGroupById(@PathVariable int id) {
-		//@RequestParam는 쿼리 파라미터 형식에 사용 /post?id=1
-		//@PathVariable은 경로 파라미터 형식에 사용 /post/1
+		//@RequestParam는 쿼리 파라미터 형식에 사용
+		//@PathVariable은 경로 파라미터 형식에 사용
 		return ResponseEntity.ok(groupsService.getGroupById(id));
 	}
 	
-	@PostMapping("/update")
-	public ResponseEntity<?> updateGroup(@RequestBody Groups groups) {
-		int result = groupsService.updateGroup(groups);
-		return result > 0
-				? ResponseEntity.ok("그룹 수정 완료")
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정 실패");
-	}
-	
-	
-	@GetMapping("/my")
-	public ResponseEntity<?> getMyGroups(@RequestParam String userId) {
-		List<Groups> groups = groupsService.getMyGroups(userId);
-		return ResponseEntity.ok(groups);
-	}
-	
-	@PutMapping("/post/{id}/views")
+	@PutMapping("/{id}/views")
 	public ResponseEntity<?> increaseViewCount(@PathVariable Long id){
 		try {
 			groupsService.increaseViewCount(id);
@@ -84,8 +72,8 @@ public class GroupsController {
 		}
 	}
 	
-	@PostMapping("/check-password")
-	public ResponseEntity<?> checkPassword(@RequestBody GroupPasswordCheckRequest request) {
+	@PostMapping("/{id}/check-password")
+	public ResponseEntity<?> checkPassword(@PathVariable Long id, @RequestBody GroupPasswordCheckRequest request) {
 		boolean result = groupsService.checkGroupPassword(request.getGroupId(), request.getPassword());
 		return ResponseEntity.ok(result);
 	}
