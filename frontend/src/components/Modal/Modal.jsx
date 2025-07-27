@@ -32,7 +32,7 @@ function Modal(){
                 const token = response.data.token; //백엔드에서 받은 토큰
                 localStorage.setItem('token', token); //로컬 스토리지에 저장
 
-                const userInfo = await api.get("/users/info");
+                const userInfo = await api.get("/users/me");
                 dispatch(setUser(userInfo.data));
 
                 alert("로그인 성공!");
