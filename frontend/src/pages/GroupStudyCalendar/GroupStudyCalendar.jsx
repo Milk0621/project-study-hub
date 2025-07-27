@@ -20,7 +20,7 @@ function GroupStudyCalendar() {
     useEffect(()=>{
         const fetchStudyRecords = async () => {
             try{
-                const res = await api.get(`/study-times/group/${groupId}/max`);
+                const res = await api.get(`/study-times/groups/${groupId}/max`);
                 setStudyRecords(res.data);
             } catch(err) {
                 console.log("공부 기록 불러오기 실패", err);
@@ -33,7 +33,7 @@ function GroupStudyCalendar() {
     useEffect(() => {
         const fetchRanking = async () => {
             try {
-                const res = await api.get(`/study-times/study-rank`, {
+                const res = await api.get(`/study-times/rankings`, {
                     params: {
                         groupId,
                         date: formatDate(date),

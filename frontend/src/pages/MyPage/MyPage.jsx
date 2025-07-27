@@ -78,7 +78,7 @@ function MyPage(){
                 <p>🕒 가입날짜</p>
                 <p>{formatDate(user.createdAt)}</p>
                 <p>📆 내 공부기록</p>
-                <p onClick={()=>navigate('/myPage/myCalendar')} style={{textDecoration: 'underline', cursor: 'pointer', width: '60px'}}>확인하기</p>
+                <p onClick={()=>navigate('/me/calendar')} style={{textDecoration: 'underline', cursor: 'pointer', width: '60px'}}>확인하기</p>
             </div>
             <h4>내 스크랩</h4>
             <div>

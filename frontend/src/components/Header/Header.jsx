@@ -22,8 +22,8 @@ function Header(){
                 <Navbar.Brand>Study Sync</Navbar.Brand>
                 <Nav className="me-auto" style={{gap:'10px'}}>
                     <Nav.Link as={Link} to="/">홈</Nav.Link>
-                    <Nav.Link as={Link} to="/myGroup">내 그룹</Nav.Link>
-                    <Nav.Link as={Link} to="/myPage">마이페이지</Nav.Link>
+                    <Nav.Link as={Link} to="/mygroup">내 그룹</Nav.Link>
+                    <Nav.Link as={Link} to="/me">마이페이지</Nav.Link>
                 </Nav>
                 <Nav>
                     <Form>

@@ -67,7 +67,7 @@ function App() {
             </PrivateRoute> 
           } />
           <Route path='/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
-          <Route path='/myGroup' element={ 
+          <Route path='/mygroup' element={ 
             <PrivateRoute>
               <PageWrapper> <MyGroup /> </PageWrapper> 
             </PrivateRoute>
@@ -77,12 +77,12 @@ function App() {
               <PageWrapper> <GroupStudyCalendar /> </PageWrapper> 
             </PrivateRoute>
           } />
-          <Route path='/myPage' element={
+          <Route path='/me' element={
             <PrivateRoute>
               <PageWrapper> <MyPage /> </PageWrapper>
             </PrivateRoute>
           } />
-          <Route path='/myPage/myCalendar' element={
+          <Route path='/me/calendar' element={
             <PrivateRoute>
               <PageWrapper> <MyStudyCalendar /> </PageWrapper>
             </PrivateRoute>

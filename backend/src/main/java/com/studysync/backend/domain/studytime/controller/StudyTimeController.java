@@ -37,7 +37,7 @@ public class StudyTimeController {
 	}
 	
 	//공부시간 기록
-	@PostMapping("")
+	@PostMapping
 	public ResponseEntity<String> recordStudyTime(@RequestBody StudyTime studyTime){
 		//@RequestBody : 프론트에서 보낸 JSON 데이터를 StudyTime에 바인딩되게 해줌
 		int result = studyTimeService.recordStudyTime(studyTime);
@@ -46,7 +46,7 @@ public class StudyTimeController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공부시간 기록 실패");
 	}
 	
-	//공부시간 조회
+	//최근 기록 불러오기
 	@GetMapping("/latest")
 	public ResponseEntity<?> loadLastStudyEntry(@RequestParam String userId, @RequestParam LocalDate date){
 		StudyTime result = studyTimeService.loadLastStudyEntry(userId, date);
@@ -57,19 +57,15 @@ public class StudyTimeController {
 		}
 	}
 	
-	@GetMapping("/study-rank")
+	// 공부시간 랭킹
+	@GetMapping("/rankings")
 	public ResponseEntity<?> getStudyRank(@RequestParam int groupId, @RequestParam LocalDate date){
 		List<StudyRankDto> rankList = studyTimeService.getStudyRanking(groupId, date);
 		return ResponseEntity.ok(rankList);
 	}
 	
-	@GetMapping("/group/{groupId}/max")
-    public ResponseEntity<Map<String, Integer>> getGroupMaxStudyTimes(@PathVariable int groupId) {
-        Map<String, Integer> data = studyTimeService.getGroupTopStudyTimeByDate(groupId);
-        return ResponseEntity.ok(data);
-    }
-	
-	@GetMapping("/myPage/myCalendar")
+	// 개인 캘린더 조회 (날짜별 공부시간)
+	@GetMapping("/me/calendar")
 	public ResponseEntity<Map<String, Integer>> getMyStudyTimes(HttpServletRequest request){
 		String token = request.getHeader("Authorization").replace("Bearer ", "");
 		String userId = jwtUtil.getUserIdFromToken(token);
@@ -77,5 +73,12 @@ public class StudyTimeController {
 		Map<String, Integer> data = studyTimeService.getMyStudyTimes(userId);
 		return ResponseEntity.ok(data);
 	}
+	
+	// 그룹 캘린더 조회 (날짜별 최고 기록 조회)
+	@GetMapping("/groups/{groupId}/max")
+    public ResponseEntity<Map<String, Integer>> getGroupMaxStudyTimes(@PathVariable int groupId) {
+        Map<String, Integer> data = studyTimeService.getGroupTopStudyTimeByDate(groupId);
+        return ResponseEntity.ok(data);
+    }
 
 }

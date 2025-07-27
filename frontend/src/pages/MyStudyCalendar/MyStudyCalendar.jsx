@@ -10,7 +10,7 @@ function MyStudyCalendar(){
 
     useEffect(()=>{
         const fetchMyRecords = async () => {
-            const res = await api.get('/study-times/myPage/myCalendar');
+            const res = await api.get('/study-times/me/calendar');
             setStudyRecords(res.data);
         }
         fetchMyRecords();
