@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.users.dao.mybatis;
+package com.studysync.backend.domain.users.dao.users.mybatis;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;

@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studysync.backend.domain.groups.model.Groups;
-import com.studysync.backend.domain.groups.service.GroupsService;
+import com.studysync.backend.domain.users.model.Groups;
 import com.studysync.backend.domain.users.model.Users;
-import com.studysync.backend.domain.users.service.UsersService;
+import com.studysync.backend.domain.users.service.UserFacade;
 import com.studysync.backend.util.JwtUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,21 +28,18 @@ public class UsersController {
 
     private final JwtUtil jwtUtil;
 	
-	private final UsersService usersService;
-	
-	private final GroupsService groupsService;
+	private final UserFacade userFacade;
 	
 	@Autowired
-	public UsersController(UsersService usersService, JwtUtil jwtUtil, GroupsService groupsService) {
-		this.usersService = usersService;
+	public UsersController(UserFacade userFacade, JwtUtil jwtUtil) {
+		this.userFacade = userFacade;
 		this.jwtUtil = jwtUtil;
-		this.groupsService = groupsService;
 	}
 
 	//회원가입
 	@PostMapping
 	public ResponseEntity<String> register(@RequestBody Users user){
-		int result = usersService.register(user);
+		int result = userFacade.registerUser(user);
 		return result > 0
 				? ResponseEntity.ok("회원가입 성공")
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원가입 실패");
@@ -55,7 +51,7 @@ public class UsersController {
 		String id = (String) request.getAttribute("userId");
 		String nickname = req.get("nickname");
 		try {
-			usersService.changeNickname(id, nickname);			
+			userFacade.changeNickname(id, nickname);			
 			return ResponseEntity.ok().body("닉네임 변경 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +62,7 @@ public class UsersController {
 	//로그인
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Users user){
-		Users loginUser = usersService.login(user.getId(), user.getPw());
+		Users loginUser = userFacade.login(user.getId(), user.getPw());
 		
 		if(loginUser != null) {
 			String token = jwtUtil.generateToken(loginUser.getId());
@@ -87,7 +83,7 @@ public class UsersController {
 	@GetMapping("/me")
 	public ResponseEntity<?> getUserInfo(HttpServletRequest request){
 		String userId = (String) request.getAttribute("userId"); //필터에서 넣어준 값
-		Users user = usersService.findById(userId);
+		Users user = userFacade.findUserById(userId);
 		return ResponseEntity.ok(user);
 	}
 	
@@ -95,8 +91,26 @@ public class UsersController {
 	// 내 그룹 조회
 	@GetMapping("/me/groups")
 	public ResponseEntity<?> getMyGroups(@RequestParam String userId) {
-		List<Groups> groups = groupsService.getMyGroups(userId);
+		List<Groups> groups = userFacade.getMyGroups(userId);
 		return ResponseEntity.ok(groups);
+	}
+	
+	//즐겨찾기한 ID 조회
+	@GetMapping("/scrapIds")
+	public ResponseEntity<?> getScrappedGroupIds(HttpServletRequest request){
+		String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String userId = jwtUtil.getUserIdFromToken(token);
+        List<Long> scrapGroupIds = userFacade.getScrappedGroupIds(userId);
+        return ResponseEntity.ok(scrapGroupIds);
+	}
+	
+	//즐겨찾기한 그룹 조회(마이페이지)
+	@GetMapping("/scrapList")
+	public ResponseEntity<?> getScrapGroupList(HttpServletRequest request){
+		String token = request.getHeader("Authorization").replace("Bearer ", "");
+		String userId = jwtUtil.getUserIdFromToken(token);
+		List<Groups> scrapGroupList = userFacade.getScrapGroupList(userId);
+		return ResponseEntity.ok(scrapGroupList);
 	}
 	
 }
