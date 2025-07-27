@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.groupscrap.dao;
+package com.studysync.backend.domain.groups.dao.scrap;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.groups.dao;
+package com.studysync.backend.domain.groups.dao.groups;
 
 import java.util.List;
 

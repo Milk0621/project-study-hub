@@ -10,9 +10,7 @@ public interface GroupsService {
 	int registerGroup(Groups groups);
 	// 그룹 단건 조회
 	Groups getGroupById(int id);
-	// 그룹 수정
-	int updateGroup(Groups groups);
-	//
+	// 그룹 비밀번호 확인
 	boolean checkGroupPassword(Long groupId, String inputPassword);
 	// 그룹 목록
 	GroupPageResponse getGroups(String search, String category, int limit, int offset);

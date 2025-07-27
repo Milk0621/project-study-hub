@@ -1,11 +1,11 @@
-package com.studysync.backend.domain.groups.dao.mybatis;
+package com.studysync.backend.domain.groups.dao.groups.mybatis;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.studysync.backend.domain.groups.dao.GroupsDAO;
+import com.studysync.backend.domain.groups.dao.groups.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.dto.GroupPasswordCheckDTO;
 

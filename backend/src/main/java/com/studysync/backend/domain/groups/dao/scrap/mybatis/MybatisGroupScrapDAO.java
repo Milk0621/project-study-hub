@@ -1,4 +1,4 @@
-package com.studysync.backend.domain.groupscrap.dao.mybatis;
+package com.studysync.backend.domain.groups.dao.scrap.mybatis;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.studysync.backend.domain.groups.model.Groups;
-import com.studysync.backend.domain.groupscrap.dao.GroupScrapDAO;
+import com.studysync.backend.domain.groups.dao.scrap.GroupScrapDAO;
 
 @Repository
 public class MybatisGroupScrapDAO implements GroupScrapDAO{

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.studysync.backend.domain.groupmembers.dao.GroupMembersDAO;
 import com.studysync.backend.domain.groupmembers.model.GroupMembers;
-import com.studysync.backend.domain.groups.dao.GroupsDAO;
+import com.studysync.backend.domain.groups.dao.groups.GroupsDAO;
 import com.studysync.backend.domain.groups.model.Groups;
 import com.studysync.backend.dto.GroupPageResponse;
 import com.studysync.backend.dto.GroupPasswordCheckDTO;
@@ -41,11 +41,6 @@ public class GroupsServiceImpl implements GroupsService{
 	@Override
 	public Groups getGroupById(int id) {
 		return groupsDAO.selectOneGroup(id);
-	}
-
-	@Override
-	public int updateGroup(Groups groups) {
-		return groupsDAO.updateGroup(groups);
 	}
 
 	@Override

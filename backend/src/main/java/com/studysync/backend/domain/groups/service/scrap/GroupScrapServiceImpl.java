@@ -1,11 +1,11 @@
-package com.studysync.backend.domain.groupscrap.service;
+package com.studysync.backend.domain.groups.service.scrap;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.studysync.backend.domain.groups.model.Groups;
-import com.studysync.backend.domain.groupscrap.dao.GroupScrapDAO;
+import com.studysync.backend.domain.groups.dao.scrap.GroupScrapDAO;
 
 @Service
 public class GroupScrapServiceImpl implements GroupScrapService{

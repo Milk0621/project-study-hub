@@ -1,11 +1,9 @@
 package com.studysync.backend.domain.groups.controller;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,25 +14,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studysync.backend.domain.groups.model.Groups;
-import com.studysync.backend.domain.groups.service.GroupsService;
+import com.studysync.backend.domain.groups.service.GroupFacade;
 import com.studysync.backend.dto.GroupPageResponse;
 import com.studysync.backend.dto.GroupPasswordCheckRequest;
+import com.studysync.backend.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/groups")
 public class GroupsController {
+
+    private final JwtUtil jwtUtil;
 	
-	private final GroupsService groupsService;
+    private GroupFacade groupFacade;
 	
 	@Autowired
-	public GroupsController(GroupsService groupsService) {
-		this.groupsService = groupsService;
+	public GroupsController(GroupFacade groupFacade, JwtUtil jwtUtil) {
+		this.groupFacade = groupFacade;
+		this.jwtUtil = jwtUtil;
 	}
 	
 	// 그룹 등록
 	@PostMapping
 	public ResponseEntity<?> registerGroup(@RequestBody Groups groups) {
-		int result = groupsService.registerGroup(groups);
+		int result = groupFacade.registerGroup(groups);
 		return result > 0
 				? ResponseEntity.ok("그룹 생성 완료")
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 생성 실패");
@@ -49,7 +53,7 @@ public class GroupsController {
 			@RequestParam(defaultValue = "5") int size
 			){
 		System.out.println("search: " + search + ", category: " + category + ", page: " + page + ", size: " + size);
-		GroupPageResponse result = groupsService.getGroups(search, category, page, size);
+		GroupPageResponse result = groupFacade.getGroups(search, category, page, size);
 		return ResponseEntity.ok(result);
 	}
 	
@@ -58,13 +62,14 @@ public class GroupsController {
 	public ResponseEntity<?> getGroupById(@PathVariable int id) {
 		//@RequestParam는 쿼리 파라미터 형식에 사용
 		//@PathVariable은 경로 파라미터 형식에 사용
-		return ResponseEntity.ok(groupsService.getGroupById(id));
+		return ResponseEntity.ok(groupFacade.getGroupById(id));
 	}
 	
+	// 조회수 증가
 	@PutMapping("/{id}/views")
 	public ResponseEntity<?> increaseViewCount(@PathVariable Long id){
 		try {
-			groupsService.increaseViewCount(id);
+			groupFacade.increaseViewCount(id);
 			return ResponseEntity.ok().body("조회수 증가 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,9 +77,30 @@ public class GroupsController {
 		}
 	}
 	
+	// 그룹 비밀번호 확인
 	@PostMapping("/{id}/check-password")
 	public ResponseEntity<?> checkPassword(@PathVariable Long id, @RequestBody GroupPasswordCheckRequest request) {
-		boolean result = groupsService.checkGroupPassword(request.getGroupId(), request.getPassword());
+		boolean result = groupFacade.checkGroupPassword(request.getGroupId(), request.getPassword());
 		return ResponseEntity.ok(result);
 	}
+	
+	// 즐겨찾기 추가
+	@PostMapping("/{groupId}/scrap")
+    public ResponseEntity<?> addScrap(@PathVariable Long groupId, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String userId = jwtUtil.getUserIdFromToken(token);
+
+        groupFacade.addScrap(userId, groupId);
+        return ResponseEntity.ok().build();
+    }
+	
+	//즐겨찾기 삭제
+	@DeleteMapping("/{groupId}/scrap")
+    public ResponseEntity<?> deleteScrap(@PathVariable Long groupId, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String userId = jwtUtil.getUserIdFromToken(token);
+
+        groupFacade.unScrap(userId, groupId);
+        return ResponseEntity.ok().build();
+    }
 }
