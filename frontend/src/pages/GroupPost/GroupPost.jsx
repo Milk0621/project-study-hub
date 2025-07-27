@@ -23,7 +23,7 @@ function GroupPost(){
     useEffect(() => {
         const increaseViewCount = async () => {
             try {
-                await api.put(`/groups/post/${id}/views`); // 또는 POST, PATCH → 백엔드에 따라
+                await api.put(`/groups/${id}/views`); // 또는 POST, PATCH → 백엔드에 따라
                 setHasFetched(true);
                 console.log("조회수 증가 완료");
             } catch (err) {
@@ -33,7 +33,7 @@ function GroupPost(){
         
         const fetchGroup = async () => {
             try{
-                const res = await api.get(`/groups/post/${id}`)
+                const res = await api.get(`/groups/${id}`)
                 setGroupPost(res.data);
                 console.log("그룹 상세 조회 완료: ", res.data);
             } catch (err) {

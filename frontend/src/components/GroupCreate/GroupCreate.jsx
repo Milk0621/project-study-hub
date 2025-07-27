@@ -23,7 +23,7 @@ function GroupCreate() {
         const isPrivate = password.trim() !== '' ? 1 : 0;
 
         try {
-            const res = await api.post('/groups/register', {
+            const res = await api.post('/groups', {
                 groupName: groupName,
                 content: content,
                 tag: tag,

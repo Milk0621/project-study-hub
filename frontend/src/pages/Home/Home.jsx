@@ -34,7 +34,7 @@ function Home(){
   // 그룹 목록 API 호출 (검색어, 카테고리, 페이지 포함)
   const fetchGroups = async (page=1) => {
     try{
-      const res = await api.get('/groups/list', {
+      const res = await api.get('/groups', {
         params: {
           search: search,
           category: category,

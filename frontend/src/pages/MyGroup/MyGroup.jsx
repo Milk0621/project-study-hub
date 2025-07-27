@@ -17,7 +17,7 @@ function MyGroup() {
     if (!user) return;
 
     const fetchMyGroups = async () => {
-      const res = await api.get(`/groups/my`, {
+      const res = await api.get(`/users/me/groups`, {
         params: {userId: user.id}
       });
       const allGroups = res.data;

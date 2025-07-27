@@ -66,7 +66,7 @@ function App() {
               <PageWrapper> <GroupCreate /> </PageWrapper>
             </PrivateRoute> 
           } />
-          <Route path='/post/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
+          <Route path='/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
           <Route path='/myGroup' element={ 
             <PrivateRoute>
               <PageWrapper> <MyGroup /> </PageWrapper> 
