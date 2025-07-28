@@ -66,6 +66,15 @@ public class GroupsController {
 		return ResponseEntity.ok(groupFacade.getGroupById(id));
 	}
 	
+	// 그룹 게시글 수정
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateGroup(@PathVariable int id, @RequestBody Groups updateGroup) {
+		int result = groupFacade.updateGroup(id, updateGroup);
+		return result > 0
+				? ResponseEntity.ok("그룹 수정 완료")
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정 실패");
+	}
+	
 	// 조회수 증가
 	@PutMapping("/{id}/views")
 	public ResponseEntity<?> increaseViewCount(@PathVariable Long id){
