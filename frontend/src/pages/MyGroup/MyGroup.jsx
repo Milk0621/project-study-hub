@@ -37,7 +37,7 @@ function MyGroup() {
     if(!user){
       dispatch(openModal());
     }else {
-      navigate('/groupCreate');
+      navigate('/group/create');
     }
   }
 
