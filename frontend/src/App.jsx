@@ -61,20 +61,25 @@ function App() {
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
           <Route path='/' element={ <PageWrapper> <Home /> </PageWrapper> }/>
-          <Route path='/groupForm' element={ 
+          <Route path='/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
+          <Route path='/groups/create' element={ 
             <PrivateRoute>
               <PageWrapper> <GroupForm /> </PageWrapper>
             </PrivateRoute> 
           } />
-          <Route path='/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
+          <Route path='/groups/:id/edit' element={ 
+            <PrivateRoute>
+              <PageWrapper> <GroupForm /> </PageWrapper>
+            </PrivateRoute> 
+          } />
+          <Route path='/groups/:id' element={
+            <PrivateRoute>
+              <PageWrapper> <GroupStudyCalendar /> </PageWrapper> 
+            </PrivateRoute>
+          } />
           <Route path='/mygroup' element={ 
             <PrivateRoute>
               <PageWrapper> <MyGroup /> </PageWrapper> 
-            </PrivateRoute>
-          } />
-          <Route path='/group/:id' element={
-            <PrivateRoute>
-              <PageWrapper> <GroupStudyCalendar /> </PageWrapper> 
             </PrivateRoute>
           } />
           <Route path='/me' element={
