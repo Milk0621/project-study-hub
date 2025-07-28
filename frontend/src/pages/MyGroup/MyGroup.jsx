@@ -49,7 +49,7 @@ function MyGroup() {
       </div>
       <MyGroupList 
         groups={myGroups}
-        onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
+        onClickGroup={(groupId) => navigate(`/groups/${groupId}`)} 
       />
 
       <div className={style.myGroupTop}>
@@ -59,7 +59,7 @@ function MyGroup() {
       {joinedGroups.length > 0 ? (
         <MyGroupList 
           groups={joinedGroups}
-          onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
+          onClickGroup={(groupId) => navigate(`/groups/${groupId}`)} 
         />
       ) : (
         <p>참여중인 그룹 없음</p>
