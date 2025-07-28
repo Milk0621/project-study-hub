@@ -12,10 +12,6 @@
   		select * from `groups` where id = #{id}
   	</select>
   	
-  	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
-  		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id}
-  	</update>
-  	
   	<select id="selectGroupPasswordInfo" resultType="com.studysync.backend.dto.GroupPasswordCheckDTO">
   		select is_private, password
         from `groups`
@@ -60,5 +56,9 @@
   		update `groups`
   		set hit = hit + 1
   		where id = #{id}
+  	</update>
+  	
+	<update id="updateGroup" parameterType="com.studysync.backend.domain.groups.model.Groups">
+  		update `groups` set  group_name = #{groupName}, content = #{content}, tag = #{tag} where id = #{id} and create_user = #{createUser}
   	</update>
   </mapper>
