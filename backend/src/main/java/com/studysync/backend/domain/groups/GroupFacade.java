@@ -59,6 +59,11 @@ public class GroupFacade {
         groupsService.increaseViewCount(id);
     }
     
+    // 글 수정
+    public int updateGroup(int id, Groups updateGroup) {
+    	return groupsService.updateGroup(id, updateGroup);
+    }
+    
     // GroupScrapService
     // 즐겨찾기 추가
     public void addScrap(String userId, Long groupId) {
@@ -71,10 +76,12 @@ public class GroupFacade {
     }
     
     // GroupMembersService
+    // 그룹 참여
     public int joinGroup(GroupMembers groupMembers) {
     	return groupMembersService.joinGroup(groupMembers);
     }
     
+    // 그룹 참여 여부
     public GroupMembers checkJoin(int groupId, String userId) {
     	return groupMembersService.checkJoin(groupId, userId);
     }
