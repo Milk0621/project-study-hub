@@ -8,10 +8,22 @@
     cursor: pointer;
     margin-bottom: 5px;
 }
+.groupListTop {
+    display: flex;
+    justify-content: space-between;
+}
 
 .groupInfo {
     font-size: 0.9rem;
     color: var(--info-color);
+}
+
+.scrapBtn {
+    border: none;
+    background: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    text-align: right;
 }
 
 .hashTag {

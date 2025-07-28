@@ -74,15 +74,17 @@ function GroupList({groups, category, onGroupClick}){
             className={style.groupListBg} 
             onClick={() => handleClick(group)}
           >
-            {/* 그룹 정보 */}
-            <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {formatDate(group.createDate)} </span>
+            <div className={style.groupListTop}>
+              {/* 그룹 정보 */}
+              <span className={style.groupInfo}> {group.createUser} · 조회 {group.hit} · {formatDate(group.createDate)} </span>
 
-            {/* 스크랩 버튼 (로그인 사용자만 표시) */}
-            {user && (
-              <button className={style.scrapBtn} onClick={(e)=>toggleScrap(e, group.id)}>
-                {scrapped ? "★" : "☆"}
-              </button>
-            )}
+              {/* 스크랩 버튼 (로그인 사용자만 표시) */}
+              {user && (
+                <button className={style.scrapBtn} onClick={(e)=>toggleScrap(e, group.id)}>
+                  {scrapped ? "★" : "☆"}
+                </button>
+              )}
+            </div>
 
             {/* 그룹 제목/내용/태그 */}
             <h5 style={{fontWeight: '600'}}> {group.groupName} </h5>
