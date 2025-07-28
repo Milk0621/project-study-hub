@@ -88,12 +88,10 @@ function GroupPost(){
         <div className="wrap">
             <div className={style.groupPostTop}>
                 <h4>그룹 상세페이지</h4>
-                { !groupJoin &&(
-                        user?.id &&(
-                            groupPost?.createUser == user.id
-                                ? <button>수정</button>
-                                : <button onClick={()=>{fetchJoin()}}>참여하기</button>
-                    )
+                {user?.id && groupPost?.createUser == user.id ? (
+                    <button onClick={()=>navigate(`/groups/${id}/edit`)}>수정</button>
+                ) : (
+                    !groupJoin && <button onClick={fetchJoin}>참여하기</button>
                 )}
             </div>
             {groupPost && (
