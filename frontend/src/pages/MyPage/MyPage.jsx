@@ -82,7 +82,11 @@ function MyPage(){
             </div>
             <h4>내 스크랩</h4>
             <div>
-                <GroupList groups={myScrap} />
+                {myScrap.length > 0 ? (
+                    <GroupList groups={myScrap} />
+                ) : (
+                    <p>스크랩 목록 없음</p>
+                )}
             </div>
         </div>
     )
