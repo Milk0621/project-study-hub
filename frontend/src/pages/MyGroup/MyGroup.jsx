@@ -52,11 +52,18 @@ function MyGroup() {
         onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
       />
 
-      <h4 style={{textAlign:'left'}}>참여 중인 그룹</h4>
-      <MyGroupList 
-        groups={joinedGroups}
-        onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
-      />
+      <div className={style.myGroupTop}>
+        <h4 style={{textAlign:'left'}}>참여 중인 그룹</h4>
+        <button>그룹 탈퇴하기</button>
+      </div>
+      {joinedGroups.length > 0 ? (
+        <MyGroupList 
+          groups={joinedGroups}
+          onClickGroup={(groupId) => navigate(`/group/${groupId}`)} 
+        />
+      ) : (
+        <p>참여중인 그룹 없음</p>
+      )}
     </div>
   );
 }
