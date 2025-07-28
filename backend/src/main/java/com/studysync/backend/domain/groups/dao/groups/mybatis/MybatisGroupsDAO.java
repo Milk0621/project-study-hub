@@ -29,11 +29,6 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	}
 
 	@Override
-	public int updateGroup(Groups groups) {
-		return mapper.updateGroup(groups);
-	}
-	
-	@Override
 	public GroupPasswordCheckDTO selectGroupPasswordInfo(Long groupId) {
 		return mapper.selectGroupPasswordInfo(groupId);
 	}
@@ -56,6 +51,11 @@ public class MybatisGroupsDAO implements GroupsDAO{
 	@Override
 	public void increaseViewCount(Long id) {
 		mapper.increaseViewCount(id);
+	}
+
+	@Override
+	public int updateGroup(int id, Groups updateGroup) {
+		return mapper.updateGroup(id, updateGroup);
 	}
 	
 }

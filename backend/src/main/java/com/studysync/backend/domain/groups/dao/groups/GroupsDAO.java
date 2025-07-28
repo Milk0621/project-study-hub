@@ -12,9 +12,6 @@ public interface GroupsDAO {
 	int insertGroup(Groups groups);
 	// 그룹 단건 조회
 	Groups selectOneGroup(int id);
-	// 그룹 수정
-	int updateGroup(Groups groups);
-	// 
 	GroupPasswordCheckDTO selectGroupPasswordInfo(Long groupId);
 	// 그룹 목록
 	List<Groups> getGroups(@Param("search") String search, @Param("category") String category, @Param("limit") int limit, @Param("offset") int offset);
@@ -24,4 +21,6 @@ public interface GroupsDAO {
 	List<Groups> selectUserGroups(String userId);
 	// 조회수 증가
 	void increaseViewCount(Long id);
+	// 글 수정
+	int updateGroup(int id, Groups updateGroup);
 }
