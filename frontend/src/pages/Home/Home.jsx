@@ -91,12 +91,13 @@ function Home(){
         <GroupList groups={groups} category={select} onGroupClick={(group)=>handleGroupAccess(group, select, navigate, user)}/>
 
         {/* 페이지네이션 버튼 */}
-        <div>
+        <div style={{marginTop: '2rem'}}>
           {Array.from({ length: totalPages }, (_, i) => (
             <button
               key={i}
               onClick={() => handlePageChange(i + 1)}
-              style={{ margin: '0 4px', fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
+              style={{ fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
+              className={style.pageBtn}
             >
               {i + 1}
             </button>
