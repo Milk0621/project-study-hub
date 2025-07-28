@@ -20,4 +20,6 @@ public interface GroupsService {
 	List<Groups> getMyGroups(String userId);
 	// 조회수
 	void increaseViewCount(Long id);
+	// 글 수정
+	int updateGroup(int id, Groups updateGroup);
 }

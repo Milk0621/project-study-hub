@@ -76,5 +76,10 @@ public class GroupsServiceImpl implements GroupsService{
 		groupsDAO.increaseViewCount(id);
 	}
 
+	@Override
+	public int updateGroup(int id, Groups updateGroup) {
+		return groupsDAO.updateGroup(id, updateGroup);
+	}
+
 	
 }
