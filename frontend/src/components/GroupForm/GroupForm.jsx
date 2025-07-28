@@ -1,10 +1,10 @@
-import style from './GroupCreate.module.css';
+import style from './GroupForm.module.css';
 import { useState } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function GroupCreate() {
+function GroupForm() {
     const navigate = useNavigate();
     const user = useSelector((state) => state.user.user);
 
@@ -82,4 +82,4 @@ function GroupCreate() {
     )
 }
 
-export default GroupCreate;
+export default GroupForm;

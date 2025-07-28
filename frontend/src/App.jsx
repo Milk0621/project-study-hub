@@ -9,13 +9,13 @@ import GroupPost from './pages/GroupPost/GroupPost';
 import MyPage from './pages/MyPage/MyPage';
 import MyGroup from './pages/MyGroup/MyGroup';
 import Header from './components/Header/Header';
-import GroupCreate from './components/GroupCreate/GroupCreate';
 import PrivateRoute from './routes/PrivateRoute';
 import PageWrapper from './components/common/PageWrapper';
 import { AnimatePresence } from "framer-motion";
 import { setLoading, setUser } from './store/userSlice';
 import GroupStudyCalendar from './pages/GroupStudyCalendar/GroupStudyCalendar';
 import MyStudyCalendar from './pages/MyStudyCalendar/MyStudyCalendar';
+import GroupForm from './components/GroupForm/GroupForm';
 
 export const DarkModeContext = createContext();
 
@@ -61,9 +61,9 @@ function App() {
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
           <Route path='/' element={ <PageWrapper> <Home /> </PageWrapper> }/>
-          <Route path='/groupCreate' element={ 
+          <Route path='/groupForm' element={ 
             <PrivateRoute>
-              <PageWrapper> <GroupCreate /> </PageWrapper>
+              <PageWrapper> <GroupForm /> </PageWrapper>
             </PrivateRoute> 
           } />
           <Route path='/:id' element={ <PageWrapper> <GroupPost /> </PageWrapper> } />
