@@ -42,30 +42,14 @@
 - 스크랩한 그룹 목록 확인 가능
 - 학습 시간은 캘린더 색상 강도로 시각화 (학습 시간에 따라 단계 조절)
 
-### 6. 인증/보안 구조 (커스텀 JWT)
-- **구성요소**
-    - `JwtUtil`: HS256 서명 키로 **Access Token(만료 1시간)** 생성/검증, `sub`에 `userId` 저장
-    - `JwtFilter`(extends `OncePerRequestFilter`):
-        - `Authorization: Bearer <token>` 추출 → 검증 → `request.setAttribute("userId")`로 컨트롤러에 전달
-    - `WebConfig`:
-        - **전역 CORS** 설정(`addCorsMappings`)
-            - `allowedOrigins("http://localhost:3000")`, `allowedMethods("GET","POST","PATCH","PUT","DELETE","OPTIONS")`, `allowCredentials(true)`
-        - **필터 등록**(`FilterRegistrationBean<JwtFilter>`)
-            - 보호 대상 엔드포인트에만 `addUrlPatterns("/api/users/info")` 등으로 적용
-- **컨트롤러 사용 패턴**
-    - 인증이 필요한 핸들러에서 `request.getAttribute("userId")`로 사용자 식별
-    - Spring Security 미사용이므로 `SecurityContext`가 아니라 **요청 속성 기반**으로 처리
-
-### 7. **API 연동**
+### 6. **API 연동**
 - **Axios** 기반 React ↔ Spring Boot 간 RESTful API 통신
-- 인증이 필요한 요청은 **Authorization 헤더에 `Bearer <token>`** 첨부
-- 서버는 `JwtFilter`에서 검증 후 `userId`를 요청 속성으로 주입 → 서비스 로직 수행
 - 타이머 기록, 그룹 참여, 개인 정보 관리 등 기능별 API 세분화
 
 ---
 
 ## 🛠️ 기술 스택
-- **백엔드**: Spring Boot, **(커스텀) JwtFilter/WebConfig/JwtUtil**, MyBatis
+- **백엔드**: Spring Boot, MyBatis
 - **프론트엔드**: React, Redux Toolkit, Bootstrap, Framer Motion
 - **데이터베이스**: MySQL
 - **기타**: Axios (API 통신), Vite (React 빌드 툴)
@@ -73,7 +57,6 @@
 ---
 
 ## ✨ 성과
-- **Spring Security 없이** 필터 기반으로 JWT 인증 흐름을 **직접 설계/구현**
 - **타이머 기반 학습 기록 저장 및 실시간 반영 기능** 구현
 - RESTful API를 통한 **안정적 프론트-백 통신** 경험
 - 그룹 랭킹, 달력 시각화 등으로 **사용자 동기부여 강화**
@@ -90,15 +73,10 @@
 3. **UI/UX 직관성 부족**
     - 문제: 초반 UI에서 학습 기록 확인이 불편
     - 해결: **Framer Motion 애니메이션 + 색상 단계 시각화**로 개선
-4. **JWT 필터 경로 미적용으로 인한 인증 우회/403 혼재**
-    - 증상: 어떤 엔드포인트는 토큰 없이 접근되거나, 반대로 정상 토큰인데도 403
-    - 원인: `FilterRegistrationBean#addUrlPatterns(...)`에 보호 경로가 누락/과소 지정
-    - 조치: **보호 대상 URL 패턴 일괄 점검**
   
 ---
 
 ## 🌟 프로젝트 의의
-- 프레임워크 의존 없이 **저수준 필터 기반 인증**을 직접 구축하며 HTTP 동작/필터 체인/CORS를 체득
 - MyBatis 기반 **DAO/Service/Controller 구조**로 백엔드 아키텍처 학습
 - React + Spring Boot 연동 경험
 - 단순 CRUD를 넘어 **사용자 행동 데이터(타이머, 기록, 스크랩)를 분석·시각화**하는 구조 경험
